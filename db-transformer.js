@@ -31,7 +31,6 @@ module.exports = function (settings, data, callback) {
       'name',
       // 'previews',
       'privacy_policy',
-      'public_stats',
       'ratings',
       'slug',
       'status'
