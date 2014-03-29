@@ -9,14 +9,21 @@ var settings = require('./settings');
 
 var app = express();
 
+var frontend_dir = path.join(__dirname, settings.frontend_dir);
+
 app.configure(function () {
   app.set('port', process.env.PORT || 3000);
   app.set('view options', {layout: false});
+  app.use(express.logger());
   app.use(express.compress());
-  app.use(express.static(path.join(__dirname, settings.frontend_dir)));
+  app.use(express.static(frontend_dir));
 });
 
-if (process.env.DEBUG) {
+app.get('/', function(req, res) {
+  res.sendfile(settings.debug ? 'dev.html' : 'prod.html', {root: frontend_dir});
+});
+
+if (settings.debug) {
   app.configure('development', function () {
     app.use(express.errorHandler());
   });
