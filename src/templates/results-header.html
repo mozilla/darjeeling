@@ -1,0 +1,7 @@
+{% if data.query %}
+  <h1 class="results-heading">
+    {{ _('{n} results', 'resultsNum', {n: data.results.length}) }}
+    {% set timing = data.timing / 1000 %}
+    <span class="speed">{{ _('(took {time}s)', 'resultsTime', {time: timing|round(6, 'floor')}) }}</span>
+  </h1>
+{% endif %}

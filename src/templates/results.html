@@ -1,0 +1,17 @@
+{% for data in data.results %}
+  <li{% if data.score %} title="{{ _('Score: {score}', 'resultsScore', {score: data.score.toFixed(8)}) }}"{% endif %}>
+    {% set doc = data.doc %}
+    <a class="app" href="{{ doc.manifest_url }}" target="_blank">
+      <div class="icon-wrap">
+        <div style="background-image:url({{ doc.icons['64'] }})" class="icon"></div>
+      </div>
+      <div class="details">
+        <button class="install">{{ _('Install') }}</button>
+        <div class="name">{{ doc.name|translate(doc) }}</div>
+        <div class="dev">{{ _('by {author}', 'byAuthor', {author: doc.author}) }}</div>
+        {% set stars = doc.ratings.average|floor %}
+        <div class="stars">{% for x in range(stars) %}&#9733;{% endfor %}{% if doc.ratings.average - stars >= 0.5 %}<span class="half">&#9733;</span>{% endif %}<span class="empty">{% for x in range(5 - stars) %}&#9733;{% endfor %}</span></div>
+      </div>
+    </a>
+  </li>
+{% endfor %}

@@ -20,6 +20,13 @@ module.exports = function (settings, data, callback) {
     //   images[preview.thumbnail_url] = null;
     // });
 
+    // Flatten object of localised name to one key for easy searching.
+    app.name_search = [];
+    Object.keys(app.name).forEach(function (locale) {
+      app.name_search.push(app.name[locale]);
+    });
+    app.name_search = app.name_search.join(' ').replace(/\(|\)/g, '');
+
     return _.pick(app, [
       '_id',
       'author',
@@ -29,6 +36,7 @@ module.exports = function (settings, data, callback) {
       'is_packaged',
       'manifest_url',
       'name',
+      'name_search',
       // 'previews',
       'privacy_policy',
       'ratings',

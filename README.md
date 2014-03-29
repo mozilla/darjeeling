@@ -10,3 +10,10 @@ We use [grunt](http://gruntjs.com/):
 Then install our dependencies:
 
     npm install
+
+
+# Development
+
+To watch nunjucks templates and compile them on the fly:
+
+    grunt
