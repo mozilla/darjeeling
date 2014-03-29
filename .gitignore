@@ -1,6 +1,6 @@
-*.har
+*.dist
 *.sw*
 .DS_Store
-src/db/
 node_modules/
 npm-debug.log
+src/db/
