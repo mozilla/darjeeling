@@ -23,37 +23,37 @@ a:hover {
   color: #036;
 }
 
-.form-search {
+form {
+  align-items: flex-start;
   background: #fff;
-  border-bottom: 1px solid #ddd;
-  padding: 15px;
+  border-top: 1px solid #e6e6e6;
+  border-bottom: 1px solid #bbb;
+  display: flex;
+  padding: 10px 15px;
 }
 
 input {
-  background: #f4f4f4 url(../img/search.png) 10px 12px no-repeat;
+  background: #f4f4f4 url(../img/search.png) 10px 10px no-repeat;
   background-size: 17px;
   border: 2px solid #c7c7c7;
   border-radius: 10px;
-  /*box-shadow: 0 0 1px rgba(0,0,0,.2) inset, 0 0 1px #eee;*/
   color: #333;
-  display: block;
+  flex: 1;
   font-family: inherit;
   font-size: 20px;
-  line-height: 30px;
-  margin: 0;
-  padding: 1px 2px;
+  line-height: 26px;
+  padding: 5px 10px 5px 27px;
   position: relative;
   transition: background .3s ease-in-out, padding .3s ease-in-out, border .3s ease-in, box-shadow .3s ease-in;
-  z-index: 2;
-  padding: 5px 10px 5px 27px;
   width: 100%;
+  z-index: 2;
 }
 
 input:focus {
-  background-position: -18px 12px;
+  background-position: -18px 10px;
   border-color: #5ca9e4;
   box-shadow: 0 0 0 2px rgba(70,161,231,.3), 0 1px 2px rgba(0,0,0,.2) inset;
-  padding-left: 10px;
+  padding-left: 5px;
   outline: none;
 }
 
@@ -72,7 +72,6 @@ input:focus {
   text-overflow: ellipsis;
 }
 
-/*
 [placeholder]:-moz-placeholder:focus {
   color: transparent !important;
 }
@@ -82,35 +81,23 @@ input:focus {
 [placeholder]:focus::-webkit-input-placeholder {
   color: transparent !important;
 }
-*/
-
-nav {
-  background: #1799dd;
-  font-weight: 600;
-  height: 40px;
-  padding: 0;
-}
-
-nav, .logo {
-  height: 40px;
-}
 
 .logo {
-  background: url(../img/logo.png) 15px 50% no-repeat;
-  background-size: 20px;
+  background: url(../img/logo.png) 0 50% no-repeat;
+  background-size: 30px;
   color: #fff;
   display: block;
   font-size: 14px;
-  line-height: 42px;
-  padding-left: 41px;
+  height: 40px;
   text-indent: -9999px;
+  width: 40px;
 }
 
 main {
   display: block;
 }
 
-h1 {
+main h1 {
   color: #74c9ef;
   font-weight: 300;
   margin-bottom: 15px;
@@ -121,14 +108,11 @@ h1 {
 }
 
 .results li {
-  /*background:red;*/
   font-size: 14px;
   min-height: 70px;
   line-height: 16px;
   transition: .2s opacity ease-in-out;
-  /*width: 20%;*/
   width: 100%;
-  /*box-shadow: 0 1px #ccc inset, 0 2px #fff inset;*/
 }
 
 .icon-wrap,
@@ -139,6 +123,7 @@ h1 {
 
 .icon-wrap {
   background: #e6e6e6;
+  border-radius: 1px 0 0 1px;
   float: left;
   height: 68px;
   margin-right: 10px;
@@ -153,19 +138,28 @@ h1 {
 }
 
 .app {
-  background: #fff;
+  background: #fff linear-gradient(to top, rgba(200,200,200,.25) 0%, rgba(255,255,255,1) 60%);
   border: 1px solid #ccc;
-  border-radius: 1px;
+  border-radius: 2px;
   margin: 15px;
-  /*background-image: linear-gradient(to top, rgba(200,200,200,.25) 0%, rgba(255,255,255,1) 60%);*/
   padding: 1px;
+  transition: border .1s ease-in, box-shadow .1s ease-in;
+}
+
+.app:hover {
+  border-color: #999;
+  box-shadow: 0 0 0 2px rgba(70,70,70,.1);
+}
+
+.app:active {
+  background: #eee;
+  opacity: .9;
 }
 
 .icon {
   background-size: 48px;
   background-repeat: no-repeat;
   height: 100%;
-  /*opacity: .6;*/
 }
 
 .app {
@@ -224,7 +218,7 @@ h1 {
   background: #2ecc40;
   border: 0;
   box-shadow: 0 1px #00953f;
-  border-radius: 3px;
+  border-radius: 2px;
   color: #fff;
   cursor: pointer;
   float: right;
@@ -233,50 +227,15 @@ h1 {
   transition: .2s all ease-in;
   text-transform: uppercase;
   text-align: center;
+  pointer-events: none;
   position: relative;
   width: 80px;
 }
 
-.install:hover,
-.install:focus {
+.app:hover .install,
+.app:focus .install {
   background: #00953f;
   box-shadow: 0 1px #000;
-}
-
-@media (max-width: 900px) {
-  /*
-  .results li {
-    width: 33.333%;
-  }
-  */
-/*  input {
-    width: 100%;
-  }
-*/
-}
-
-@media (max-width: 600px) {
-/*  input {
-    font-size: 30px;
-    line-height: 40px;
-  }
-*/  /*
-  .results li {
-    width: 50%;
-  }
-  */
-}
-
-@media (max-width: 320px) {
-/*  input {
-    font-size: 20px;
-    line-height: 30px;
-  }
-*/  /*
-  .results li {
-    width: 100%;
-  }
-  */
 }
 
 .notice {

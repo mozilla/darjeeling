@@ -3,11 +3,11 @@ define('settings', ['settings_local', 'utils'], function(settings_local, utils) 
   settingsBase = utils.defaults(settingsBase, settings_local);
 
   var settings = utils.defaults(settingsBase, {
-    appName: 'loma',
+    appName: 'marketplace',
     apiURL: 'http://' + window.location.host,  // No trailing slash, please./
 
     // The string to suffix page titles with. Used by `pages.js`.
-    titleSuffix: 'loma'
+    titleSuffix: 'Firefox Marketplace'
   });
 
   // The version number for `localStorage` data. Bump when the schema for

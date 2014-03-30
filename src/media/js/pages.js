@@ -2,9 +2,7 @@ define('pages',
        ['settings', 'templating', 'utils'],
        function(settings, templating, utils) {
   var titles = {
-    '/': templating._l('Mobile sites', 'titleDefault'),
-    '/search': templating._l('Search', 'titleSearch'),
-    '/submit': templating._l('Submit', 'titleSubmit')
+    '/search': templating._l('Search', 'search')
   };
 
   function getPath(url) {
@@ -12,7 +10,7 @@ define('pages',
   }
 
   function getTitle(pathname) {
-    return (titles[pathname] || titles['/']) + ' | ' + settings.titleSuffix;
+    return (pathname in titles ? titles[pathname] + ' | ' : '') + settings.titleSuffix;
   }
 
   return {
