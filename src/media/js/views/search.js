@@ -29,11 +29,9 @@ define('views/search',
             app_url: {boost: 25},
             author: {boost: 20},
             slug: {boost: 20},
-            html_title: {boost: 17},
-            meta_keywords: {boost: 15},
+            description: {boost: 15},
             keywords: {boost: 14},
-            category: {boost: 10},
-            description: {boost: 10}
+            category: {boost: 10}
           },
           ref: '_id'
         }
