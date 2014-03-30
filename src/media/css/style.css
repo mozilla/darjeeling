@@ -7,7 +7,7 @@
 
 html,
 body {
-  background: #fff;
+  background: #ddd;
 }
 
 body {
@@ -24,20 +24,21 @@ a:hover {
 }
 
 .form-search {
-  background: #ccc;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
   padding: 15px;
 }
 
 input {
-  background: #fff url(../img/search.png) 10px 13px no-repeat;
-  background-size: 14px;
-  border: 1px solid #999;
-  border-radius: 2px;
-  box-shadow: 0 0 1px rgba(0,0,0,.2) inset;
+  background: #f4f4f4 url(../img/search.png) 10px 12px no-repeat;
+  background-size: 17px;
+  border: 2px solid #c7c7c7;
+  border-radius: 10px;
+  /*box-shadow: 0 0 1px rgba(0,0,0,.2) inset, 0 0 1px #eee;*/
   color: #333;
   display: block;
   font-family: inherit;
-  font-size: 15px;
+  font-size: 20px;
   line-height: 30px;
   margin: 0;
   padding: 1px 2px;
@@ -49,7 +50,7 @@ input {
 }
 
 input:focus {
-  background-position: -15px 13px;
+  background-position: -18px 12px;
   border-color: #5ca9e4;
   box-shadow: 0 0 0 2px rgba(70,161,231,.3), 0 1px 2px rgba(0,0,0,.2) inset;
   padding-left: 10px;
@@ -102,6 +103,7 @@ nav, .logo {
   font-size: 14px;
   line-height: 42px;
   padding-left: 41px;
+  text-indent: -9999px;
 }
 
 main {
@@ -119,11 +121,9 @@ h1 {
 }
 
 .results li {
-  border-top: 1px solid #fff;
-  border-bottom: 1px solid #ddd;
   /*background:red;*/
   font-size: 14px;
-  height: 70px;
+  min-height: 70px;
   line-height: 16px;
   transition: .2s opacity ease-in-out;
   /*width: 20%;*/
@@ -139,15 +139,9 @@ h1 {
 
 .icon-wrap {
   background: #e6e6e6;
-  /*box-shadow: -1px 0 #e0e0e0 inset;*/
-  /*border-right: 1px solid #f00;*/
-  /*border-top: 1px solid #fff;*/
-  /*box-shadow: -1px 0 #ccc inset;*/
   float: left;
   height: 68px;
-  /*margin-top: 2px;*/
   margin-right: 10px;
-  /*position: absolute;*/
   width: 68px;
 }
 
@@ -159,7 +153,12 @@ h1 {
 }
 
 .app {
-  background-image: linear-gradient(to top, rgba(200,200,200,.25) 0%, rgba(255,255,255,1) 60%);
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 1px;
+  margin: 15px;
+  /*background-image: linear-gradient(to top, rgba(200,200,200,.25) 0%, rgba(255,255,255,1) 60%);*/
+  padding: 1px;
 }
 
 .icon {
@@ -222,23 +221,26 @@ h1 {
 }
 
 .install {
-  background: #369;
+  background: #2ecc40;
   border: 0;
-  box-shadow: 0 1px #036;
+  box-shadow: 0 1px #00953f;
   border-radius: 3px;
   color: #fff;
   cursor: pointer;
   float: right;
   font-size: 10px;
   line-height: 30px;
+  transition: .2s all ease-in;
   text-transform: uppercase;
   text-align: center;
+  position: relative;
   width: 80px;
 }
 
 .install:hover,
 .install:focus {
-  background: #036;
+  background: #00953f;
+  box-shadow: 0 1px #000;
 }
 
 @media (max-width: 900px) {
