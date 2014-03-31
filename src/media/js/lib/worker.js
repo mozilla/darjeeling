@@ -30,6 +30,7 @@ function index(data) {
 }
 
 var docs = {};
+var docsList = [];
 
 function loadDocs() {
   var list = JSON.parse(this.responseText);
@@ -39,6 +40,7 @@ function loadDocs() {
     if (Object.keys(doc).length) {
       _id = doc[index._ref].toString();
       docs[_id] = doc;
+      docsList.push(doc);
       index.add(doc);
     }
   });
@@ -65,9 +67,9 @@ function searchDocs(data) {
     });
   } else {
     // Return all documents if no query was provided.
-    results = Object.keys(docs).map(function(v) {
+    results = docsList.map(function(v) {
       return {
-        doc: docs[v]
+        doc: v
       };
     });
   }
