@@ -30,11 +30,19 @@ module.exports = function (settings, data, callback) {
     });
     app.name_search = app.name_search.join(' ').replace(/\(|\)/g, '');
 
+    // Flatten object of localised name to one key for easy searching.
+    app.description_search = [];
+    Object.keys(app.description).forEach(function (locale) {
+      app.description_search.push(app.description[locale]);
+    });
+    app.description_search = app.description_search.join(' ').replace(/\(|\)/g, '');
+
     return _.pick(app, [
       '_id',
       'author',
       'content_ratings',
       'description',
+      'description_search',
       'icon',
       'is_packaged',
       'manifest_url',
