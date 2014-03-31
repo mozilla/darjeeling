@@ -1,4 +1,6 @@
+*.appcache
 *.dist
+*.min.*
 *.sw*
 .DS_Store
 node_modules/
