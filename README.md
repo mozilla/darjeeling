@@ -17,3 +17,15 @@ Then install our dependencies:
 To watch nunjucks templates and compile them on the fly:
 
     grunt
+
+To minify the assets for the production-ready `prod.html`:
+
+    grunt minify
+
+To run the dev server:
+
+    npm start
+
+To run the production-ready server:
+
+    DEBUG=0 npm start

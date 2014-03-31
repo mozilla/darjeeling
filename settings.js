@@ -28,7 +28,7 @@ try {
 settings = _.assign(settings, settings_local || {});
 
 if ('DEBUG' in process.env) {
-  settings.debug = process.env.DEBUG;
+  settings.debug = !!+process.env.DEBUG;
 }
 
 module.exports = settings;
