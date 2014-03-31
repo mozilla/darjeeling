@@ -152,7 +152,7 @@ main h1 {
   background: none;
 }
 
-.screenshot:hover {
+.screenshot.active {
   padding-bottom: 300px;
 }
 
@@ -167,7 +167,7 @@ main h1 {
   background-size: cover;
   height: 150px;
   opacity: .8;
-  transition: .3s padding .15s;
+  transition: .3s padding;
   position: relative;
   width: 100%;
 }

@@ -126,6 +126,10 @@ define('views/search',
     e.preventDefault();
     search();
   });
+  $.delegate('click', '.screenshot', function(e) {
+    e.preventDefault();
+    e.target.classList.toggle('active');
+  });
 
   GET = utils.parseQueryString();
   reset();
