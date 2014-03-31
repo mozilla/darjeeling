@@ -8,17 +8,20 @@ module.exports = function (settings, data, callback) {
 
   data = data.apps.map(function (app) {
     app._id = app.id;
-
-    delete app.icons['16'];
-    delete app.icons['48'];
-    delete app.icons['128'];
+    app.icon = app.icons['64'];
+    app.previews = [
+      {
+        image: app.previews[0].image_url,
+        // thumb: app.previews[0].thumbnail_url
+      }
+    ];
 
     // Collect a list of image URLs (to later convert to data URIs).
-    images[app.icons['64']] = null;
-    // app.previews.forEach(function (preview) {
-    //   images[preview.image_url] = null;
-    //   images[preview.thumbnail_url] = null;
-    // });
+    images[app.icon] = null;
+    app.previews.forEach(function (preview) {
+      images[preview.image] = null;
+      // images[preview.thumb] = null;
+    });
 
     // Flatten object of localised name to one key for easy searching.
     app.name_search = [];
@@ -32,12 +35,12 @@ module.exports = function (settings, data, callback) {
       'author',
       'content_ratings',
       'description',
-      'icons',
+      'icon',
       'is_packaged',
       'manifest_url',
       'name',
       'name_search',
-      // 'previews',
+      'previews',
       'privacy_policy',
       'ratings',
       'slug',
@@ -87,12 +90,12 @@ module.exports = function (settings, data, callback) {
 
   Promise.all(promises).then(function () {
     data = data.map(function (app) {
-      app.icons['64'] = images[app.icons['64']];
-      // app.previews = app.previews.map(function (preview) {
-      //   preview.image_url = images[preview.image_url];
-      //   preview.thumbnail_url = images[preview.thumbnail_url];
-      //   return preview;
-      // });
+      app.icon = images[app.icon];
+      app.previews = app.previews.map(function (preview) {
+        preview.image = images[preview.image];
+        // preview.thumb = images[preview.thumb];
+        return preview;
+      });
       return app;
     });
 

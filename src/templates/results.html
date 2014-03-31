@@ -2,8 +2,9 @@
   <li{% if data.score %} title="{{ _('Score: {score}', 'resultsScore', {score: data.score.toFixed(8)}) }}"{% endif %}>
     {% set doc = data.doc %}
     <a class="app" href="{{ doc.manifest_url }}" target="_blank">
+      <div style="background-image:url({{ doc.previews[0].image }})" class="screenshot"></div>
       <div class="icon-wrap">
-        <div style="background-image:url({{ doc.icons['64'] }})" class="icon"></div>
+        <div style="background-image:url({{ doc.icon }})" class="icon"></div>
       </div>
       <div class="details">
         <button class="install">{{ _('Install') }}</button>
