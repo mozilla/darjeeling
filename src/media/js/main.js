@@ -1,4 +1,4 @@
-define('main', [], function() {
+define('main', [], function () {
 if (!window.location.origin) {
   // For IE lol
   window.location.origin = window.location.protocol + '//' + window.location.host;
@@ -59,15 +59,6 @@ document.webL10n.ready(function() {
     // Because `routes.js` listens for `window.load` event, explicitly load view.
     app.load(document.location.href);
   });
-
-  // Initialise login logic when Persona loads.
-  var personaLoaded = false;
-  personaLoaded = setInterval(function() {
-    if ('id' in navigator) {
-      require('login');
-      clearInterval(personaLoaded);
-    }
-  }, 100);
 });
 
 return {app: app};

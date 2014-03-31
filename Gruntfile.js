@@ -47,9 +47,7 @@ module.exports = function (grunt) {
           'src/media/js/notification.js',
           'src/media/js/worker.js',
           'src/media/js/pages.js',
-          'src/media/js/login.js',
           'src/media/js/views/search.js',
-          'src/media/js/views/submit.js',
           'src/media/js/main.js'
         ],
         dest: 'src/media/js/main.min.js'
