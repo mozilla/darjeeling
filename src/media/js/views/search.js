@@ -29,7 +29,7 @@ define('views/search',
             app_url: {boost: 25},
             author: {boost: 20},
             slug: {boost: 20},
-            description: {boost: 15},
+            description_search: {boost: 15},
             keywords: {boost: 14},
             category: {boost: 10}
           },
@@ -122,7 +122,7 @@ define('views/search',
   $.delegate('input', 'input[name=q]', function() {
     search();
   }, false);
-  $.delegate('submit', '.form-search', function(e) {
+  $.delegate('submit', 'form', function(e) {
     e.preventDefault();
     search();
   });

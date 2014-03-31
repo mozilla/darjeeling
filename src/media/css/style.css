@@ -111,28 +111,13 @@ main h1 {
   font-size: 14px;
   min-height: 70px;
   line-height: 16px;
-  transition: .2s opacity ease-in-out;
   width: 100%;
 }
 
-.icon-wrap,
 .details {
   min-height: 68px;  /* 10px + 48px + 10px */
   padding: 10px;
-}
-
-.icon-wrap {
-  background: #e6e6e6;
-  border-radius: 1px 0 0 1px;
-  float: left;
-  margin-right: 10px;
-  width: 68px;
-}
-
-.details {
-  border-left: 1px solid #e0e0e0;
-  margin-left: 68px;
-  padding-top: 9px;
+  position: relative;
 }
 
 .app {
@@ -150,22 +135,48 @@ main h1 {
   box-shadow: 0 0 0 2px rgba(70,70,70,.1);
 }
 
+.app:hover .screenshot:before {
+  background: none;
+}
+
+.screenshot:hover {
+  padding-bottom: 300px;
+}
+
 .app:active {
   background: #eee;
   opacity: .9;
 }
 
 .screenshot {
-  background-size: cover;
+  background-position: 50% 0;
   background-repeat: no-repeat;
-  height: 200px;
+  background-size: cover;
+  height: 150px;
+  opacity: .8;
+  transition: .3s all;
+  position: relative;
+  width: 100%;
+}
+
+.screenshot:before {
+  background: rgba(0,0,0,.5);
+  content: "";
+  position: absolute;
+  height: 100%;
+  transition: .3s background;
   width: 100%;
 }
 
 .icon {
-  background-size: 48px;
   background-repeat: no-repeat;
+  background-size: 48px;
+  bottom: -24px;
   height: 48px;
+  position: absolute;
+  right: 10px;
+  width: 48px;
+  z-index: 10;
 }
 
 .app {
@@ -173,27 +184,31 @@ main h1 {
   position: relative;
 }
 
-.results a:hover .icon {
-  opacity: 1;
+.trunc {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .name {
   color: #333;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 18px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 26px;
 }
 
 .dev {
   color: #999;
-  font-size: 10px;
-  line-height: 16px;
+  font-size: 11px;
+  line-height: 14px;
+  width: calc(100% - 90px);
 }
 
 .stars {
-  color: orange;
+  color: #f78813;
   font: 10px monospace;
   letter-spacing: 2px;
+  margin: 4px 0 6px;
 }
 
 .stars .half {
@@ -210,6 +225,12 @@ main h1 {
   color: #ccc;
 }
 
+.description {
+  color: #666;
+  font-size: 11px;
+  line-height: 14px;
+}
+
 .results-heading {
   display: none;
 }
@@ -221,27 +242,29 @@ main h1 {
 }
 
 .install {
-  background: #2ecc40;
+  background: #2ecc71;
   border: 0;
-  box-shadow: 0 1px #00953f;
+  box-shadow: 0 2px #229552;
   border-radius: 2px;
   color: #fff;
+  display: inline-block;
   cursor: pointer;
-  float: right;
   font-size: 10px;
   line-height: 30px;
   transition: .2s all ease-in;
   text-transform: uppercase;
   text-align: center;
   pointer-events: none;
-  position: relative;
+  position: absolute;
+  top: 35px;
+  right: 11px;
   width: 80px;
 }
 
 .app:hover .install,
 .app:focus .install {
-  background: #00953f;
-  box-shadow: 0 1px #000;
+  background: #27ae60;
+  box-shadow: 0 2px #1b7741;
 }
 
 .notice {

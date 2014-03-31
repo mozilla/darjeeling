@@ -37,9 +37,23 @@ define('templating', ['settings', 'utils'], function(settings, utils) {
     return opts ? utils.format(str, opts) : str;
   }
 
+  function nl2br(obj) {
+    if (typeof obj !== 'string') {
+      return obj;
+    }
+    return obj.replace(/\n/g, '<br>');
+  }
+
+  function summarise(str) {
+    // A temporary solution for creating summaries from long descriptions.
+    return str.split('\n')[0].replace(/<(?:.|\n)*?>/g, '').replace(/\..*:\s+/g, '.');
+  }
+
   env.addFilter('floor', Math.floor);
   env.addFilter('format', utils.format);
   env.addFilter('translate', utils.translate);
+  env.addFilter('nl2br', nl2br);
+  env.addFilter('summarise', summarise);
 
   env.addGlobal('_', env.makeSafe(_l));
   env.addGlobal('settings', settings);
