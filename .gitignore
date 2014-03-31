@@ -3,6 +3,7 @@
 *.min.*
 *.sw*
 .DS_Store
+deploy.log
 node_modules/
 npm-debug.log
 src/db/

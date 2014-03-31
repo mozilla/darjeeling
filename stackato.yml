@@ -8,8 +8,12 @@ framework:
 
 mem: 128
 
+hooks:
+    pre-push:
+        - ./deploy.sh
+
 processes:
-    web: npm run-script start
+    web: DEBUG=0 npm run-script start
 
 ignores:
     [".git", "node_modules/*"]
