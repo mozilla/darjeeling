@@ -8,6 +8,8 @@
 html,
 body {
   background: #ddd;
+  height: 100%;
+  min-height: 100%;
 }
 
 body {
@@ -21,6 +23,20 @@ a {
 
 a:hover {
   color: #036;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  flex: 1 0 62px;
+}
+
+main {
+  flex: auto;
+  overflow-y: auto;
 }
 
 form {
@@ -53,19 +69,19 @@ input:focus {
   background-position: -18px 10px;
   border-color: #5ca9e4;
   box-shadow: 0 0 0 2px rgba(70,161,231,.3), 0 1px 2px rgba(0,0,0,.2) inset;
-  padding-left: 5px;
+  padding-left: 10px;
   outline: none;
 }
 
 ::-webkit-input-placeholder {
-  color: $gray;
+  color: #bbb;
 }
 :-moz-placeholder {
-  color: $gray;
+  color: #bbb;
   text-overflow: ellipsis;
 }
 ::-moz-placeholder {
-  color: $gray;
+  color: #888;
   text-overflow: ellipsis;
 }
 [placeholder] {
@@ -93,10 +109,6 @@ input:focus {
   width: 40px;
 }
 
-main {
-  display: block;
-}
-
 main h1 {
   color: #74c9ef;
   font-weight: 300;
@@ -105,12 +117,14 @@ main h1 {
 
 .results ol {
   list-style: none;
+  padding: 0 15px 15px;
 }
 
 .results li {
   font-size: 14px;
   min-height: 70px;
   line-height: 16px;
+  margin-top: 15px;
   width: 100%;
 }
 
@@ -125,7 +139,6 @@ main h1 {
   border: 1px solid #ccc;
   border-radius: 2px;
   clear: both;
-  margin: 15px;
   padding: 1px;
   transition: border .1s ease-in, box-shadow .1s ease-in;
 }
@@ -154,7 +167,7 @@ main h1 {
   background-size: cover;
   height: 150px;
   opacity: .8;
-  transition: .3s all;
+  transition: .3s padding .15s;
   position: relative;
   width: 100%;
 }
