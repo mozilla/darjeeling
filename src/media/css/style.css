@@ -36,6 +36,7 @@ body {
 
 main {
   flex: auto;
+  height: 100%;
   overflow-y: auto;
 }
 
