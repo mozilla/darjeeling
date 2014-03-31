@@ -27,6 +27,8 @@ define('dom', ['utils'], function(utils) {
         while (parent && parent !== document) {
           if ($.matches(parent, sel)) {
             handler(e);
+            parent = null;
+            return;
           }
           parent = parent.parentNode;
         }

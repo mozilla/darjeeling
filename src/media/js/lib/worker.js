@@ -49,7 +49,7 @@ function loadDocs() {
   log('Indexed ' + list.length +
       ' doc' + (list.length === 1 ? '' : 's'));
 
-  postMessage({type: 'indexed'});
+  postMessage({type: 'indexed', data: docs});
 }
 
 function searchDocs(data) {

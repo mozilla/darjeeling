@@ -1,9 +1,11 @@
 define('views/search',
-       ['cache', 'dom', 'log', 'pages', 'templating', 'url', 'utils', 'worker'],
-       function(cache, $, log, pages, templating, url, utils, worker) {
+       ['apps', 'cache', 'dom', 'log', 'notification', 'pages', 'templating', 'url', 'utils', 'worker'],
+       function(apps, cache, $, log, notification, pages, templating, url, utils, worker) {
   cache = new cache();
   var console = log('search');
+  var docs = {};
   var GET;
+  var gettext = templating._l;
   var indexed = index();
   var q;
   var previousQuery = null;
@@ -15,7 +17,7 @@ define('views/search',
       worker.addEventListener('message', function(e) {
         switch (e.data.type) {
           case 'indexed':
-            return resolve();
+            return resolve(e.data.data);
           case 'results':
             return renderResults(e.data.data);
         }
@@ -131,6 +133,28 @@ define('views/search',
     e.preventDefault();
     e.target.classList.toggle('active');
   });
+  $.delegate('click', '.app', function (e) {
+    // TODO: Fix event delegation bubbling.
+    if (!e.target.classList.contains('app')) {
+      return;
+    }
+    var app = docs[e.target.dataset.id];
+    console.log('Installing', app.manifest_url);
+    apps.install(app, {src: 'metropolis'}).then(function () {
+      // App names should already be localised before we get here (issue #14).
+      app.name = utils.translate(app.name);
+      notification.notification({
+        classes: 'success',
+        message: gettext('*{app}* installed', 'installSuccess', {app: app.name})
+      });
+    }, function () {
+      app.name = utils.translate(app.name);
+      notification.notification({
+        classes: 'error',
+        message: gettext('*{app}* failed to install', 'installError', {app: app.name})
+      });
+    });
+  }, false);
 
   GET = utils.parseQueryString();
   reset();
@@ -140,12 +164,13 @@ define('views/search',
 
   function init() {
     if (document.body.dataset.page === 'results') {
-      // If we've already rendered this page.
+      // Bail if we've already rendered this page.
       return search();
     }
     templating.render('browse', function(res) {
       $('main').innerHTML = res;
-      indexed.then(function() {
+      indexed.then(function(data) {
+        docs = data;
         document.body.setAttribute('class', 'results');
         document.body.dataset.page = 'results';
         search();

@@ -21,6 +21,10 @@ a {
   text-decoration: none;
 }
 
+a:not([href]) {
+  cursor: pointer;
+}
+
 a:hover {
   color: #036;
 }
@@ -144,6 +148,11 @@ main h1 {
   transition: border .1s ease-in, box-shadow .1s ease-in;
 }
 
+.app .details,
+.app .details * {
+  pointer-events: none;
+}
+
 .app:hover {
   border-color: #999;
   box-shadow: 0 0 0 2px rgba(70,70,70,.1);
@@ -262,7 +271,6 @@ main h1 {
   border-radius: 2px;
   color: #fff;
   display: inline-block;
-  cursor: pointer;
   font-size: 10px;
   line-height: 30px;
   transition: .2s all ease-in;
@@ -290,7 +298,7 @@ main h1 {
 }
 
 .notification {
-  background-color: #00953f;
+  background: #333;
   bottom: -62px;
   color: #fff;
   cursor: pointer;
@@ -312,6 +320,14 @@ main h1 {
   z-index: 2;
 }
 
+.notification.success {
+  background: #093;
+}
+
+.notification.error {
+  background: #903;
+}
+
 .notification.show {
   bottom: 0;
   transition-duration: .3s;
@@ -320,6 +336,10 @@ main h1 {
 
 .notification.hidden {
   display: none;
+}
+
+.notification b {
+  font-weight: 500;
 }
 
 .notification-content {

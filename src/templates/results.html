@@ -1,7 +1,7 @@
 {% for data in data.results %}
   <li{% if data.score %} title="{{ _('Score: {score}', 'resultsScore', {score: data.score.toFixed(8)}) }}"{% endif %}>
     {% set doc = data.doc %}
-    <a class="app" href="{{ doc.manifest_url }}" target="_blank">
+    <a class="app" data-id="{{ doc._id }}">
       <div style="background-image:url({{ doc.previews[0].image }})" class="screenshot">
         <div style="background-image:url({{ doc.icon }})" class="icon"></div>
       </div>

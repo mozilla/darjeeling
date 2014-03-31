@@ -84,7 +84,7 @@ define('notification', ['dom'], function($) {
 
       setTimeout(function () {
         reject();
-      }, opts.timeout || 5000);
+      }, opts.timeout || 2000);
     });
   }
 

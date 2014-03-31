@@ -62,7 +62,6 @@ document.webL10n.ready(function() {
 });
 
 return {app: app};
-
 });
 
 require('main');
