@@ -26,6 +26,7 @@
     "grunt-contrib-uglify": "~0.3.2",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-nunjucks": "~0.1.4",
-    "nunjucks": "~1.0.2"
+    "nunjucks": "~1.0.2",
+    "grunt-manifest": "git://github.com/gunta/grunt-manifest.git#6b830e31"
   }
 }

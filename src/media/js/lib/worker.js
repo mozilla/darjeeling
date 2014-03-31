@@ -1,16 +1,17 @@
-importScripts('lunr.js');
-importScripts('lunr.unicodeNormalizer.js');
-
 function log() {
   var msg = Array.prototype.slice.call(arguments, 0).join(' ');
   postMessage({type: 'log', data: msg});
 }
 
-log('Loaded lunr v' + lunr.version);
-
 var index;
 
 function index(data) {
+  // TODO: Have uglify inline these scripts when minfied.
+  importScripts(data.min ? 'lunr.min.js' : 'lunr.js');
+  importScripts(data.min ? 'lunr.unicodeNormalizer.min.js' : 'lunr.unicodeNormalizer.js');
+
+  log('Loaded lunr v' + lunr.version);
+
   log('GET', data.url);
 
   // Define fields to index in lunr.

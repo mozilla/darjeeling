@@ -67,12 +67,36 @@ module.exports = function (grunt) {
     uglify: {
       dist: {
         files: {
-          'src/media/js/main.min.js': ['<%= concat.dist.dest %>']
+          'src/media/js/lib/lunr.min.js': 'src/media/js/lib/lunr.js',
+          'src/media/js/lib/lunr.unicodeNormalizer.min.js': 'src/media/js/lib/lunr.unicodeNormalizer.js',
+          'src/media/js/lib/worker.min.js': 'src/media/js/lib/worker.js',
+          'src/media/js/main.min.js': ['<%= concat.dist.dest %>'],
         }
+      }
+    },
+    manifest: {
+      generate: {
+        options: {
+          basePath: 'src/',
+          hash: true,
+          timestamp: false,
+          verbose: false
+        },
+        src: [
+          'db/data.json',
+          'l10n/locales.ini',
+          'media/css/style.min.css',
+          'media/img/logo.png',
+          'media/img/search.png',
+          'media/js/lib/lunr.min.js',
+          'media/js/lib/lunr.unicodeNormalizer.min.js',
+          'media/js/lib/worker.min.js',
+          'media/js/main.min.js',
+        ],
+        dest: 'src/site.appcache'
       }
     }
   });
-
 
   // Always show stack traces when Grunt prints out an uncaught exception.
   grunt.option('stack', true);
@@ -81,8 +105,10 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-manifest');
   grunt.loadNpmTasks('grunt-nunjucks');
 
   grunt.registerTask('default', ['nunjucks', 'watch']);
-  grunt.registerTask('minify', ['nunjucks', 'concat', 'cssmin', 'uglify']);
+  grunt.registerTask('minify',
+    ['nunjucks', 'concat', 'cssmin', 'uglify', 'manifest']);
 };

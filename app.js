@@ -19,13 +19,20 @@ app.configure(function () {
   app.use(express.static(frontend_dir));
 });
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
   res.sendfile(settings.debug ? 'dev.html' : 'prod.html', {root: frontend_dir});
 });
 
 if (settings.debug) {
   app.configure('development', function () {
     app.use(express.errorHandler());
+  });
+} else {
+  // For our sanity, we make sure that the appcache manifest 404s when running
+  // the dev server so assets aren't appcached up the wazoo during development.
+  app.get('/manifest.appcache', function (req, res) {
+    res.contentType('text/cache-manifest');
+    res.sendfile(path.join(frontend_dir, 'site.appcache'));
   });
 }
 
