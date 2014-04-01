@@ -32,6 +32,9 @@ define('templating', ['settings', 'utils'], function(settings, utils) {
     if (opts && 'n' in opts) {
       pluralOpts = {n: opts.n};
     }
+    if (!id) {
+      console.warn('Missing `id` in `locales.ini` for "' + str + '"');
+    }
     // Use webL10n to localise.
     str = _(id, pluralOpts) || str;
     return opts ? utils.format(str, opts) : str;
