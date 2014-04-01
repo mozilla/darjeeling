@@ -2,7 +2,7 @@ module.exports = function (grunt) {
   grunt.initConfig({
     watch: {
       nunjucks: {
-        files: 'src/media/js/templates/*',
+        files: 'src/templates/*',
         tasks: ['nunjucks']
       }
     },
@@ -13,8 +13,8 @@ module.exports = function (grunt) {
         }
       },
       precompile: {
-        src: 'src/media/js/templates/*',
-        dest: 'src/media/js/media/js/templates.js',
+        src: 'src/templates/*',
+        dest: 'src/media/js/templates.js',
       }
     },
     concat: {
