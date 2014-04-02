@@ -13,7 +13,7 @@ hooks:
         - ./deploy.sh
 
 processes:
-    web: npm run-script start --settings=settings_prod
+    web: node app.js --settings=settings_prod
 
 ignores:
     [".git", "node_modules/*"]
