@@ -53,6 +53,10 @@ form {
   padding: 10px 15px;
 }
 
+input, button {
+  font-family: inherit;
+}
+
 input {
   background: #f4f4f4 url(../img/search.png) 10px 10px no-repeat;
   background-size: 17px;
@@ -60,7 +64,6 @@ input {
   border-radius: 10px;
   color: #333;
   flex: 1;
-  font-family: inherit;
   font-size: 20px;
   line-height: 26px;
   padding: 5px 10px 5px 27px;
@@ -265,18 +268,28 @@ main h1 {
   margin-left: 2px;
 }
 
+/*
+
+green #2ecc71 rgb(46,204,113)
+dark green #229552 rgb(34,149,82)
+blue #2e71cc rgb(46,113,204)
+dark blue #225295 rgb(34,82,149)
+
+*/
+
 .install {
-  background: #2ecc71;
+  background: rgba(46,204,113,.825);
   border: 0;
-  box-shadow: 0 2px #229552;
+  box-shadow: 0 2px rgba(34,149,82,.825);
   border-radius: 2px;
   color: #fff;
   display: inline-block;
   font-size: 10px;
-  line-height: 30px;
+  line-height: 1;
   transition: .2s all ease-in;
   text-transform: uppercase;
   text-align: center;
+  padding: 9px 0 6px;
   pointer-events: none;
   position: absolute;
   top: 35px;
@@ -286,19 +299,19 @@ main h1 {
 
 .app:hover .install,
 .app:focus .install {
-  background: #27ae60;
-  box-shadow: 0 2px #1b7741;
+  background: rgb(46,204,113);
+  box-shadow: 0 2px rgb(34,149,82);
 }
 
 .open {
-  background: #2e71cc;
-  box-shadow: 0 2px #225295;
+  background: rgba(46,113,204,.825);
+  box-shadow: 0 2px rgba(34,82,149,.825);
 }
 
 .app:hover .open,
 .app:focus .open {
-  background: #2760ae;
-  box-shadow: 0 2px #1b4177;
+  background: rgb(46,113,204);
+  box-shadow: 0 2px rgb(34,82,149);
 }
 
 .notice {
