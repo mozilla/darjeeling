@@ -91,6 +91,11 @@ module.exports = function (grunt) {
           'media/js/lib/lunr.unicodeNormalizer.min.js',
           'media/js/lib/worker.min.js',
           'media/js/main.min.js',
+          // TODO: Remove these fonts (issue #5).
+          'media/fonts/FiraSans/firasansot-light-webfont.woff',
+          'media/fonts/FiraSans/firasansot-regular-webfont.woff',
+          'media/fonts/FiraSans/firasansot-medium-webfont.woff',
+          'media/fonts/FiraSans/firasansot-bold-webfont.woff'
         ],
         dest: 'src/site.appcache'
       }
