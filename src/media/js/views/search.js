@@ -125,14 +125,23 @@ define('views/search',
   $.delegate('input', 'input[name=q]', function() {
     search();
   }, false);
+
+  $.delegate('click', 'input[name=q] ~ .search-clear', function () {
+    // Clear search box and re-render search results.
+    reset();
+    search();
+  });
+
   $.delegate('submit', 'form', function(e) {
     e.preventDefault();
     search();
   });
+
   $.delegate('click', '.screenshot', function(e) {
     e.preventDefault();
     e.target.classList.toggle('active');
   });
+
   $.delegate('click', '.app', function (e) {
     // TODO: Fix event delegation bubbling.
     if (!e.target.classList.contains('app')) {

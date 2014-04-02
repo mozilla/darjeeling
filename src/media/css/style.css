@@ -57,6 +57,14 @@ input, button {
   font-family: inherit;
 }
 
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button {
+  /* Remove ⊗ so we can do our own in CSS below,
+     because Chrome's ⊗ causes unusual padding and Firefox's
+     implementation of input[type=search] doesn't even have a ⊗. */
+  -webkit-appearance: none;
+}
+
 input {
   background: #f4f4f4 url(../img/search.png) 10px 10px no-repeat;
   background-size: 17px;
@@ -66,7 +74,7 @@ input {
   flex: 1;
   font-size: 20px;
   line-height: 26px;
-  padding: 5px 10px 5px 27px;
+  padding: 5px 10px 5px 33px;
   position: relative;
   transition: background .3s ease-in-out, padding .3s ease-in-out, border .3s ease-in, box-shadow .3s ease-in;
   width: 100%;
@@ -104,6 +112,48 @@ input:focus {
 }
 [placeholder]:focus::-webkit-input-placeholder {
   color: transparent !important;
+}
+
+.search-clear::before {
+  color: #ccc;
+  content: "\02297";
+  display: block;
+  font-size: 30px;
+  height: 41px;
+  line-height: 40px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: right;
+  padding: 10px 25px 10px 20px;
+  z-index: 2;
+}
+
+input:focus ~ .search-clear::before,
+.search-clear:hover::before {
+  color: #999;
+}
+
+input:focus ~ .search-clear:hover::before {
+  color: #666;
+}
+
+input:invalid ~ .search-clear {
+  /* Hide the ⊗ icon when the search field is empty. */
+  opacity: 0;
+  visibility: hidden;
+}
+
+input:valid {
+  /* Pad for the ⊗ icon. */
+  padding-right: 33px;
+}
+
+input:valid ~ .search-clear {
+  /* Show the ⊗ icon when there is something in the search field.
+     Remember, :empty applies to text content, not attributes ;) */
+  opacity: 1;
+  visibility: visible;
 }
 
 .logo {
