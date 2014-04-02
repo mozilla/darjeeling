@@ -289,6 +289,17 @@ main h1 {
   box-shadow: 0 2px #1b7741;
 }
 
+.open {
+  background: #2e71cc;
+  box-shadow: 0 2px #225295;
+}
+
+.app:hover .open,
+.app:focus .open {
+  background: #2760ae;
+  box-shadow: 0 2px #1b4177;
+}
+
 .notice {
   color: #999;
   font-size: 22px;

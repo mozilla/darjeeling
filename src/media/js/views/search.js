@@ -138,15 +138,36 @@ define('views/search',
     if (!e.target.classList.contains('app')) {
       return;
     }
+
     var app = docs[e.target.dataset.id];
-    console.log('Installing', app.manifest_url);
-    apps.install(app, {src: 'metropolis'}).then(function () {
+
+    if (app.installed) {
+      console.log('Launching ' + app.name + ':' + app.manifest_url);
+      app.mozApp.launch();
+      return;
+    }
+
+    console.log('Installing ' + app.name + ':' + app.manifest_url);
+    apps.install(app, {src: 'metropolis'}).then(function (mozApp) {
       // App names should already be localised before we get here (issue #14).
       app.name = utils.translate(app.name);
+
+      // Show success notification message.
       notification.notification({
         classes: 'success',
         message: gettext('*{app}* installed', 'installSuccess', {app: app.name})
       });
+
+      // Mark as installed.
+      docs[app._id].installed = app.installed = true;
+
+      // Attach app object from `navigator.mozApps.install` call.
+      docs[app._id].mozApp = app.mozApp = mozApp;
+
+      // Change "Install" button to "Open" button.
+      var button = $('.app[data-id="' + app._id + '"] .install');
+      button.classList.add('open');
+      button.textContent = gettext('Open', 'open');
     }, function () {
       app.name = utils.translate(app.name);
       notification.notification({
@@ -179,6 +200,7 @@ define('views/search',
   }
 
   return {
+    docs: docs,
     index: index,
     init: init,
     renderResults: renderResults,

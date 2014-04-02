@@ -132,6 +132,7 @@ define('utils', [], function() {
   }
 
   return {
+    baseurl: baseurl,
     defaults: defaults,
     encodeURIComponent: encodeURIComponent,
     eq: eq,
