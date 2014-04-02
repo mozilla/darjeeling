@@ -198,9 +198,6 @@ define('views/search',
       return search();
     }
     templating.render('browse', function(res) {
-      // We're ready to rumble. Remove splash screen!
-      document.body.removeChild(document.getElementById('splash-overlay'));
-
       $('main').innerHTML = res;
       indexed.then(function(data) {
         // Populate list of docs.
@@ -216,6 +213,9 @@ define('views/search',
               docs[key].installed = !!docs[key].mozApp;
             });
           }
+
+          // We're ready to rumble. Remove splash screen!
+          document.body.removeChild(document.getElementById('splash-overlay'));
 
           // Initialize and then render search template.
           document.body.setAttribute('class', 'results');
