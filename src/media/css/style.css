@@ -81,6 +81,12 @@ input {
   z-index: 2;
 }
 
+input:required, input:invalid {
+  /* Disable the `box-shadow` Firefox adds when blurring the [required]
+     search box if it's empty. */
+  box-shadow: none;
+}
+
 input:focus {
   background-position: -18px 10px;
   border-color: #5ca9e4;
