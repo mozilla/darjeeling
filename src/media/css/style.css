@@ -127,9 +127,9 @@ main h1 {
 
 .results li {
   font-size: 14px;
-  min-height: 70px;
   line-height: 16px;
   margin-top: 15px;
+  min-height: 70px;
   width: 100%;
 }
 
@@ -143,9 +143,10 @@ main h1 {
   background: #fff linear-gradient(to top, rgba(200,200,200,.25) 0%, rgba(255,255,255,1) 60%);
   border: 1px solid #ccc;
   border-radius: 2px;
-  clear: both;
+  display: block;
   padding: 1px;
   transition: border .1s ease-in, box-shadow .1s ease-in;
+  width: 100%;
 }
 
 .app .details,
@@ -363,5 +364,35 @@ main h1 {
   .notification {
     border-radius: 4px 4px 0 0;
     max-width: 600px;
+  }
+
+  .results ol {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -7.5px;  /* Because we're going to space each 15px apart */
+  }
+
+  .results li {
+    display: flex;  /* So the app tiles stretch vertically */
+    flex: 0 1 50%;
+    padding: 0 7.5px;
+  }
+}
+
+@media (min-width: 800px) {
+  .results li {
+    flex-basis: 33.3333%;
+  }
+}
+
+@media (min-width: 1000px) {
+  .results li {
+    flex-basis: 25%;
+  }
+}
+
+@media (min-width: 1600px) {
+  .results li {
+    flex-basis: 20%;
   }
 }
