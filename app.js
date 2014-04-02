@@ -64,4 +64,8 @@ app.get('/fetch', function (req, res) {
   res.json({success: true});
 });
 
-app.listen(app.get('port'));
+app.listen(app.get('port'), function () {
+  var address = this.address();
+  console.log('Starting server at http://' +
+              address.address + ':' + address.port);
+});

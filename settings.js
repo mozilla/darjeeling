@@ -1,6 +1,7 @@
 var _ = require('lodash');
 
 var dbTransformer = require('./db-transformer');
+var pkg = require('./package.json');
 
 
 var settings = {
@@ -23,12 +24,15 @@ if ('DEBUG' in process.env) {
 
 // Hopefully this is the only command-line argument we need ;)
 var settings_name = process.argv.slice(2).join('')
-  .replace('--settings', '').replace('=','').trim().replace(/^\.\//, '').replace(/\.js$/, '');
+  .replace('--settings', '').replace('=','').trim()
+  .replace(/^\.\//, '').replace(/\.js$/, '') || 'settings_local';
 
 var settings_local = {};
 
 try {
-  settings_local = require('./' + (settings_name || 'settings_local'));
+  console.log(pkg.name + ' v' + pkg.version +
+              ", using settings '" + settings_name + "'");
+  settings_local = require('./' + settings_name);
 } catch (err) {
   if (err.code !== 'MODULE_NOT_FOUND') {
     throw err;

@@ -28,21 +28,17 @@ To minify the assets for the production-ready `prod.html`:
 
 To run the dev server:
 
-    npm start
-
-Or
-
     node app.js
 
 To load `settings.js` and then override those settings with those defined
 in `settings_local.js`:
 
-    npm start --settings=settings_local
+    node app.js --settings=settings_local
 
 To load `settings.js` and then override those settings with those defined
 in `settings_prod.js`:
 
-    npm start --settings=settings_prod
+    node app.js --settings=settings_prod
 
 By default if the `--settings` flag is omitted, we default to loading
 `settings_local`. If you specify a setting other than `settings_local`,
