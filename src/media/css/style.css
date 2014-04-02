@@ -68,6 +68,8 @@ body {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   font-family: FiraSans, Helvetica, sans-serif;
 }
 
@@ -82,11 +84,6 @@ a:not([href]) {
 
 a:hover {
   color: #036;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
 }
 
 .header {
@@ -112,8 +109,8 @@ input, button {
   font-family: inherit;
 }
 
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button {
+input[type=search]::-webkit-search-decoration,
+input[type=search]::-webkit-search-cancel-button {
   /* Remove ⊗ so we can do our own in CSS below,
      because Chrome's ⊗ causes unusual padding and Firefox's
      implementation of input[type=search] doesn't even have a ⊗. */
@@ -122,14 +119,14 @@ input[type="search"]::-webkit-search-cancel-button {
 
 input {
   background: #f4f4f4 url(../img/search.png) 10px 10px no-repeat;
-  background-size: 17px;
+  background-size: 16px;
   border: 2px solid #c7c7c7;
   border-radius: 10px;
   color: #333;
   flex: 1;
   font-size: 20px;
-  line-height: 26px;
-  padding: 5px 10px 5px 33px;
+  height: 40px;
+  padding: 3px 10px 3px 32px;
   position: relative;
   transition: background .3s ease-in-out, padding .3s ease-in-out, border .3s ease-in, box-shadow .3s ease-in;
   width: 100%;
