@@ -134,7 +134,32 @@ define('apps',
     return promise;
   }
 
+  function getInstalled() {
+    return new Promise(function (resolve, reject) {
+      // Don't call `navigator.mozApps.getInstalled` if the page isn't
+      // visible or if the `navigator.mozApps` API isn't available.
+      if (document.hidden || !capabilities.webApps) {
+        return resolve(null);
+      }
+
+      // Get list of installed apps.
+      var mozGetInstalled = navigator.mozApps.getInstalled();
+      mozGetInstalled.onsuccess = function () {
+        var apps = {};
+        mozGetInstalled.result.forEach(function (val) {
+          apps[utils.baseurl(val.manifestURL)] = val;
+        });
+        resolve(apps);
+      };
+      mozGetInstalled.onerror = function () {
+        // Fail gracefully.
+        resolve(null);
+      };
+    });
+  }
+
   return {
+    getInstalled: getInstalled,
     install: install
   };
 });

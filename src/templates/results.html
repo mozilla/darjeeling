@@ -11,7 +11,9 @@
         {% set stars = doc.ratings.average|floor %}
         <div class="stars">{% for x in range(stars) %}&#9733;{% endfor %}{% if doc.ratings.average - stars >= 0.5 %}<span class="half">&#9733;</span>{% endif %}<span class="empty">{% for x in range(5 - stars) %}&#9733;{% endfor %}</span></div>
         <div class="description">{{ doc.description|translate(doc)|summarise }}</div>
-        <button class="install">{{ _('Install', 'install') }}</button>
+        {% set installed = docs[doc._id].installed %}
+        <button class="install{{ ' open' if installed }}">{{
+          _('Open', 'open') if installed else _('Install', 'install') }}</button>
       </div>
     </a>
   </li>

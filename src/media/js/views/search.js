@@ -109,7 +109,7 @@ define('views/search',
 
     if (!utils.eq(current, previous)) {
       // Only re-render results if results have changed.
-      templating.render('results', {data: data}, function(res) {
+      templating.render('results', {data: data, docs: docs}, function(res) {
         $('main ol').innerHTML = res;
       });
     }
@@ -191,10 +191,25 @@ define('views/search',
     templating.render('browse', function(res) {
       $('main').innerHTML = res;
       indexed.then(function(data) {
+        // Populate list of docs.
         docs = data;
-        document.body.setAttribute('class', 'results');
-        document.body.dataset.page = 'results';
-        search();
+
+        // Get the list of installed apps so we can toggle the buttons where appropriate.
+        apps.getInstalled().then(function (installedApps) {
+          if (installedApps) {
+            Object.keys(docs).forEach(function (key) {
+              // Attach the `navigator.mozApps` object so we can launch the app later.
+              // (The installed apps are keyed off the manifest URL without the querystring.)
+              docs[key].mozApp = installedApps[utils.baseurl(docs[key].manifest_url)] || null;
+              docs[key].installed = !!docs[key].mozApp;
+            });
+          }
+
+          // Initialize and then render search template.
+          document.body.setAttribute('class', 'results');
+          document.body.dataset.page = 'results';
+          search();
+        });
       });
     });
   }
