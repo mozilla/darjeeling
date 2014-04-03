@@ -58,6 +58,13 @@ app.get('/fetch', function (req, res) {
 
       console.log('Successfully wrote database to disk', fnTransformed);
       fs.writeFile(fnTransformed, JSON.stringify(transformedData));
+
+      // In the future, any new data the client doesn't have will
+      // come in the future of incremental GETs instead of having
+      // to bust the appcache and refetch everything any time the
+      // database changes. (See issue #4.)
+      console.log('Cachebusted appcache manifest');
+      fs.appendFile(path.join(frontend_dir, 'site.appcache'), 'x');
     });
   });
 
