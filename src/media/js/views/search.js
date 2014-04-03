@@ -183,8 +183,6 @@ define('views/search',
   }, false);
 
   function installApp(app) {
-    console.error('installApp called');
-
     return new Promise(function (resolve, reject) {
       console.log('Installing ' + app.name + ': ' + app.manifest_url);
       apps.install(app, {src: 'metropolis'}).then(function (mozApp) {
@@ -254,7 +252,7 @@ define('views/search',
       });
 
     }, function () {
-      console.log('Offline ⤳ ' + howMany + ' in queue');
+      //console.log('Offline ⤳ ' + howMany + ' in queue');
     });
   }
 
