@@ -7,7 +7,11 @@ define('settings', ['settings_local', 'utils'], function(settings_local, utils) 
     apiURL: 'http://' + window.location.host,  // No trailing slash, please./
 
     // The string to suffix page titles with. Used by `pages.js`.
-    titleSuffix: 'Firefox Marketplace'
+    titleSuffix: 'Firefox Marketplace',
+
+    // How often (in milliseconds) to check if we have queued apps to install
+    // when we return online.
+    offlineInterval: 1000
   });
 
   // The version number for `localStorage` data. Bump when the schema for

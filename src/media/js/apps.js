@@ -47,9 +47,6 @@ define('apps',
       manifest_url = utils.urlparams(app.manifest_url, {src: opt.data.src});
     }
 
-    // App names should already be localised before we get here (issue #14).
-    app.name = utils.translate(app.name);
-
     console.log('App install started: ' + app.name);
 
     var promise = new Promise(function (resolve, reject) {
@@ -74,6 +71,7 @@ define('apps',
         // Try to install the app.
         if (manifest_url && mozApps && mozApps[installer]) {
           var installRequest = mozApps[installer](manifest_url, opt.data);
+
           installRequest.onsuccess = function () {
             console.log('App installation started: ' + app.name);
 
@@ -103,8 +101,10 @@ define('apps',
               }, 100);
             }
           };
+
           installRequest.onerror = function () {
             if (this.error.name === 'DENIED') {
+              console.log('App install prompt dismissed?');
               // Don't return a message when the user cancels install.
               reject();
             } else {
