@@ -71,6 +71,7 @@ body {
   display: flex;
   flex-direction: column;
   font-family: FiraSans, Helvetica, sans-serif;
+  min-width: 280px;
 }
 
 a {
