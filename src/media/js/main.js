@@ -3,6 +3,16 @@ if (!window.location.origin) {
   // For IE lol
   window.location.origin = window.location.protocol + '//' + window.location.host;
 }
+if (!window.performance) {
+      // Polyfill `performance.now` for Safari/PhantomJS WebKit.
+      // (And don't even bother with `Date.now` because IE.)
+      window.performance = {
+          now: function() {
+              return +new Date();
+          }
+      };
+}
+window.start_time = performance.now();
 
 var $ = require('dom');
 var app = new routes();

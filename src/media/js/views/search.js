@@ -297,6 +297,7 @@ define('views/search',
 
           // We're ready to rumble. Remove splash screen!
           document.body.removeChild(document.getElementById('splash-overlay'));
+          console.log('Hiding splash screen (' + ((performance.now() - window.start_time) / 1000).toFixed(6) + 's)');
 
           // Initialize and then render search template.
           document.body.setAttribute('class', 'results');
