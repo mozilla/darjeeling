@@ -1,0 +1,13 @@
+{
+    "appcache_path": "/manifest.webapp",
+    "description": "The Firefox Marketplace",
+    "developer": {
+        "name": "Mozilla",
+        "url": "http://mozilla.org"
+    },
+    "icons": {
+        "128": "/media/img/icon-128.png",
+        "90": "/media/img/icon-90.png"
+    },
+    "name": "Marketplace"
+}
