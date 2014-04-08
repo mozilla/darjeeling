@@ -1,3 +1,6 @@
+var appcacheMedia = require('./src/appcache_media');
+
+
 module.exports = function (grunt) {
   grunt.initConfig({
     watch: {
@@ -96,7 +99,7 @@ module.exports = function (grunt) {
           'media/fonts/FiraSans/firasansot-regular-webfont.woff',
           'media/fonts/FiraSans/firasansot-medium-webfont.woff',
           'media/fonts/FiraSans/firasansot-bold-webfont.woff'
-        ],
+        ].concat(appcacheMedia),
         dest: 'src/site.appcache'
       }
     }

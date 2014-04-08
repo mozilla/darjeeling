@@ -36,8 +36,12 @@ if (settings.debug) {
 }
 
 app.get('/fetch', function (req, res) {
+  var now = Date.now();
+
   var fnOriginal = path.join(settings.db_dir, 'original.json');
   var fnTransformed = path.join(settings.db_dir, 'data.json');
+  var fnArchivedOriginal = path.join(settings.db_dir, 'archives', now + '-original.json');
+  var fnArchivedTransformed = path.join(settings.db_dir, 'archives', now + '-data.json');
 
   request(settings.db_url, function (err, res, body) {
     if (err) {
@@ -46,6 +50,7 @@ app.get('/fetch', function (req, res) {
     }
 
     fs.writeFile(fnOriginal, body);
+    fs.writeFile(fnArchivedOriginal, body);
 
     var bodyJSON = JSON.parse(body);
 
@@ -55,8 +60,11 @@ app.get('/fetch', function (req, res) {
         return res.json({error: true});
       }
 
+      var transformedDataSerialized = JSON.stringify(transformedData);
+
       console.log('Successfully wrote database to disk', fnTransformed);
-      fs.writeFile(fnTransformed, JSON.stringify(transformedData));
+      fs.writeFile(fnTransformed, transformedDataSerialized);
+      fs.writeFile(fnArchivedTransformed, transformedDataSerialized);
 
       // In the future, any new data the client doesn't have will
       // come in the future of incremental GETs instead of having

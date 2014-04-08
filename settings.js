@@ -8,9 +8,12 @@ var settings = {
   debug: true,
   db_dir: 'src/db',
   db_url: 'https://marketplace-dev.allizom.org/api/v1/rocketfuel/collections/curated/',
+  downloads_dir: 'src/downloads',
   frontend_dir: 'src',
   use_data_uris: true
 };
+
+settings.appcache_media = settings.frontend_dir + '/appcache_media.json';
 
 settings.db_transformer = function (data, callback) {
   dbTransformer(settings, data, callback);

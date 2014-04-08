@@ -1,7 +1,23 @@
+var fs = require('fs');
+var path = require('path');
+
 var _ = require('lodash');
 var request = require('request');
 var Promise = require('es6-promise').Promise;
 
+
+function generateFilename(url) {
+  // Generates a pretty filename from a remote URL, something like this:
+  // `97310-modified_1366438278.png`
+  var fn = path.basename(url);
+  if (fn.indexOf('?') > -1) {
+    var fnChunks = fn.split('?');
+    var fnBase = fnChunks[0].split('.');
+    var fnExt = fnBase.pop();
+    fn = fnBase.join('.') + '-' + fnChunks[1].replace('=', '_') + '.' + fnExt;
+  }
+  return fn;
+}
 
 module.exports = function (settings, data, callback) {
   var images = {};
@@ -16,11 +32,12 @@ module.exports = function (settings, data, callback) {
       }
     ];
 
-    // Collect a list of image URLs (to later convert to data URIs).
-    images[app.icon] = null;
+    // Collect a list of image URLs (to later download to disk).
+    // key = URL, value = directory name
+    images[app.icon] = 'icons';
     app.previews.forEach(function (preview) {
-      images[preview.image] = null;
-      // images[preview.thumb] = null;
+      images[preview.image] = 'screenshots-full';
+      // images[preview.thumb] = 'screenshots-thumbs';
     });
 
     // Flatten object of localised name to one key for easy searching.
@@ -58,40 +75,21 @@ module.exports = function (settings, data, callback) {
 
   console.log('Transformed data');
 
-  if (!settings.use_data_uris) {
-    console.log('Skipping data URIs');
-    return callback(null, data);
-  }
-
-  console.log('Fetching images to convert to data URIs');
+  console.log('Fetching images to save to disk');
 
   var promises = [];
 
   _.uniq(Object.keys(images)).forEach(function (url) {
     promises.push(new Promise(function (resolve, reject) {
-      var req = request(url);
-      req.end();
-      req.on('response', function (res) {
-        var body = '';
-        var prefix = 'data:' + res.headers['content-type'] + ';base64,';
+      console.log('Saving', url);
+      var fn = path.join(settings.downloads_dir, images[url], generateFilename(url));
 
-        res.setEncoding('binary');
-        res.on('data', function (chunk) {
-          if (res.statusCode == 200) {
-            body += chunk;
-          }
-        }).on('end', function () {
-          var base64 = new Buffer(body, 'binary').toString('base64');
-          var data = prefix + base64;
-          if (data) {
-            images[url] = data;
-            resolve();
-          } else {
-            reject();
-          }
-        }).on('error', function () {
-          rejectDataUri();
-        });
+      // Update filename.
+      images[url] = path.relative(settings.frontend_dir, fn);
+
+      var req = request(url).pipe(fs.createWriteStream(fn));
+      req.on('close', function () {
+        resolve();
       });
     }));
   });
@@ -107,10 +105,13 @@ module.exports = function (settings, data, callback) {
       return app;
     });
 
-    console.log('Successfully converted all images to data URIs');
+    fs.writeFile(settings.appcache_media,
+      JSON.stringify(_.values(images).sort(), null, 2));
+
+    console.log('Successfully saved all images to disk');
     callback(null, data);
-  }, function () {
-    console.log('Failed to convert images to data URIs');
-    callback(null);
+  }, function (err) {
+    console.error('Failed to save images to disk:', err);
+    callback(err);
   });
 };

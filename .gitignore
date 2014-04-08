@@ -2,9 +2,13 @@
 *.min.*
 *.sw*
 .DS_Store
+appcache_media.json
 deploy.log
 node_modules/
 npm-debug.log
 settings_*.js
-src/db/*.json
+src/db/**/*.json
+src/downloads/**/*.gif
+src/downloads/**/*.jp*
+src/downloads/**/*.png
 templates.js
