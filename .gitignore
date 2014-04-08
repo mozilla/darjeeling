@@ -6,5 +6,5 @@ deploy.log
 node_modules/
 npm-debug.log
 settings_*.js
-src/db/
+src/db/*.json
 templates.js
