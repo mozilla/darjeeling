@@ -1,5 +1,4 @@
 *.appcache
-*.dist
 *.min.*
 *.sw*
 .DS_Store
