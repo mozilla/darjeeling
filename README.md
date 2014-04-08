@@ -1,4 +1,6 @@
-# metropolis
+# darjeeling
+
+An offline app store.
 
 
 # Installation

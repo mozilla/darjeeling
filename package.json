@@ -1,5 +1,5 @@
 {
-  "name": "metropolis",
+  "name": "darjeeling",
   "version": "0.0.1",
   "engines": {
     "node": ">=0.10.x",
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/cvan/metropolis.git"
+    "url": "git://github.com/cvan/darjeeling.git"
   },
   "dependencies": {
     "express": "~3.5.1",

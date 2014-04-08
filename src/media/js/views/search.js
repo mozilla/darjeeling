@@ -185,7 +185,7 @@ define('views/search',
   function installApp(app) {
     return new Promise(function (resolve, reject) {
       console.log('Installing ' + app.name + ': ' + app.manifest_url);
-      apps.install(app, {src: 'metropolis'}).then(function (mozApp) {
+      apps.install(app, {src: 'darjeeling'}).then(function (mozApp) {
 
         // Show success notification message.
         notification.notification({
