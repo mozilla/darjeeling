@@ -181,12 +181,7 @@ module.exports = function (grunt) {
       dist: {
         files: stringReplaceFiles,
         options: {
-          replacements: [
-            {
-              pattern: /fart/ig,
-              replacement: 'poop'
-            }
-          ]
+          replacements: []
         }
       }
     }
