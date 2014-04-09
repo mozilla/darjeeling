@@ -1,7 +1,7 @@
+var appcacheMedia = [];
 try {
-  var appcacheMedia = require('./src/appcache_media');
+  appcacheMedia = require('./src/appcache_media');
 } catch (e) {
-  var appcacheMedia = [];
 }
 var db = require('./lib/db');
 var settings = require('./settings');
@@ -51,7 +51,7 @@ module.exports = function (grunt) {
     concat: {
       dist: {
         options: {
-          process: function(src, filepath) {
+          process: function(src) {
             // TODO: Remove this when https://github.com/jlongster/nunjucks/issues/186 gets fixed.
             return src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1');
           }
@@ -148,7 +148,6 @@ module.exports = function (grunt) {
                                'icons/screenshots, and transforms data to ' +
                                'static JSON file to disk', function () {
     var done = this.async();
-    var name = this.name;
     var options = this.options();
     db.fetch().then(function () {
       grunt.log.writeln('File ' + color('cyan', options.dest) + ' created.');

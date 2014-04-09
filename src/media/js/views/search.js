@@ -45,7 +45,7 @@ define('views/search',
   }
 
   function search() {
-    timeStart = performance.now();
+    timeStart = window.performance.now();
 
     var query = q.value || '';
 
@@ -83,7 +83,7 @@ define('views/search',
   function renderResults(data) {
     console.log('Rendering results');
 
-    data.timing = performance.now() - data.timeStart;
+    data.timing = window.performance.now() - data.timeStart;
 
     q = $('input[name=q]');
 
@@ -297,7 +297,7 @@ define('views/search',
 
           // We're ready to rumble. Remove splash screen!
           document.body.removeChild(document.getElementById('splash-overlay'));
-          console.log('Hiding splash screen (' + ((performance.now() - window.start_time) / 1000).toFixed(6) + 's)');
+          console.log('Hiding splash screen (' + ((window.performance.now() - window.start_time) / 1000).toFixed(6) + 's)');
 
           // Initialize and then render search template.
           document.body.setAttribute('class', 'results');

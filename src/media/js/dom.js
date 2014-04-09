@@ -4,7 +4,7 @@ define('dom', ['utils'], function(utils) {
       return $.body;
     }
     var r = document.querySelectorAll(sel);
-    return r.length == 1 ? r[0] : Array.prototype.slice.call(r);
+    return r.length === 1 ? r[0] : Array.prototype.slice.call(r);
   }
 
   $.doc = document;
@@ -88,14 +88,14 @@ define('dom', ['utils'], function(utils) {
 
   if (!('CustomEvent' in window)) {
     // For IE 9/10 lol.
-    function CustomEvent(eventName, params) {
+    CustomEvent = function customEvent(eventName, params) {
       params = params || {bubbles: false, cancelable: false,
                           detail: undefined};
       var e = document.createEvent('CustomEvent');
       e.initCustomEvent(eventName, params.bubbles, params.cancelable,
                         params.detail);
       return e;
-    }
+    };
     CustomEvent.prototype = window.CustomEvent.prototype;
     window.CustomEvent = CustomEvent;
   }

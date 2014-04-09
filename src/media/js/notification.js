@@ -1,7 +1,6 @@
 define('notification', ['dom'], function($) {
   var hideTimer;
   var showTimer;
-  var notificationPromise;
 
   var notificationEl = document.createElement('div');
   notificationEl.setAttribute('class', 'notification hidden');

@@ -1,7 +1,7 @@
 define('templating', ['settings', 'utils'], function(settings, utils) {
-  var SafeString = nunjucks.require('runtime').SafeString;
-  var env = nunjucks.configure({autoescape: true});
-  var envGlobals = nunjucks.require('globals');
+  var SafeString = window.nunjucks.require('runtime').SafeString;
+  var env = window.nunjucks.configure({autoescape: true});
+  var envGlobals = window.nunjucks.require('globals');
 
   env.addGlobal = function(name, func) {
     envGlobals[name] = func;
@@ -36,7 +36,7 @@ define('templating', ['settings', 'utils'], function(settings, utils) {
       console.warn('Missing `id` in `locales.ini` for "' + str + '"');
     }
     // Use webL10n to localise.
-    str = _(id, pluralOpts) || str;
+    str = window._(id, pluralOpts) || str;
     return opts ? utils.format(str, opts) : str;
   }
 

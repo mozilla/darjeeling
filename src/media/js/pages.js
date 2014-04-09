@@ -16,7 +16,7 @@ define('pages',
   return {
     getTitle: getTitle,
     getPath: getPath,
-    routes: routes,
+    routes: window.routes,
     titles: titles
   };
 });

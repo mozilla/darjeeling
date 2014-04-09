@@ -12,10 +12,8 @@ if (!window.performance) {
           }
       };
 }
-window.start_time = performance.now();
+window.start_time = window.performance.now();
 
-var $ = require('dom');
-var app = new routes();
 var GET = require('utils').parseQueryString();
 
 if (GET.debug) {
@@ -31,9 +29,9 @@ document.webL10n.ready(function() {
   document.documentElement.lang = document.webL10n.getLanguage();
 
   var $ = require('dom');
+  var app = new window.routes();
   var pages = require('pages');
   var templating = require('templating');
-  var user = require('user');
 
   var views = {
     '/': 'search'
@@ -59,7 +57,7 @@ document.webL10n.ready(function() {
     app.load(e.target.getAttribute('href'));
   });
 
-  $.delegate('keypress', 'body:not(.results) input[name=q]', function(e) {
+  $.delegate('keypress', 'body:not(.results) input[name=q]', function() {
     app.load('/');
   });
 

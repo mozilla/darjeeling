@@ -4,7 +4,6 @@ define('user',
   var console = log('user');
 
   var settings = {};
-  var permissions = {};
 
   var persist = !capabilities.phantom;
 

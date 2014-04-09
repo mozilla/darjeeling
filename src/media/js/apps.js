@@ -78,13 +78,13 @@ define('apps',
             var pkg = this.result;
 
             if (app.is_packaged) {
-              pkg.ondownloadapplied = function (event) {
+              pkg.ondownloadapplied = function () {
                 console.log('App reported as installed: ' + pkg.name);
                 pkg.ondownloadapplied = null;
                 pkg.ondownloaderror = null;
                 resolve(installRequest.result, app);
               };
-              pkg.ondownloaderror = function (event) {
+              pkg.ondownloaderror = function () {
                 // if (!reattempt) {
                 //   return _install(app, true);
                 // }
@@ -93,7 +93,7 @@ define('apps',
               };
             } else {
               var isInstalled = setInterval(function () {
-                if (installRequest.result.installState == 'installed') {
+                if (installRequest.result.installState === 'installed') {
                   console.log('App reported as installed: ' + app.name);
                   clearInterval(isInstalled);
                   resolve(installRequest.result, app);
@@ -135,7 +135,7 @@ define('apps',
   }
 
   function getInstalled() {
-    return new Promise(function (resolve, reject) {
+    return new Promise(function (resolve) {
       // Don't call `navigator.mozApps.getInstalled` if the page isn't
       // visible or if the `navigator.mozApps` API isn't available.
       if (document.hidden || !capabilities.webApps) {

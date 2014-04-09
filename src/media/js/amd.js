@@ -33,7 +33,7 @@ function require(id) {
     var deps = definition[0];
     var module = definition[1];
 
-    if (typeof deps == 'function' && module === undefined) {
+    if (typeof deps === 'function' && module === undefined) {
       module = deps;
       deps = [];
     }
