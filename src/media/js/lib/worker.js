@@ -27,31 +27,64 @@ function index(data) {
 
   // Fetch JSON of all the documents.
   var xhr = new XMLHttpRequest();
-  xhr.onload = loadDocs;
+  xhr.onload = function () {
+    loadDocs(this.responseText);
+  };
   xhr.open('get', data.url, true);
   xhr.send();
+}
+
+function reindex_latest(data) {
+  log('GET', data.url);
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function () {
+    loadDocs(this.responseText, true);
+  };
+  xhr.open('get', data.url, true);
+  xhr.send();
+}
+
+function reindex_cached(data) {
+  log('Using cached docs');
+  loadDocs(data.data, false, true);
 }
 
 var docs = {};
 var docsList = [];
 
-function loadDocs() {
-  var list = JSON.parse(this.responseText);
+function loadDocs(response, latest, cached) {
+  var list = JSON.parse(response);
 
   var _id;
+  var cnt = 0;
   list.forEach(function indexDoc(doc) {
     if (Object.keys(doc).length) {
       _id = doc[index._ref].toString();
+      if (_id in docs) {
+        // Bail out if we've already indexed this doc.
+        return;
+      }
       docs[_id] = doc;
       docsList.push(doc);
       index.add(doc);
+      cnt++;
     }
   });
 
-  log('Indexed ' + list.length +
-      ' doc' + (list.length === 1 ? '' : 's'));
+  var where = 'preloaded';
+  var indexType = 'indexed';
 
-  postMessage({type: 'indexed', data: docs});
+  if (latest) {
+    where = 'online';
+    indexType = 'reindexed_latest';
+  } else if (cached) {
+    where = 'cached';
+    indexType = 'reindexed_cached';
+  }
+
+  log('Indexed ' + cnt + ' doc' + (cnt === 1 ? '' : 's') + ' from ' +
+      where + ' database');
+  postMessage({type: indexType, data: docs});
 }
 
 function searchDocs(data) {
@@ -89,7 +122,9 @@ function searchDocs(data) {
 
 var methods = {
   index: index,
-  search: searchDocs
+  search: searchDocs,
+  reindex_cached: reindex_cached,
+  reindex_latest: reindex_latest
 };
 
 addEventListener('message', function(e) {

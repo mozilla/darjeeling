@@ -14,6 +14,20 @@ if (!window.performance) {
 }
 window.start_time = window.performance.now();
 
+var hash = (/.*\.hash_(.*)\./.exec(require('routes_api')['search.docs.preloaded']) || [])[1] || '';
+document.body.dataset.preloaded_hash = hash;
+if (hash) {
+  var storage = require('storage');
+  var previousHash = storage.setItem('preloadedHash');
+  if (previousHash === hash) {
+    // Flush cached apps that we don't need anymore.
+    console.log('Removing old docs from local cache');
+    storage.removeItem('docs:' + hash);
+  } else {
+    storage.setItem('preloadedHash', hash);
+  }
+}
+
 var app = new window.routes();
 var GET = require('utils').parseQueryString();
 

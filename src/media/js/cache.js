@@ -5,6 +5,9 @@ define('cache', [], function() {
       return encodeURIComponent(value);
     }
     return {
+      clear: function() {
+        _cache = {};
+      },
       get: function(key) {
         return _cache[_key(key)];
       },

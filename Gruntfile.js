@@ -3,25 +3,10 @@ var path = require('path');
 
 var _ = require('lodash');
 
-var parseManifest = require('parse-appcache-manifest');
-
-var appcacheMedia = [];
-try {
-  appcacheMedia = require('./src/appcache_media');
-} catch (e) {
-}
 var db = require('./lib/db');
 var settings = require('./settings');
+var utils = require('./lib/utils');
 
-
-var colors = {
-  cyan: '\x1B[36m',
-  red: '\x1B[31m'
-};
-
-function color(whichColor, text) {
-  return colors[whichColor] + text + '\x1B[39m';
-}
 
 function computeHash(grunt, contents) {
   var hasher = crypto.createHash('sha256');
@@ -48,6 +33,20 @@ stringReplaceFiles[settings.frontend_dir + '/media/css/'] = settings.frontend_di
 stringReplaceFiles[settings.frontend_dir + '/media/js/'] = settings.frontend_dir + '/media/js/*.min.js';
 stringReplaceFiles[settings.frontend_dir + '/media/js/lib/'] = settings.frontend_dir + '/media/js/lib/*.min.js';
 stringReplaceFiles[settings.frontend_dir + '/prod.html'] = settings.frontend_dir + '/prod.html';
+
+var appcachedFiles = [
+  'db/preloaded.json',
+  'l10n/locales.ini',
+  'media/css/style.min.css',
+  'media/img/logo.png',
+  'media/img/search.png',
+  'media/js/lib/lunr.min.js',
+  'media/js/lib/lunr.unicodeNormalizer.min.js',
+  'media/js/lib/worker.min.js',
+  'media/js/main.min.js'
+];
+
+var frontend_dir = path.join(__dirname, settings.frontend_dir);
 
 module.exports = function (grunt) {
   grunt.initConfig({
@@ -144,37 +143,15 @@ module.exports = function (grunt) {
         }
       }
     },
-    manifest: {
-      generate: {
-        options: {
-          basePath: 'src/',
-          hash: true,
-          timestamp: false,
-          verbose: false
-        },
-        src: [
-          'db/data.json',
-          'l10n/locales.ini',
-          'media/css/style.min.css',
-          'media/img/logo.png',
-          'media/img/search.png',
-          'media/js/lib/lunr.min.js',
-          'media/js/lib/lunr.unicodeNormalizer.min.js',
-          'media/js/lib/worker.min.js',
-          'media/js/main.min.js'
-        ].concat(appcacheMedia),
-        dest: 'src/site.appcache'
+    appcache: {
+      options: {
+        manifest_dest: settings.frontend_dir + '/site.appcache',
+        data_dest: settings.db_dir + '/preloaded.json'
       }
     },
-    syncdb: {
+    fetchdb: {
       options: {
-        dest: settings.db_dir + '/data.json'
-      }
-    },
-    appcachehash: {
-      options: {
-        src: settings.frontend_dir + '/site.appcache',
-        dest: settings.frontend_dir + '/site.appcache'
+        data_dest: settings.db_dir + '/latest.json'
       }
     },
     'string-replace': {
@@ -195,71 +172,98 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-manifest');
   grunt.loadNpmTasks('grunt-nunjucks');
   grunt.loadNpmTasks('grunt-processhtml');
   grunt.loadNpmTasks('grunt-string-replace');
 
-  grunt.registerTask('syncdb', 'Fetches JSON from API, downloads ' +
+  grunt.registerTask('appcache', 'Fetches JSON from API, downloads ' +
+                                 'icons/screenshots, and transforms data to ' +
+                                 'static JSON file to disk; ' +
+                                 'creates appcache manifest', function () {
+    var done = this.async();
+    var options = this.options();
+    var cachebustedUrls = [];
+    var replacements = [];
+
+    db.fetchPreloaded(options.data_dest).then(function () {
+      grunt.log.writeln(
+        'File ' + utils.color('cyan', options.data_dest) + ' created.');
+      createAppcache();
+    }, function (err) {
+      grunt.log.writeln(utils.color('red',
+        'File ' + options.file_dest + ' failed to be created: ' + err));
+      done();
+    }).catch(function (err) {
+      grunt.log.writeln(utils.color('red', 'lib/db failed: ' + err));
+      done();
+    });
+
+    function createAppcache() {
+      var files = appcachedFiles;
+
+      try {
+        files = files.concat(require('./' + settings.appcache_media)).map(function (url) {
+          return url.replace(/hash_.+\./,'');
+        });
+      } catch (e) {
+      }
+
+      files.forEach(function (url) {
+        var fn = path.join(frontend_dir, url);
+        grunt.verbose.writeln('Hashing ' + url);
+        var hash = computeHash(grunt, grunt.file.read(fn)).substr(0, 7);
+        var newUrl = utils.cachebust(url, hash);
+
+        cachebustedUrls.push(newUrl);
+        replacements.push({
+          pattern: new RegExp(url, 'ig'),
+          replacement: newUrl
+        });
+      });
+
+      // Add cachebusting-querystring parameters to resources we want to list in
+      // appcache manifest (see bug 993919).
+
+      var manifest = 'CACHE MANIFEST\n\n' +
+                     'CACHE:\n' +
+                     cachebustedUrls.join('\n') + '\n\n' +
+                     'NETWORK:\n*\n';
+
+      // Create manifest with cachebusted URLs.
+      grunt.file.write(options.manifest_dest, manifest);
+
+      // Replace across all source files all occurrences of original URLs with
+      // cachebusted URLs.
+      grunt.config('string-replace.dist.options.replacements', replacements);
+
+      done();
+    }
+  });
+
+  grunt.registerTask('fetchdb', 'Fetches JSON from API, downloads ' +
                                'icons/screenshots, and transforms data to ' +
                                'static JSON file to disk', function () {
     var done = this.async();
     var options = this.options();
-    db.fetch().then(function () {
-      grunt.log.writeln('File ' + color('cyan', options.dest) + ' created.');
+    db.fetchLatest(options.data_dest).then(function () {
+      grunt.log.writeln(
+        'File ' + utils.color('cyan', options.data_dest) + ' created.');
       done();
-    }, function () {
-      grunt.log.writeln(color('red',
-        'File ' + options.dest + ' failed to be created.'));
+    }, function (err) {
+      grunt.log.writeln(utils.color('red',
+        'File ' + options.file_dest + ' failed to be created: ' + err));
       done();
     }).catch(function (err) {
-      grunt.log.writeln(color('red', 'lib/db failed: ' + err));
+      grunt.log.writeln(utils.color('red', 'lib/db failed: ' + err));
       done();
     });
-  });
 
-  // (See bug 99319.)
-  grunt.registerTask('appcachehash', 'Adds cachebusting-querystring parameters ' +
-                                     'to resources listed in appcache and ' +
-                                     'writes to disk a JS file whose AMD ' +
-                                     'module returns an object mapping each ' +
-                                     'resource URL to its ' +
-                                     'cachebusting-querystring ' +
-                                     'parameter', function () {
-    var options = this.options();
-
-    var manifest = grunt.file.read(options.src);
-    var cached = parseManifest(manifest).cache;
-    var cachebustedUrls = {};
-    var replacements = [];
-
-    cached.forEach(function (url) {
-      var fn = path.join(settings.frontend_dir, url);
-      grunt.verbose.writeln('Hashing ' + url);
-      var hash = computeHash(grunt, grunt.file.read(fn)).substr(0, 7);
-      var newUrl = urlparams(url, 'h=' + hash);
-      cachebustedUrls[url] = newUrl;
-      replacements.push({
-        pattern: new RegExp(url, 'ig'),
-        replacement: newUrl
-      });
-    });
-
-    // Replace the `CACHE:` block with the newly cachebusted URLs.
-    var newManifest = manifest.replace(/CACHE:[\s\S]*\n\n/,
-      'CACHE:\n' + _.values(cachebustedUrls).join('\n') + '\n\n');
-
-    // Replace manifest with the new manifest containing cachebusted URLs.
-    grunt.file.write(options.dest, newManifest);
-
-    // Replace across all source files all occurrences of original URLs with
-    // cachebusted URLs.
-    grunt.config('string-replace.dist.options.replacements', replacements);
   });
 
   grunt.registerTask('default', ['nunjucks', 'watch']);
-  grunt.registerTask('appcache', ['manifest', 'appcachehash']);
+
+  // Order is very important!
   grunt.registerTask('minify',
-    ['processhtml', 'syncdb', 'manifest', 'nunjucks',
-     'concat', 'cssmin', 'uglify', 'appcachehash', 'string-replace']);
+    ['processhtml', 'nunjucks', 'concat', 'cssmin', 'uglify', 'appcache',
+     'string-replace', 'fetchdb']);
 };

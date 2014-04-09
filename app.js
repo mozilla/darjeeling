@@ -9,6 +9,7 @@ var settings = require('./settings');
 var app = express();
 
 var frontend_dir = path.join(__dirname, settings.frontend_dir);
+var db_dir = path.join(__dirname, settings.db_dir);
 
 app.configure(function () {
   app.set('port', process.env.PORT || 3000);
@@ -32,15 +33,28 @@ if (settings.debug) {
   app.get('/manifest.appcache', function (req, res) {
     res.sendfile(path.join(frontend_dir, 'site.appcache'));
   });
+  app.get('//manifest.appcache', function (req, res) {
+    res.sendfile(path.join(frontend_dir, 'site.appcache'));
+  });
 }
 
-app.get('/fetch', function (req, res) {
-  db.fetch().then(function () {
+// NOTE: Do not ever *ever* cache with far-future max-age! Always use ETags!
+
+// Route cachebusted URLs (for appcache). This needs to be in nginx!
+app.get(/.*\.hash_\.*/, function (req, res) {
+  res.sendfile(path.join(frontend_dir, req.url.replace(/hash_.+\./,'')));
+});
+
+// Note: This the same as `grunt fetchdb` (which should run as a cron job).
+// That means if we have `grunt fetchdb` running as a cron job, we don't need
+// this in nginx.
+app.get('/fetchdb', function (req, res) {
+  db.fetch(path.join(db_dir, 'latest.json')).then(function () {
     res.json({success: true});
   }, function () {
     res.json({error: true});
   }).catch(function (err) {
-    console.error('lib/db errored:', err);
+    console.error('lib/db.fetch errored:', err);
   });
 });
 
