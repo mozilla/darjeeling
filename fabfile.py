@@ -28,7 +28,7 @@ def update():
 
 @task
 def deploy():
-    helpers.deploy(name=settings.PROJECT_NAME,
+    helpers.deploy(name='darjeeling',
                    app_dir='darjeeling',
                    env=settings.ENV,
                    cluster=settings.CLUSTER,
