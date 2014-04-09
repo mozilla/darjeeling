@@ -25,6 +25,7 @@
     "grunt-nunjucks": "~0.1.4",
     "nunjucks": "~1.0.2",
     "grunt-manifest": "git://github.com/gunta/grunt-manifest.git#6b830e31",
-    "grunt-contrib-jshint": "^0.10.0"
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-processhtml": "^0.3.0"
   }
 }

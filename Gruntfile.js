@@ -104,6 +104,13 @@ module.exports = function (grunt) {
         }
       }
     },
+    processhtml: {
+      prod: {
+        files: {
+          'src/prod.html': ['src/dev.html']
+        }
+      }
+    },
     manifest: {
       generate: {
         options: {
@@ -143,6 +150,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-manifest');
   grunt.loadNpmTasks('grunt-nunjucks');
+  grunt.loadNpmTasks('grunt-processhtml');
 
   grunt.registerTask('syncdb', 'Fetches JSON from API, downloads ' +
                                'icons/screenshots, and transforms data to ' +
@@ -164,5 +172,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', ['nunjucks', 'watch']);
   grunt.registerTask('minify',
-    ['syncdb', 'nunjucks', 'concat', 'cssmin', 'uglify', 'manifest']);
+    ['processhtml', 'syncdb', 'nunjucks', 'concat', 'cssmin', 'uglify',
+     'manifest']);
 };

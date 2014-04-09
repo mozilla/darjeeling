@@ -11,4 +11,5 @@ src/db/**/*.json
 src/downloads/**/*.gif
 src/downloads/**/*.jp*
 src/downloads/**/*.png
+src/prod.html
 templates.js

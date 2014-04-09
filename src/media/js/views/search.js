@@ -26,7 +26,7 @@ define('views/search',
       worker.postMessage({
         type: 'index',
         data: {
-          min: !!document.body.dataset.prod,
+          min: !!JSON.parse(document.body.dataset.prod || 'false'),
           url: url('search.docs'),
           fields: {
             name_search: {boost: 25},

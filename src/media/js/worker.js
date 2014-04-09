@@ -5,7 +5,7 @@ define('worker', ['log'], function(log) {
     'log': console.log
   };
 
-  var worker = new Worker(document.body.dataset.prod ?
+  var worker = new Worker(JSON.parse(document.body.dataset.prod || 'false') ?
                           'media/js/lib/worker.min.js' :
                           'media/js/lib/worker.js');
   worker.addEventListener('message', function(e) {
