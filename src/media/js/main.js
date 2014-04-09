@@ -14,6 +14,7 @@ if (!window.performance) {
 }
 window.start_time = window.performance.now();
 
+var app = new window.routes();
 var GET = require('utils').parseQueryString();
 
 if (GET.debug) {
@@ -29,7 +30,6 @@ document.webL10n.ready(function() {
   document.documentElement.lang = document.webL10n.getLanguage();
 
   var $ = require('dom');
-  var app = new window.routes();
   var pages = require('pages');
   var templating = require('templating');
 
