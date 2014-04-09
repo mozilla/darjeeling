@@ -4,13 +4,7 @@ TIMESTAMP=$(date)
 
 echo 'Pushing to production ...'
 
-echo 'Updating database ...'
-
-curl 'http://localhost:'${PORT:-3000}'/fetch'
-
-sleep 15
-
-echo 'Minifying assets ...'
+echo 'Updating database and minifying assets ...'
 
 grunt minify
 

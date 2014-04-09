@@ -1,4 +1,20 @@
-var appcacheMedia = require('./src/appcache_media');
+try {
+  var appcacheMedia = require('./src/appcache_media');
+} catch (e) {
+  var appcacheMedia = [];
+}
+var db = require('./lib/db');
+var settings = require('./settings');
+
+
+var colors = {
+  cyan: '\x1B[36m',
+  red: '\x1B[31m'
+};
+
+function color(whichColor, text) {
+  return colors[whichColor] + text + '\x1B[39m';
+}
 
 
 module.exports = function (grunt) {
@@ -97,6 +113,11 @@ module.exports = function (grunt) {
         ].concat(appcacheMedia),
         dest: 'src/site.appcache'
       }
+    },
+    syncdb: {
+      options: {
+        dest: settings.db_dir + '/data.json'
+      }
     }
   });
 
@@ -110,7 +131,26 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-manifest');
   grunt.loadNpmTasks('grunt-nunjucks');
 
+  grunt.registerTask('syncdb', 'Fetches JSON from API, downloads ' +
+                               'icons/screenshots, and transforms data to ' +
+                               'static JSON file to disk', function () {
+    var done = this.async();
+    var name = this.name;
+    var options = this.options();
+    db.fetch().then(function () {
+      grunt.log.writeln('File ' + color('cyan', options.dest) + ' created.');
+      done();
+    }, function () {
+      grunt.log.writeln(color('red',
+        'File ' + options.dest + ' failed to be created.'));
+      done();
+    }).catch(function (err) {
+      grunt.log.writeln(color('red', 'lib/db failed: ' + err));
+      done();
+    });
+  });
+
   grunt.registerTask('default', ['nunjucks', 'watch']);
   grunt.registerTask('minify',
-    ['nunjucks', 'concat', 'cssmin', 'uglify', 'manifest']);
+    ['syncdb', 'nunjucks', 'concat', 'cssmin', 'uglify', 'manifest']);
 };
