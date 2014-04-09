@@ -16,7 +16,6 @@ function color(whichColor, text) {
   return colors[whichColor] + text + '\x1B[39m';
 }
 
-
 module.exports = function (grunt) {
   grunt.initConfig({
     watch: {
@@ -24,6 +23,19 @@ module.exports = function (grunt) {
         files: 'src/templates/*',
         tasks: ['nunjucks']
       }
+    },
+    jshint: {
+      options: {
+        jshintrc: __dirname + '/.jshintrc'
+      },
+      files: [
+        '*.js',
+        'lib/**/*.js',
+        'src/**/*.js',
+        '!src/**/*.min.js',
+        '!src/media/js/lib/*.js',
+        '!src/media/js/templates.js'
+      ]
     },
     nunjucks: {
       options: {
@@ -126,6 +138,7 @@ module.exports = function (grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-manifest');
