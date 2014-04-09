@@ -1,6 +1,7 @@
 *.appcache
 *.min.*
 *.sw*
+*.pyc
 .DS_Store
 appcache_media.json
 deploy.log
