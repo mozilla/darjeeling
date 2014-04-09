@@ -1,6 +1,6 @@
 var _ = require('lodash');
 
-var dbTransformer = require('./db-transformer');
+var dbTransformer = require('./lib/db-transformer');
 var pkg = require('./package.json');
 
 
@@ -15,8 +15,8 @@ var settings = {
 
 settings.appcache_media = settings.frontend_dir + '/appcache_media.json';
 
-settings.db_transformer = function (data, callback) {
-  dbTransformer(settings, data, callback);
+settings.db_transformer = function (data) {
+  return dbTransformer(settings, data);
 };
 
 if ('DEBUG' in process.env) {

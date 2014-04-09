@@ -1,9 +1,8 @@
-var fs = require('fs');
 var path = require('path');
 
 var express = require('express');
-var request = require('request');
 
+var db = require('./lib/db');
 var settings = require('./settings');
 
 
@@ -36,46 +35,13 @@ if (settings.debug) {
 }
 
 app.get('/fetch', function (req, res) {
-  var now = Date.now();
-
-  var fnOriginal = path.join(settings.db_dir, 'original.json');
-  var fnTransformed = path.join(settings.db_dir, 'data.json');
-  var fnArchivedOriginal = path.join(settings.db_dir, 'archives', now + '-original.json');
-  var fnArchivedTransformed = path.join(settings.db_dir, 'archives', now + '-data.json');
-
-  request(settings.db_url, function (err, res, body) {
-    if (err) {
-      console.error(err);
-      return res.json({error: true});
-    }
-
-    fs.writeFile(fnOriginal, body);
-    fs.writeFile(fnArchivedOriginal, body);
-
-    var bodyJSON = JSON.parse(body);
-
-    settings.db_transformer(bodyJSON, function (transformedErr, transformedData) {
-      if (transformedErr) {
-        console.error(transformedErr);
-        return res.json({error: true});
-      }
-
-      var transformedDataSerialized = JSON.stringify(transformedData);
-
-      console.log('Successfully wrote database to disk', fnTransformed);
-      fs.writeFile(fnTransformed, transformedDataSerialized);
-      fs.writeFile(fnArchivedTransformed, transformedDataSerialized);
-
-      // In the future, any new data the client doesn't have will
-      // come in the future of incremental GETs instead of having
-      // to bust the appcache and refetch everything any time the
-      // database changes. (See issue #4.)
-      console.log('Cachebusted appcache manifest');
-      fs.appendFile(path.join(frontend_dir, 'site.appcache'), 'x');
-    });
+  db.fetch().then(function () {
+    res.json({success: true});
+  }, function () {
+    res.json({error: true});
+  }).catch(function (err) {
+    console.error('lib/db errored:', err);
   });
-
-  res.json({success: true});
 });
 
 app.listen(app.get('port'), function () {
