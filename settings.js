@@ -30,6 +30,11 @@ var settings_name = process.argv.slice(2).join('')
   .replace('--settings', '').replace('=','').trim()
   .replace(/^\.\//, '').replace(/\.js$/, '') || 'settings_local';
 
+if (process.argv.join(' ').indexOf('app.js') === -1) {
+  // Force `settings_local` if we're not running `app.js`.
+  settings_name = 'settings_local';
+}
+
 var settings_local = {};
 
 try {
