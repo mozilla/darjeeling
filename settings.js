@@ -7,7 +7,7 @@ var pkg = require('./package.json');
 var settings = {
   debug: true,
   db_dir: 'src/db',
-  db_url: 'https://marketplace-dev.allizom.org/api/v1/rocketfuel/collections/curated/',
+  db_url: 'https://marketplace-dev.allizom.org/api/v1/fireplace/collection/curated/',
   downloads_dir: 'src/downloads',
   frontend_dir: 'src',
   use_data_uris: true
