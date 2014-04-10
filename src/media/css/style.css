@@ -354,18 +354,16 @@ dark blue #225295 rgb(34,82,149)
 */
 
 .install {
-  background: rgba(46,204,113,.825);
-  border: 0;
-  box-shadow: 0 2px rgba(34,149,82,.825);
-  border-radius: 2px;
+  background-color: #1793E5;
+  background-repeat: repeat-x;
+  border: 1px solid #1793E5;
+  border-radius: 4px;
   color: #fff;
   display: inline-block;
-  font-size: 10px;
-  line-height: 1;
+  font-size: 12px;
   transition: .2s all ease-in;
-  text-transform: uppercase;
   text-align: center;
-  padding: 9px 0 6px;
+  padding: 3px 6px;
   pointer-events: none;
   position: absolute;
   top: 35px;
@@ -375,19 +373,17 @@ dark blue #225295 rgb(34,82,149)
 
 .app:hover .install,
 .app:focus .install {
-  background: rgb(46,204,113);
-  box-shadow: 0 2px rgb(34,149,82);
+  background: #1584CE;
 }
 
 .open {
-  background: rgba(46,113,204,.825);
-  box-shadow: 0 2px rgba(34,82,149,.825);
+  background: rgba(46,204,113,.825);
+  border: rgb(46,204,113);
 }
 
 .app:hover .open,
 .app:focus .open {
-  background: rgb(46,113,204);
-  box-shadow: 0 2px rgb(34,82,149);
+  background: rgb(46,204,113);
 }
 
 .notice {
@@ -418,7 +414,7 @@ dark blue #225295 rgb(34,82,149)
      problems on FF b2g (bug 886334). */
   transition-property: bottom;
   width: 100%;
-  z-index: 2;
+  z-index: 20;
 }
 
 .notification.success {
