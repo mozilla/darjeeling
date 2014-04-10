@@ -1,8 +1,0 @@
-{% if data.query %}
-  <h1>
-    {{ data.results.length }} {{ pluralise('result', data.results) }}
-      for <b>{{ data.query }}</b>
-    {% set timing = data.timing / 1000 %}
-    <span class="speed">(took {{ timing|round(6, 'floor') }}s)</span>
-  </h1>
-{% endif %}

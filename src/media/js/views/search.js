@@ -170,6 +170,9 @@ define('views/search',
     if (!utils.eq(current, previous)) {
       // Only re-render results if results have changed.
       templating.render('results', {data: data, docs: docs}, function(res) {
+        // Override body classname, I don't use classList because I'm lazy and
+        // don't want to figure out what to remove.
+        document.body.className = 'results ' + (dest === '/' ? 'homepage' : 'search');
         $('main ol').innerHTML = res;
       });
     }
@@ -359,7 +362,7 @@ define('views/search',
           console.log('Hiding splash screen (' + ((window.performance.now() - window.start_time) / 1000).toFixed(6) + 's)');
 
           // Initialize and then render search template.
-          document.body.setAttribute('class', 'results');
+          document.body.className = 'results';
           document.body.dataset.page = 'results';
           search();
         });
