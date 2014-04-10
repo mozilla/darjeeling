@@ -72,11 +72,31 @@ a:hover {
 }
 
 button {
+  background-color: #4CB1FF;
+  border: 1px solid #4CB1FF;
+  border-radius: 4px;
+  color: #fff;
   cursor: pointer;
+  display: inline-block;
+  font-size: 12px;
+  padding: 3px 6px;
+  text-align: center;
+  transition: .2s all ease-in;
+}
+
+button:hover,
+button:focus {
+  background: #1584CE;
+  border-color: #1584CE;
 }
 
 .header {
   flex: 1 0 62px;
+}
+
+main header {
+  display: flex;
+  justify-content: space-between;
 }
 
 main {
@@ -88,8 +108,8 @@ main {
 form {
   align-items: flex-start;
   background: #fff;
-  border-top: 1px solid #e6e6e6;
   border-bottom: 1px solid #bbb;
+  border-top: 1px solid #e6e6e6;
   display: flex;
   padding: 10px 15px;
 }
@@ -219,8 +239,11 @@ input:valid ~ .search-clear {
 main h1 {
   color: #666;
   font-weight: 400;
-  margin: 10px;
   font-size: 22px;
+}
+
+.homepage main h1 {
+  margin: 10px;
 }
 
 section {
@@ -270,10 +293,10 @@ section {
 .icon {
   background-repeat: no-repeat;
   background-size: 64px;
-  top: 10px;
   height: 64px;
   position: absolute;
   left: 10px;
+  top: 10px;
   width: 64px;
   z-index: 10;
 }
@@ -334,50 +357,27 @@ section {
 
 .speed {
   color: #ccc;
+  display: none;
   font-size: 16px;
   margin-left: 2px;
-  display: none;
 }
 
-/*
-
-green #2ecc71 rgb(46,204,113)
-dark green #229552 rgb(34,149,82)
-blue #2e71cc rgb(46,113,204)
-dark blue #225295 rgb(34,82,149)
-
-*/
-
 .install {
-  background-color: #1793E5;
-  background-repeat: repeat-x;
-  border: 1px solid #1793E5;
-  border-radius: 4px;
-  color: #fff;
-  display: inline-block;
-  font-size: 12px;
-  transition: .2s all ease-in;
-  text-align: center;
-  padding: 3px 6px;
   position: absolute;
   top: 35px;
   right: 11px;
   width: 80px;
 }
 
-.app:hover .install,
-.app:focus .install {
-  background: #1584CE;
-}
-
 .open {
-  background: rgba(46,204,113,.825);
-  border: rgb(46,204,113);
+  background: rgb(46,204,113);
+  border-color: rgb(46,204,113);
 }
 
-.app:hover .open,
-.app:focus .open {
-  background: rgb(46,204,113);
+.open:hover,
+.open:focus {
+  background: rgb(46,204,113); /* FIXME */
+  border-color: rgb(46,204,113);
 }
 
 .notice {
@@ -437,6 +437,44 @@ dark blue #225295 rgb(34,82,149)
   display: inline-block;
   line-height: 1.5;
   vertical-align: middle;
+}
+
+.thumbnail {
+  align-items: center;
+  background: #F1F1F1;
+  display: none;
+  justify-content: space-between;
+  margin: 0 -1px;
+  padding: 10px;
+}
+
+.expanded .thumbnail {
+  display: flex;
+}
+
+.thumbnail button {
+  font-size: 22px;
+  height: 75px;
+  padding: 3px;
+}
+
+.thumbnail img {
+  display: block;
+  max-width: 150px;
+  max-height: 150px;
+}
+
+.toggle-view {
+  background: transparent;
+  border: none;
+  color: #666;
+}
+
+.toggle-view:hover,
+.toggle-view:focus {
+  background-color: #F1F1F1;
+  border: none;
+  color: #333;
 }
 
 @media (min-width: 600px) {

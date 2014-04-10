@@ -202,6 +202,12 @@ define('views/search',
     search();
   });
 
+  $.delegate('click', '.toggle-view', function(e) {
+    e.preventDefault();
+    $('main').classList.toggle('expanded');
+    e.target.classList.toggle('expanded');
+  });
+
   $.delegate('click', '.screenshot', function(e) {
     e.preventDefault();
     e.target.classList.toggle('active');
