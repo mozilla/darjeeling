@@ -468,17 +468,20 @@ section {
   max-height: 150px;
 }
 
-.toggle-view {
-  background: transparent;
-  border: none;
-  color: #666;
-}
-
+.toggle-view,
 .toggle-view:hover,
 .toggle-view:focus {
-  background-color: #F1F1F1;
+  background: url(../../media/img/toggle-view.png) transparent;
+  background-position: 0 22px;
   border: none;
-  color: #333;
+  color: #666;
+  cursor: pointer;
+  height: 22px;
+  width: 54px;
+}
+
+.toggle-view.expanded {
+  background-position: 0 0;
 }
 
 @media (min-width: 600px) {

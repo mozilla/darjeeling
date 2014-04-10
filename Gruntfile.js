@@ -40,6 +40,7 @@ var appcachedFiles = [
   'media/css/style.min.css',
   'media/img/logo.png',
   'media/img/search.png',
+  'media/img/toggle-view.png',
   'media/js/lib/lunr.min.js',
   'media/js/lib/lunr.unicodeNormalizer.min.js',
   'media/js/lib/worker.min.js',
