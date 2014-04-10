@@ -13,6 +13,20 @@
           _('Open', 'open') if installed else _('Install', 'install') }}</button>
       </div>
       <div class="description">{{ doc.description|translate(doc)|summarise }}</div>
+      <div class="thumbnail">
+          <button>&lt;</button>
+          <img src="{{ doc.previews[0].image }}" class="screenshot">
+          <button>&gt;</button>
+          <!--
+            FIXME: 
+             - use icons for the switch view button
+             - display individual links (the blue discs) to other thumbs
+             - hide buttons if necessary in js (maybe always hide them in search results ?)
+             - switch thumb in js when clicking no buttons/disc links
+             - display screenshot when clicked
+             - use thumb image instead of full screenshot
+          -->
+      </div>
     </a>
   </li>
 {% endfor %}
