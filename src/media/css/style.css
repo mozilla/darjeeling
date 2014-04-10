@@ -67,12 +67,12 @@ a {
   text-decoration: none;
 }
 
-a:not([href]) {
-  cursor: pointer;
-}
-
 a:hover {
   color: #036;
+}
+
+button {
+  cursor: pointer;
 }
 
 .header {
@@ -267,11 +267,6 @@ section {
   border: none;
 }
 
-.app .details,
-.app .details * {
-  pointer-events: none;
-}
-
 .icon {
   background-repeat: no-repeat;
   background-size: 64px;
@@ -364,7 +359,6 @@ dark blue #225295 rgb(34,82,149)
   transition: .2s all ease-in;
   text-align: center;
   padding: 3px 6px;
-  pointer-events: none;
   position: absolute;
   top: 35px;
   right: 11px;

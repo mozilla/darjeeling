@@ -205,12 +205,7 @@ define('views/search',
     e.target.classList.toggle('active');
   });
 
-  $.delegate('click', '.app', function (e) {
-    // TODO: Fix event delegation bubbling.
-    if (!e.target.classList.contains('app')) {
-      return;
-    }
-
+  $.delegate('click', '.install', function (e) {
     var app = docs[e.target.dataset.id];
 
     if (app.installed) {
