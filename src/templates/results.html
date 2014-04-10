@@ -1,20 +1,18 @@
 {% for data in data.results %}
   <li{% if data.score %} title="{{ _('Score: {score}', 'resultsScore', {score: data.score.toFixed(8)}) }}"{% endif %}>
     {% set doc = data.doc %}
-    <a class="app" data-id="{{ doc._id }}">
-      <div style="background-image:url({{ doc.previews[0].image }})" class="screenshot">
-        <div style="background-image:url({{ doc.icon }})" class="icon"></div>
-      </div>
+    <a class="app">
+      <div style="background-image:url({{ doc.icon }})" class="icon"></div>
       <div class="details">
         <div class="trunc name">{{ doc.name|translate(doc) }}</div>
         <div class="trunc dev">{{ _('by {author}', 'byAuthor', {author: doc.author}) }}</div>
         {% set stars = doc.ratings.average|floor %}
         <div class="stars">{% for x in range(stars) %}&#9733;{% endfor %}{% if doc.ratings.average - stars >= 0.5 %}<span class="half">&#9733;</span>{% endif %}<span class="empty">{% for x in range(5 - stars) %}&#9733;{% endfor %}</span></div>
-        <div class="description">{{ doc.description|translate(doc)|summarise }}</div>
         {% set installed = docs[doc._id].installed %}
-        <button class="install{{ ' open' if installed }}">{{
+        <button  data-id="{{ doc._id }}" class="install{{ ' open' if installed }}">{{
           _('Open', 'open') if installed else _('Install', 'install') }}</button>
       </div>
+      <div class="description">{{ doc.description|translate(doc)|summarise }}</div>
     </a>
   </li>
 {% endfor %}

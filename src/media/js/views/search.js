@@ -144,7 +144,9 @@ define('views/search',
 
     data.timing = window.performance.now() - data.timeStart;
 
-    q = $('input[name=q]');
+    if (!q) {
+      q = $('input[name=q]');
+    }
 
     // Update location bar based on search term.
     GET = utils.parseQueryString();
@@ -170,6 +172,9 @@ define('views/search',
     if (!utils.eq(current, previous)) {
       // Only re-render results if results have changed.
       templating.render('results', {data: data, docs: docs}, function(res) {
+        // Override body classname, I don't use classList because I'm lazy and
+        // don't want to figure out what to remove.
+        document.body.className = 'results ' + (dest === '/' ? 'homepage' : 'search');
         $('main ol').innerHTML = res;
       });
     }
@@ -202,12 +207,7 @@ define('views/search',
     e.target.classList.toggle('active');
   });
 
-  $.delegate('click', '.app', function (e) {
-    // TODO: Fix event delegation bubbling.
-    if (!e.target.classList.contains('app')) {
-      return;
-    }
-
+  $.delegate('click', '.install', function (e) {
     var app = docs[e.target.dataset.id];
 
     if (app.installed) {
@@ -323,12 +323,6 @@ define('views/search',
     }
   }, settings.offlineInterval);
 
-  GET = utils.parseQueryString();
-  reset();
-  if (GET.q) {
-    q.value = GET.q;
-  }
-
   function init() {
     if (document.body.dataset.page === 'results') {
       // Bail if we've already rendered this page.
@@ -359,8 +353,13 @@ define('views/search',
           console.log('Hiding splash screen (' + ((window.performance.now() - window.start_time) / 1000).toFixed(6) + 's)');
 
           // Initialize and then render search template.
-          document.body.setAttribute('class', 'results');
+          document.body.className = 'results';
           document.body.dataset.page = 'results';
+          GET = utils.parseQueryString();
+          reset();
+          if (GET.q) {
+            q.value = GET.q;
+          }
           search();
         });
       });
