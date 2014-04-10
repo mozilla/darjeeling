@@ -459,7 +459,7 @@ section {
 }
 
 .results .thumbnail button {
-  display: none;
+  visibility: hidden;
 }
 
 .thumbnail img {
