@@ -7,10 +7,8 @@ var index;
 
 function index(data) {
   // TODO: Have uglify inline these scripts when minfied.
-  importScripts(data.min ? '../../../media/js/lib/lunr.min.js' :
-                           '../../../media/js/lib/lunr.js');
-  importScripts(data.min ? '../../../media/js/lib/lunr.unicodeNormalizer.min.js' :
-                           '../../../media/js/lib/lunr.unicodeNormalizer.js');
+  importScripts(data.min ? 'lunr.min.js' : 'lunr.js');
+  importScripts(data.min ? 'lunr.unicodeNormalizer.min.js' : 'lunr.unicodeNormalizer.js');
 
   log('Loaded lunr v' + lunr.version);
 

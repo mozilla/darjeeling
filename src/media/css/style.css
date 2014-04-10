@@ -107,8 +107,7 @@ input[type=search]::-webkit-search-cancel-button {
 }
 
 input {
-  /* Do not remove the "media/img" part. This is needed for cachebusting. */
-  background: #f4f4f4 url(../../media/img/search.png) 10px 10px no-repeat;
+  background: #f4f4f4 url(../img/search.png) 10px 10px no-repeat;
   background-size: 16px;
   border: 2px solid #c7c7c7;
   border-radius: 10px;
@@ -205,8 +204,7 @@ input:valid ~ .search-clear {
 }
 
 .logo {
-  /* Do not remove the "media/img" part. This is needed for cachebusting. */
-  background: url(../../media/img/logo.png) 0 50% no-repeat;
+  background: url(../img/logo.png) 0 50% no-repeat;
   background-size: 30px;
   color: #fff;
   display: block;

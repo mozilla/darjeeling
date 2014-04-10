@@ -1,10 +1,3 @@
-var crypto = require('crypto');
-var path = require('path');
-
-var _ = require('lodash');
-
-var parseManifest = require('parse-appcache-manifest');
-
 var appcacheMedia = [];
 try {
   appcacheMedia = require('./src/appcache_media');
@@ -22,32 +15,6 @@ var colors = {
 function color(whichColor, text) {
   return colors[whichColor] + text + '\x1B[39m';
 }
-
-function computeHash(grunt, contents) {
-  var hasher = crypto.createHash('sha256');
-  hasher.update(contents, 'binary');
-  return hasher.digest('hex');
-}
-
-function baseurl(url) {
-  return url.split('?')[0];
-}
-
-function urlparams(url, qs) {
-  if (url.indexOf('?') === -1) {
-    return url + '?' + qs;
-  }
-  return url + '&' + qs;
-}
-
-// These are the files containing un-cachbusted URLs that need to get
-// replaced with cachedbusted URLs.
-var stringReplaceFiles = {};
-stringReplaceFiles[settings.db_dir + '/data.json'] = settings.db_dir + '/data.json';
-stringReplaceFiles[settings.frontend_dir + '/media/css/'] = settings.frontend_dir + '/media/css/*.min.css';
-stringReplaceFiles[settings.frontend_dir + '/media/js/'] = settings.frontend_dir + '/media/js/*.min.js';
-stringReplaceFiles[settings.frontend_dir + '/media/js/lib/'] = settings.frontend_dir + '/media/js/lib/*.min.js';
-stringReplaceFiles[settings.frontend_dir + '/prod.html'] = settings.frontend_dir + '/prod.html';
 
 module.exports = function (grunt) {
   grunt.initConfig({
@@ -170,20 +137,6 @@ module.exports = function (grunt) {
       options: {
         dest: settings.db_dir + '/data.json'
       }
-    },
-    appcachehash: {
-      options: {
-        src: settings.frontend_dir + '/site.appcache',
-        dest: settings.frontend_dir + '/site.appcache'
-      }
-    },
-    'string-replace': {
-      dist: {
-        files: stringReplaceFiles,
-        options: {
-          replacements: []
-        }
-      }
     }
   });
 
@@ -198,7 +151,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-manifest');
   grunt.loadNpmTasks('grunt-nunjucks');
   grunt.loadNpmTasks('grunt-processhtml');
-  grunt.loadNpmTasks('grunt-string-replace');
 
   grunt.registerTask('syncdb', 'Fetches JSON from API, downloads ' +
                                'icons/screenshots, and transforms data to ' +
@@ -218,48 +170,8 @@ module.exports = function (grunt) {
     });
   });
 
-  // (See bug 99319.)
-  grunt.registerTask('appcachehash', 'Adds cachebusting-querystring parameters ' +
-                                     'to resources listed in appcache and ' +
-                                     'writes to disk a JS file whose AMD ' +
-                                     'module returns an object mapping each ' +
-                                     'resource URL to its ' +
-                                     'cachebusting-querystring ' +
-                                     'parameter', function () {
-    var options = this.options();
-
-    var manifest = grunt.file.read(options.src);
-    var cached = parseManifest(manifest).cache;
-    var cachebustedUrls = {};
-    var replacements = [];
-
-    cached.forEach(function (url) {
-      var fn = path.join(settings.frontend_dir, url);
-      grunt.verbose.writeln('Hashing ' + url);
-      var hash = computeHash(grunt, grunt.file.read(fn)).substr(0, 7);
-      var newUrl = urlparams(url, 'h=' + hash);
-      cachebustedUrls[url] = newUrl;
-      replacements.push({
-        pattern: new RegExp(url, 'ig'),
-        replacement: newUrl
-      });
-    });
-
-    // Replace the `CACHE:` block with the newly cachebusted URLs.
-    var newManifest = manifest.replace(/CACHE:[\s\S]*\n\n/,
-      'CACHE:\n' + _.values(cachebustedUrls).join('\n') + '\n\n');
-
-    // Replace manifest with the new manifest containing cachebusted URLs.
-    grunt.file.write(options.dest, newManifest);
-
-    // Replace across all source files all occurrences of original URLs with
-    // cachebusted URLs.
-    grunt.config('string-replace.dist.options.replacements', replacements);
-  });
-
   grunt.registerTask('default', ['nunjucks', 'watch']);
-  grunt.registerTask('appcache', ['manifest', 'appcachehash']);
   grunt.registerTask('minify',
-    ['processhtml', 'syncdb', 'manifest', 'nunjucks',
-     'concat', 'cssmin', 'uglify', 'appcachehash', 'string-replace']);
+    ['processhtml', 'syncdb', 'nunjucks', 'concat', 'cssmin', 'uglify',
+     'manifest']);
 };
