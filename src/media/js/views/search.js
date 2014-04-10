@@ -144,7 +144,9 @@ define('views/search',
 
     data.timing = window.performance.now() - data.timeStart;
 
-    q = $('input[name=q]');
+    if (!q) {
+      q = $('input[name=q]');
+    }
 
     // Update location bar based on search term.
     GET = utils.parseQueryString();
@@ -321,12 +323,6 @@ define('views/search',
     }
   }, settings.offlineInterval);
 
-  GET = utils.parseQueryString();
-  reset();
-  if (GET.q) {
-    q.value = GET.q;
-  }
-
   function init() {
     if (document.body.dataset.page === 'results') {
       // Bail if we've already rendered this page.
@@ -359,6 +355,11 @@ define('views/search',
           // Initialize and then render search template.
           document.body.className = 'results';
           document.body.dataset.page = 'results';
+          GET = utils.parseQueryString();
+          reset();
+          if (GET.q) {
+            q.value = GET.q;
+          }
           search();
         });
       });
