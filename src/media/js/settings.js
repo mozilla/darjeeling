@@ -11,7 +11,10 @@ define('settings', ['settings_local', 'utils'], function(settings_local, utils) 
 
     // How often (in milliseconds) to check if we have queued apps to install
     // when we return online.
-    offlineInterval: 1000
+    offlineInterval: 1000,
+
+    // Number of apps featured on the homepage.
+    numberFeatured: 6
   });
 
   // The version number for `localStorage` data. Bump when the schema for

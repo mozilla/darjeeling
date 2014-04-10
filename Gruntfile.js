@@ -111,6 +111,7 @@ module.exports = function (grunt) {
           'src/media/js/worker.js',
           'src/media/js/pages.js',
           'src/media/js/apps.js',
+          'src/media/js/featured.js',
           'src/media/js/views/search.js',
           'src/media/js/main.js'
         ],
