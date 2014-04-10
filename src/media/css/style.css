@@ -458,6 +458,10 @@ section {
   padding: 3px;
 }
 
+.results .thumbnail button {
+  display: none;
+}
+
 .thumbnail img {
   display: block;
   max-width: 150px;
