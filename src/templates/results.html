@@ -13,9 +13,10 @@
           _('Open', 'open') if installed else _('Install', 'install') }}</button>
       </div>
       <div class="description">{{ doc.description|translate(doc)|summarise }}</div>
+      {% if doc.previews.length > 0 %}
       <div class="thumbnail">
           <button>&lt;</button>
-          <img src="{{ doc.previews[0].image }}" class="screenshot">
+          <img src="{{ doc.previews[0].thumbnail_url }}" class="screenshot">
           <button>&gt;</button>
           <!--
             FIXME: 
@@ -32,6 +33,7 @@
 
           -->
       </div>
+      {% endif %}
     </a>
   </li>
 {% endfor %}
