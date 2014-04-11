@@ -360,8 +360,11 @@ body > nav {
 
 .actions a.button {
   width: 100%;
-  margin-top: 5px;
+  margin-top: 10px;
   padding: 10px 5px;
+}
+.actions a.button:last-child {
+  margin-bottom: 10px;
 }
 
 .icon {
@@ -391,7 +394,8 @@ body > nav {
   font-weight: 500;
 }
 
-.dev {
+.dev,
+.content-rating {
   color: #797979;
   font-size: 12px;
   width: calc(100% - 90px);
@@ -418,11 +422,41 @@ body > nav {
   color: #ccc;
 }
 
-.description {
+.description,
+.content-ratings-detail {
   color: #797979;
   font-size: 14px;
   line-height: 20px;
   padding: 10px;
+}
+
+.description h3,
+.content-ratings-detail h3 {
+  padding: 3px 0 6px;
+}
+
+.content-ratings-box {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+.descriptors {
+  list-style: none;
+  order: 1;
+}
+
+.age-rating {
+  color: #3D8ECC;
+  font-size: 48px;
+  order: 2;
+  position: relative;
+  top: 14px;
+}
+
+.age-rating span {
+  position: relative;
+  top: 6px;
 }
 
 .search .description { /* don't display description in search results */

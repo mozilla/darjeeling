@@ -1,6 +1,6 @@
 define('views/detail',
-       ['apps', 'cache', 'dom', 'log', 'notification', 'pages', 'settings', 'storage', 'templating', 'url', 'utils', 'worker'],
-       function(apps, Cache, $, log, notification, pages, settings, storage, templating, url, utils, worker) {
+       ['apps', 'cache', 'content-ratings', 'dom', 'log', 'notification', 'pages', 'settings', 'storage', 'templating', 'url', 'utils', 'worker'],
+       function(apps, Cache, iarc, $, log, notification, pages, settings, storage, templating, url, utils, worker) {
 
   var console = log('detail');
   var indexed = index();
@@ -32,7 +32,7 @@ define('views/detail',
   }
 
   function details() {
-    templating.render('detail', {doc: doc}, function(res) {
+    templating.render('detail', {doc: doc, iarc: iarc}, function(res) {
       $('main').innerHTML = res;
       console.log('Done rendering detail template...');
     });
