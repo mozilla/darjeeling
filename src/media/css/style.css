@@ -50,14 +50,12 @@
 
 html,
 body {
-  background: #ddd;
+  background: #F1F1F1;
   height: 100%;
   min-height: 100%;
 }
 
 body {
-  display: flex;
-  flex-direction: column;
   font-family: "Fira Sans OT", "Fira Sans", FiraSansWeb, sans-serif;
   min-width: 280px;
 }
@@ -255,11 +253,84 @@ section {
   margin: 10px;
 }
 
-.results ol {
+body > nav {
+  background: #E0E0E0;
+}
+
+.category-nav {
+  align-content: stretch;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  list-style: none;
+  text-align: center;
+}
+
+.category-nav li {
+  background-position: center 10px;
+  background-repeat: no-repeat;
+  background-size: 27px 27px;
+  /*width: 23%;*/
+}
+
+.category-nav li.home {
+  background-image: url(../../media/img/category/home.svg);
+}
+
+.category-nav li.home.active {
+  background-image: url(../../media/img/category/home-active.svg);
+}
+
+.category-nav li.games {
+  background-image: url(../../media/img/category/games.svg);
+  background-position: center 12px;
+  background-size: 33px 24px;
+}
+
+.category-nav li.games.active {
+  background-image: url(../../media/img/category/games-active.svg);
+}
+
+.category-nav li.lifestyle {
+  background-image: url(../../media/img/category/lifestyle.svg);
+  background-position: center 13px;
+  background-size: 32px 23px;
+}
+
+.category-nav li.lifestyle.active {
+  background-image: url(../../media/img/category/lifestyle-active.svg);
+}
+
+.category-nav li.tools {
+  background-image: url(../../media/img/category/tools.svg);
+}
+
+.category-nav li.tools.active {
+  background-image: url(../../media/img/category/tools-active.svg);
+}
+
+.category-nav a {
+  color: #1A1A1A;
+  display: inline-block;
+  font-size: 15px;
+  margin: 0 auto;
+  padding: 40px 0 5px;
+}
+
+.category-nav .active a {
+  color: #4CB1FF;
+}
+
+.category-nav .active a,
+.category-nav a:hover {
+  border-bottom: 3px solid #4CB1FF;
+}
+
+.results main ol {
   list-style: none;
 }
 
-.results li {
+.results main li {
   font-size: 14px;
   line-height: 16px;
   margin-top: 10px;
