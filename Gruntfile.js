@@ -55,6 +55,10 @@ module.exports = function (grunt) {
       nunjucks: {
         files: 'src/templates/*',
         tasks: ['nunjucks']
+      },
+      cssmin: {
+        files: 'src/media/css/*.css',
+        tasks: ['cssmin']
       }
     },
     jshint: {
@@ -116,6 +120,7 @@ module.exports = function (grunt) {
           'src/media/js/categories.js',
           'src/media/js/views/detail.js',
           'src/media/js/views/search.js',
+          'src/media/js/views/category.js',
           'src/media/js/main.js'
         ],
         dest: 'src/media/js/main.min.js'
