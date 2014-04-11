@@ -20,10 +20,14 @@ define('views/detail',
 
   /* FIXME: more hacking. maintaining a list of slugs->ids would probably be a good idea */
   function find(data, slug) {
-    var key = Array.prototype.find.call(Object.keys(data), function(id_) {
-      return data[id_].slug === slug;
-    });
-    return data[key];
+    var ids = Object.keys(data);
+    var length = ids.length;
+    for (var i = 0; i < length; i++) {
+      if (data[ids[i]].slug == slug) {
+        return data[ids[i]];
+      }
+    }
+    return null;
   }
 
   function details() {
