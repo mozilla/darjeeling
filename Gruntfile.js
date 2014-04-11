@@ -41,6 +41,14 @@ var appcachedFiles = [
   'media/img/logo.png',
   'media/img/search.png',
   'media/img/toggle-view.png',
+  'media/img/category/games.svg',
+  'media/img/category/games-active.svg',
+  'media/img/category/home.svg',
+  'media/img/category/home-active.svg',
+  'media/img/category/lifestyle.svg',
+  'media/img/category/lifestyle-active.svg',
+  'media/img/category/tools.svg',
+  'media/img/category/tools-active.svg',
   'media/js/lib/lunr.min.js',
   'media/js/lib/lunr.unicodeNormalizer.min.js',
   'media/js/lib/worker.min.js',
@@ -55,6 +63,10 @@ module.exports = function (grunt) {
       nunjucks: {
         files: 'src/templates/*',
         tasks: ['nunjucks']
+      },
+      cssmin: {
+        files: 'src/media/css/style.css',
+        tasks: ['cssmin']
       }
     },
     jshint: {
@@ -116,6 +128,7 @@ module.exports = function (grunt) {
           'src/media/js/categories.js',
           'src/media/js/views/detail.js',
           'src/media/js/views/search.js',
+          'src/media/js/views/category.js',
           'src/media/js/main.js'
         ],
         dest: 'src/media/js/main.min.js'

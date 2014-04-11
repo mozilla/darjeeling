@@ -1,5 +1,6 @@
 var path = require('path');
 
+var _ = require('lodash');
 var express = require('express');
 
 var db = require('./lib/db');
@@ -11,6 +12,12 @@ var app = express();
 var frontend_dir = path.join(__dirname, settings.frontend_dir);
 var db_dir = path.join(__dirname, settings.db_dir);
 
+var urlpatterns = [
+  '/',
+  '/app/([^/<>"\']+)/',
+  '/category/([^/<>"\']+)/'
+];
+
 app.configure(function () {
   app.set('port', process.env.PORT || 3000);
   app.set('view options', {layout: false});
@@ -19,12 +26,10 @@ app.configure(function () {
   app.use(express.static(frontend_dir));
 });
 
-app.get('/', function (req, res) {
-  res.sendfile(settings.debug ? 'dev.html' : 'prod.html', {root: frontend_dir});
-});
-
-app.get('/app/([^/<>"\']+)/', function (req, res) {
-  res.sendfile(settings.debug ? 'dev.html' : 'prod.html', {root: frontend_dir});
+_.forEach(urlpatterns, function(pattern) {
+  app.get(pattern, function (req, res) {
+    res.sendfile(settings.debug ? 'dev.html' : 'prod.html', {root: frontend_dir});
+  });
 });
 
 if (settings.debug) {
