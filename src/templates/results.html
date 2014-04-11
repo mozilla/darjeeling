@@ -18,21 +18,8 @@
       {% if doc.previews.length > 0 %}
       <div class="thumbnail">
           <button>&lt;</button>
-          <img src="{{ doc.previews[0].thumbnail_url }}" class="screenshot">
+          <img src="{{ doc.previews[0].thumbnail_url }}">
           <button>&gt;</button>
-          <!--
-            FIXME: 
-
-             search results:
-             - use icons for the switch view button
-
-             detail view:
-             - display individual links (the blue discs) to other thumbs (detail view only)
-             - hide buttons if necessary in js (detail view only, they are hidden in search results)
-             - switch thumb in js when clicking no buttons/disc links
-             - display screenshot when clicked
-
-          -->
       </div>
       {% endif %}
     </div>
