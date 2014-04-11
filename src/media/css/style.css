@@ -71,6 +71,7 @@ a:hover {
   color: #036;
 }
 
+a.button,
 button {
   background-color: #4CB1FF;
   border: none;
@@ -86,6 +87,8 @@ button {
   transition: .2s all ease-in;
 }
 
+a.button:hover,
+a.button:focus,
 button:hover,
 button:focus {
   background: #3D8ECC;
@@ -282,6 +285,12 @@ section {
 .homepage .app {
   box-shadow: none;
   border: none;
+}
+
+.actions a.button {
+  width: 100%;
+  margin-top: 5px;
+  padding: 10px 5px;
 }
 
 .icon {
