@@ -48,7 +48,7 @@ document.webL10n.ready(function() {
   var templating = require('templating');
 
   var views = {
-    '/app/([^/<>"\']+)/': 'detail',
+    '/app/:slug/': 'detail',
     '/': 'search',
   };
 
@@ -56,7 +56,7 @@ document.webL10n.ready(function() {
     var view = require('views/' + views[path]);
     app.get(path, function(req) {
       document.title = pages.getTitle(req.url);
-      view.init();
+      view.init(req.params);
     });
   });
 
