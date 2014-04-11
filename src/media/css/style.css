@@ -441,24 +441,42 @@ section {
   vertical-align: middle;
 }
 
-.thumbnail {
-  align-items: center;
+.thumbnail,
+.thumbnail-switcher {
   background: #F1F1F1;
   display: none;
-  justify-content: space-between;
   margin: 0 -1px;
   padding: 10px;
 }
 
 .detail .thumbnail,
 .expanded .thumbnail {
+  align-items: center;
   display: flex;
+  justify-content: space-between;
+}
+
+.thumbnail-switcher {
+  display: block;
+  font-size: 24px;
+  text-align: center;
+}
+
+.thumbnail-switcher a {
+  color: #CBCBCB;
+}
+
+.thumbnail-switcher .active,
+.thumbnail-switcher :hover,
+.thumbnail-switcher :active,
+.thumbnail-switcher :focus {
+  color: #4CB1FF;
 }
 
 .thumbnail button {
   font-size: 22px;
-  height: 75px;
-  padding: 3px;
+  height: 100px;
+  padding: 0 3px;
 }
 
 .results .thumbnail button {

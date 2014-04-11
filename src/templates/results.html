@@ -17,9 +17,7 @@
       <div class="description">{{ doc.description|translate(doc)|summarise }}</div>
       {% if doc.previews.length > 0 %}
       <div class="thumbnail">
-          <button>&lt;</button>
           <img src="{{ doc.previews[0].thumbnail_url }}">
-          <button>&gt;</button>
       </div>
       {% endif %}
     </div>

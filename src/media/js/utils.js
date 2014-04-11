@@ -61,6 +61,11 @@ define('utils', [], function() {
     });
   }
 
+  function mod(n, modulo) {
+    // modulo function that deals with negative numbers.
+    return ((n % modulo) + modulo) % modulo;
+  }
+
   function parseLink(url) {
     var a = document.createElement('a');
     a.href = url;
@@ -155,6 +160,7 @@ define('utils', [], function() {
     eq: eq,
     decodeURIComponent: decodeURIComponent,
     format: format,
+    mod: mod,
     parseLink: parseLink,
     parseQueryString: parseQueryString,
     serialize: serialize,
