@@ -5,6 +5,7 @@ define('views/detail',
   var console = log('detail');
   var indexed = index();
   var doc;
+  var activeThumbnail = 0;
 
   /* FIXME: this is just a hack to get the detail page working, we need to refactor this with search view. */
   function index() {
@@ -23,7 +24,7 @@ define('views/detail',
     var ids = Object.keys(data);
     var length = ids.length;
     for (var i = 0; i < length; i++) {
-      if (data[ids[i]].slug == slug) {
+      if (data[ids[i]].slug === slug) {
         return data[ids[i]];
       }
     }
@@ -51,6 +52,36 @@ define('views/detail',
       details();
     });
   }
+
+  function switchThumb(index) {
+    if (isNaN(index)) {
+      return;
+    }
+    var sel = '.thumbnail-switcher a:nth-child(' + (index + 1) +')';
+    var link = $(sel);
+    console.log(sel);
+    console.log(link);
+    var img = $('.thumbnail img');
+    $.each('.thumbnail-switcher a', function(item) {
+      item.classList.remove('active');
+    });
+    img.src = link.dataset.thumbnail;
+    img.dataset.screenshot = link.dataset.screenshot;
+    link.className = 'active';
+    activeThumbnail = index;
+    console.log('Setting active to ' + activeThumbnail);
+  }
+
+  $.delegate('click', '.thumbnail-switcher a', function(e) {
+    e.preventDefault();
+    switchThumb(parseInt(e.delegateTarget.dataset.index, 10));
+  }, false);
+
+  $.delegate('click', '.thumbnail button', function(e) {
+    e.preventDefault();
+    var idx = activeThumbnail + ((e.delegateTarget.dataset.action === 'prev') ? -1 : 1);
+    switchThumb(utils.mod(idx, doc.previews.length));
+  }, false);
 
   return {
     init: init,
