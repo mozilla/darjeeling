@@ -48,7 +48,8 @@ document.webL10n.ready(function() {
   var templating = require('templating');
 
   var views = {
-    '/': 'search'
+    '/app/([^/<>"\']+)/': 'detail',
+    '/': 'search',
   };
 
   Object.keys(views).forEach(function(path) {
@@ -68,7 +69,7 @@ document.webL10n.ready(function() {
 
   $.delegate('click', 'a[href^="/"]', function(e) {
     e.preventDefault();
-    app.load(e.target.getAttribute('href'));
+    app.load(e.delegateTarget.getAttribute('href'));
   });
 
   $.delegate('keypress', 'body:not(.results) input[name=q]', function() {

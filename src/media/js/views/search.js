@@ -110,6 +110,7 @@ define('views/search',
 
     if (previousQuery === query) {
       // Bail if the query hasn't changed.
+      console.log('Skipping rendering search results since search query has not changed');
       return;
     }
     previousQuery = query;
@@ -152,7 +153,7 @@ define('views/search',
     GET = utils.parseQueryString();
     GET.q = q.value || '';
     var serialized = utils.serialize(GET);
-    var dest = serialized ? ('/?' + serialized) : '/';
+    var dest = serialized ? ('/?' + serialized) : '/';  // FIXME: compatibility with Marketplace, which uses /search?q=, would be nice.
     if (window.location.href !== dest) {
       window.history.replaceState({}, pages.getTitle('/'), dest);
     }
@@ -330,12 +331,14 @@ define('views/search',
   }, settings.offlineInterval);
 
   function init() {
+    console.log('Initializing search page...');
     if (document.body.dataset.page === 'results') {
       // Bail if we've already rendered this page.
       return search();
     }
     templating.render('browse', function(res) {
       $('main').innerHTML = res;
+      console.log('Done rendering browse template, now waiting for indexed promise...');
       indexed.then(function(data) {
         // Populate list of docs.
         docs = data;

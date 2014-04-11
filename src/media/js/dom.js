@@ -26,6 +26,7 @@ define('dom', ['utils'], function(utils) {
         var parent = e.target;
         while (parent && parent !== document) {
           if ($.matches(parent, sel)) {
+            e.delegateTarget = parent;
             handler(e);
             parent = null;
             return;
