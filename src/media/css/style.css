@@ -73,12 +73,14 @@ a:hover {
 
 button {
   background-color: #4CB1FF;
-  border: 1px solid #4CB1FF;
-  border-radius: 4px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 1px #3D8ECC;
   color: #fff;
   cursor: pointer;
   display: inline-block;
   font-size: 12px;
+  line-height: 22px;
   padding: 3px 6px;
   text-align: center;
   transition: .2s all ease-in;
@@ -86,8 +88,7 @@ button {
 
 button:hover,
 button:focus {
-  background: #1584CE;
-  border-color: #1584CE;
+  background: #3D8ECC;
 }
 
 .header {
@@ -242,19 +243,8 @@ main h1 {
   font-size: 22px;
 }
 
-.homepage main h1 {
-  margin: 10px;
-}
-
 section {
   margin: 10px;
-}
-
-.homepage section {
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 1px 1px #C7C7C7;
 }
 
 .results ol {
@@ -277,7 +267,6 @@ section {
 
 .app {
   background: #fff;
-  border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 1px 1px #C7C7C7;
   display: block;
@@ -313,21 +302,20 @@ section {
 }
 
 .name {
-  color: #666;
+  color: #797979;
   font-weight: 500;
 }
 
 .dev {
-  color: #999;
-  font-size: 11px;
-  line-height: 14px;
+  color: #797979;
+  font-size: 12px;
   width: calc(100% - 90px);
 }
 
 .stars {
-  color: #1793E5;
-  font: 12px "Arial Unicode MS";
-  letter-spacing: 2px;
+  color: #4CB1FF;
+  font-size: 14px;
+  letter-spacing: -1px;
   margin: 4px 0 6px;
 }
 
@@ -346,8 +334,9 @@ section {
 }
 
 .description {
-  color: #666;
-  font-size: 12px;
+  color: #797979;
+  font-size: 14px;
+  line-height: 20px;
   padding: 10px;
 }
 
@@ -370,14 +359,13 @@ section {
 }
 
 .open {
-  background: rgb(46,204,113);
-  border-color: rgb(46,204,113);
+  background: #82C80A;
+  box-shadow: 0 1px #609900;
 }
 
 .open:hover,
 .open:focus {
-  background: rgb(46,204,113); /* FIXME */
-  border-color: rgb(46,204,113);
+  background: #609900;
 }
 
 .notice {
