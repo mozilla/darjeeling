@@ -23,6 +23,10 @@ app.get('/', function (req, res) {
   res.sendfile(settings.debug ? 'dev.html' : 'prod.html', {root: frontend_dir});
 });
 
+app.get('/app/([^/<>"\']+)/', function (req, res) {
+  res.sendfile(settings.debug ? 'dev.html' : 'prod.html', {root: frontend_dir});
+});
+
 if (settings.debug) {
   app.configure('development', function () {
     app.use(express.errorHandler());

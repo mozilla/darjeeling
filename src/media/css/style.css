@@ -459,6 +459,7 @@ section {
 .toggle-view,
 .toggle-view:hover,
 .toggle-view:focus {
+  /* Do not remove the "media/img" part. This is needed for cachebusting. */
   background: url(../../media/img/toggle-view.png) transparent;
   background-position: 0 22px;
   border: none;
