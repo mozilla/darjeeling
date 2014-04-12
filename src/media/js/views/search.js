@@ -209,12 +209,9 @@ define('views/search',
     e.target.classList.toggle('expanded');
   });
 
-  $.delegate('click', '.screenshot', function(e) {
-    e.preventDefault();
-    e.target.classList.toggle('active');
-  });
-
   $.delegate('click', '.install', function (e) {
+    e.preventDefault();
+    e.stopImmediatePropagation(); // don't let the even go to the main click handler.
     var app = docs[e.target.dataset.id];
 
     if (app.installed) {
