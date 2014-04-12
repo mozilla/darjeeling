@@ -419,9 +419,14 @@ body > nav {
   margin-top: 4px 0 0;
 }
 
-.detail-tile .stars {
-  position: relative;
-  right: 75px;
+.detail .stars {
+  position: absolute;
+  left: 10px;
+  bottom: 0;
+}
+
+.detail .details {
+  min-height: 104px; /* leave space for absolutely positionned stars */
 }
 
 .stars .half {
