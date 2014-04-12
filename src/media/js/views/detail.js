@@ -1,23 +1,11 @@
 define('views/detail',
-       ['apps', 'content-ratings', 'cache', 'dom', 'log', 'notification', 'pages', 'settings', 'storage', 'templating', 'url', 'utils', 'worker'],
-       function(apps, Cache, iarc, $, log, notification, pages, settings, storage, templating, url, utils, worker) {
+       ['apps', 'content-ratings', 'cache', 'dom', 'indexing', 'log', 'notification', 'pages', 'settings', 'storage', 'templating', 'url', 'utils'],
+       function(apps, Cache, iarc, $, indexing, log, notification, pages, settings, storage, templating, url, utils) {
 
   var console = log('detail');
-  var indexed = index();
+  var indexed = indexing.index();
   var doc;
   var activeThumbnail = 0;
-
-  /* FIXME: this is just a hack to get the detail page working, we need to refactor this with search view. */
-  function index() {
-    var promise = new Promise(function (resolve) {
-      worker.addEventListener('message', function (e) {
-        if (e.data.type === 'indexed') {
-          return resolve(e.data.data);
-        }
-      });
-    });
-    return promise;
-  }
 
   /* FIXME: more hacking. maintaining a list of slugs->ids would probably be a good idea */
   function find(data, slug) {
