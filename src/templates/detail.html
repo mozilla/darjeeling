@@ -5,9 +5,8 @@
       <div class="details">
         <div class="trunc name">{{ doc.name|translate(doc) }}</div>
         <div class="trunc dev">{{ doc.author }}</div>
-        {% set content_rating = doc.content_ratings %}
-        {% if content_rating.rating %}
-          <div class="content-rating">{{ iarc_names.ratings[content_rating.rating] }}</div>
+        {% if doc.content_ratings.rating %}
+          <div class="content-rating">{{ _('Rating: {0}')|format(iarc_names.ratings[doc.content_ratings.rating]) }}</div>
         {% endif %}
         {% set stars = doc.ratings.average|floor %}
         <div class="stars">{% for x in range(stars) %}&#9733;{% endfor %}{% if doc.ratings.average - stars >= 0.5 %}<span class="half">&#9733;</span>{% endif %}<span class="empty">{% for x in range(5 - stars) %}&#9733;{% endfor %}</span></div>
@@ -51,6 +50,7 @@
       <a class="button" href="{{ doc.privacy_policy }}">{{ _('Privacy Policy', 'privacyPolicy') }}</a>
       <a class="button" href="">{{ _('Report Abuse', 'reportAbuse') }}</a>
     </div>
+    {% set content_rating = doc.content_ratings %}
     {% if content_rating.rating %}
       <div class="content-ratings-detail app">
         <h3>{{ _('Rating', 'content-rating') }}</h3>

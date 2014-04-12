@@ -8,30 +8,29 @@ define('content-ratings', ['templating', 'utils'],
 
     var detail_link = 'https://www.globalratings.com/ratings_guide.aspx';
 
-    // L10n: For ages {0} and higher. (de) `ab {0} Jahren`.
-    var RATING_NAME = gettext('For ages {0}+', 'iarc-rating');
+    // L10n: For ages {0} and higher.
+    var RATING_NAME = gettext('{0}+', 'iarcRating');
     var names = {
         descriptors: {
-            'discrimination': gettext('Discrimination', 'iarc-discrimination'),
-            'drugs': gettext('Drugs', 'iarc-drugs'),
-            'gambling': gettext('Gambling', 'iarc-gambling'),
+            'discrimination': gettext('Discrimination', 'iarcDiscrimination'),
+            'drugs': gettext('Drugs', 'iarcDrugs'),
+            'gambling': gettext('Gambling', 'iarcGambling'),
             // L10n: `Language` as in foul language.
-            'lang': gettext('Language', 'iarc-lang'),
-            'online': gettext('Online', 'iarc-online'),
-            'scary': gettext('Fear', 'iarc-fear'),
+            'lang': gettext('Language', 'iarcLang'),
+            'online': gettext('Online', 'iarcOnline'),
+            'scary': gettext('Fear', 'iarcFear'),
             // L10n: `Sex` as in sexual, not as in gender.
-            'sex-content': gettext('Sex', 'iarc-sex'),
-            'violence': gettext('Violence', 'iarc-violence'),
+            'sex-content': gettext('Sex', 'iarcSex'),
+            'violence': gettext('Violence', 'iarcViolence'),
         },
         interactives: {
-            'digital-purchases': gettext('Digital Purchases', 'iarc-purchases'),
-            'shares-info': gettext('Shares Info', 'iarc-info'),
-            'shares-location': gettext('Shares Location', 'iarc-location'),
-            'users-interact': gettext('Users Interact', 'iarc-interact'),
+            'digital-purchases': gettext('Digital Purchases', 'iarcPurchases'),
+            'shares-info': gettext('Shares Info', 'iarcInfo'),
+            'shares-location': gettext('Shares Location', 'iarcLocation'),
+            'users-interact': gettext('Users Interact', 'iarcInteract'),
         },
         ratings: {
-            // L10n: (de) ab 0 Jahren.
-            '0': gettext('For all ages', 'iarc-everyone'),
+            '0': gettext('Everyone', 'iarcEveryone'),
             '3': format(RATING_NAME, 3),
             '6': format(RATING_NAME, 6),
             '7': format(RATING_NAME, 7),

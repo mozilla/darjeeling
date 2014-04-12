@@ -392,8 +392,13 @@ body > nav {
 .name {
   color: #797979;
   font-size: 20px;
-  font-weight: 500;
   line-height: 25px;
+}
+
+.search-tile .name {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
 }
 
 .dev,
@@ -619,7 +624,9 @@ body > nav {
   border: none;
   color: #666;
   cursor: pointer;
+  position: relative;
   height: 22px;
+  top: 3px;
   width: 54px;
 }
 
