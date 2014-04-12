@@ -43,6 +43,8 @@ define('content-ratings', ['templating', 'utils'],
         },
     };
 
+    templating.env.addGlobal('iarc_names', names);
+
     return {
         detail_link: detail_link,
         names: names,

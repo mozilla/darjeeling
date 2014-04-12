@@ -391,21 +391,32 @@ body > nav {
 
 .name {
   color: #797979;
+  font-size: 20px;
   font-weight: 500;
+  line-height: 25px;
 }
 
 .dev,
 .content-rating {
   color: #797979;
   font-size: 12px;
+  line-height: 18px;
   width: calc(100% - 90px);
 }
 
 .stars {
   color: #4CB1FF;
-  font-size: 14px;
-  letter-spacing: -1px;
-  margin: 4px 0 6px;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+.search-tile .stars {
+  margin-top: 4px 0 0;
+}
+
+.detail-tile .stars {
+  position: relative;
+  right: 75px;
 }
 
 .stars .half {
@@ -439,10 +450,15 @@ body > nav {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+  min-height: 48px;
 }
 
 .descriptors {
   list-style: none;
+  order: 1;
+}
+
+.age-desc {
   order: 1;
 }
 
@@ -451,7 +467,7 @@ body > nav {
   font-size: 48px;
   order: 2;
   position: relative;
-  top: 14px;
+  top: 12px;
 }
 
 .age-rating span {
@@ -471,9 +487,9 @@ body > nav {
 }
 
 .install {
+  bottom: 10px;
   position: absolute;
-  top: 35px;
-  right: 11px;
+  right: 10px;
   width: 80px;
 }
 

@@ -1,6 +1,6 @@
 define('views/search',
-       ['apps', 'cache', 'dom', 'log', 'notification', 'pages', 'settings', 'storage', 'templating', 'url', 'utils', 'worker'],
-       function(apps, Cache, $, log, notification, pages, settings, storage, templating, url, utils, worker) {
+       ['apps', 'cache', 'content-ratings', 'dom', 'log', 'notification', 'pages', 'settings', 'storage', 'templating', 'url', 'utils', 'worker'],
+       function(apps, Cache, iarc, $, log, notification, pages, settings, storage, templating, url, utils, worker) {
   var cache = new Cache();
   var console = log('search');
   var docs = {};
