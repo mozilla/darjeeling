@@ -126,6 +126,7 @@ module.exports = function (grunt) {
           'src/media/js/apps.js',
           'src/media/js/featured.js',
           'src/media/js/categories.js',
+          'src/media/js/content_ratings.js',
           'src/media/js/views/detail.js',
           'src/media/js/views/search.js',
           'src/media/js/views/category.js',
