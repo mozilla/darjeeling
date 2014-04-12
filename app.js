@@ -14,6 +14,7 @@ var db_dir = path.join(__dirname, settings.db_dir);
 
 var urlpatterns = [
   '/',
+  '/search/',
   '/app/([^/<>"\']+)/',
   '/category/([^/<>"\']+)/'
 ];

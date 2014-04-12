@@ -326,10 +326,14 @@ body > nav {
   border-bottom: 3px solid #4CB1FF;
 }
 
+.category main ol,
+.featured main ol,
 .results main ol {
   list-style: none;
 }
 
+.category main li,
+.featured main li,
 .results main li {
   font-size: 14px;
   line-height: 16px;

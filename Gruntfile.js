@@ -128,9 +128,10 @@ module.exports = function (grunt) {
           'src/media/js/featured.js',
           'src/media/js/categories.js',
           'src/media/js/content_ratings.js',
-          'src/media/js/views/detail.js',
-          'src/media/js/views/search.js',
           'src/media/js/views/category.js',
+          'src/media/js/views/detail.js',
+          'src/media/js/views/featured.js',
+          'src/media/js/views/search.js',
           'src/media/js/main.js'
         ],
         dest: 'src/media/js/main.min.js'
