@@ -75,7 +75,7 @@ define('main', [], function () {
     });
 
     $.delegate('keypress', 'body:not(.results) input[name=q]', function() {
-      app.load('/');
+      app.load('/search/');
     });
 
     templating.render('header', function(res) {

@@ -1,10 +1,9 @@
 define('views/category',
-       ['categories', 'dom', 'indexing', 'log', 'templating'],
-       function(categories, $, indexing, log, templating) {
+       ['categories', 'dom', 'install', 'log', 'templating'],
+       function(categories, $, install, log, templating) {
 
   // var console = log('views/category');
   var docs = [];
-  var indexed = indexing.index();
 
   function init(params) {
     console.log('Initializing category view: ' + params.slug);
@@ -17,7 +16,7 @@ define('views/category',
       return;
     }
 
-    indexed.then(function(data) {
+    install.init().then(function(data) {
 
       docs = data;
       document.body.className = 'category';
@@ -53,6 +52,7 @@ define('views/category',
         $('main ol').innerHTML = res;
       });
     });
+    install.hideSplash();
   }
 
   return {

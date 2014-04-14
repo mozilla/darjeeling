@@ -29,9 +29,6 @@ define('views/search',
       $('main').innerHTML = res;
       console.log('Done rendering browse template, now waiting for indexed promise...');
       install.init().then(function() {
-        // We're ready to rumble. Remove splash screen!
-        document.body.removeChild(document.getElementById('splash-overlay'));
-        console.log('Hiding splash screen (' + ((window.performance.now() - window.start_time) / 1000).toFixed(6) + 's)');
 
         // Initialize and then render search template.
         document.body.className = 'results';
@@ -42,6 +39,7 @@ define('views/search',
           q.value = GET.q;
         }
         search();
+        install.hideSplash();
 
       });
     });

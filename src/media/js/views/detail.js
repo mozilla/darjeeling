@@ -1,9 +1,8 @@
 define('views/detail',
-       ['apps', 'content-ratings', 'cache', 'dom', 'indexing', 'log', 'notification', 'pages', 'settings', 'storage', 'templating', 'url', 'utils'],
-       function(apps, Cache, iarc, $, indexing, log, notification, pages, settings, storage, templating, url, utils) {
+       ['apps', 'content-ratings', 'cache', 'dom', 'install', 'log', 'notification', 'pages', 'settings', 'storage', 'templating', 'url', 'utils'],
+       function(apps, Cache, iarc, $, install, log, notification, pages, settings, storage, templating, url, utils) {
 
   var console = log('detail');
-  var indexed = indexing.index();
   var doc;
   var activeThumbnail = 0;
 
@@ -31,12 +30,13 @@ define('views/detail',
       // Bail if we've already rendered this page.
       return;
     }
-    indexed.then(function(data) {
+    install.init().then(function(data) {
       doc = find(data, params.slug);
       // FIXME: error if not found
       document.body.className = 'detail';
       document.body.dataset.page = 'detail-' + doc.slug;
       details();
+      install.hideSplash();
     });
   }
 
