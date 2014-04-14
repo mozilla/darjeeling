@@ -1,11 +1,10 @@
 define('views/featured',
-       ['dom', 'indexing', 'log', 'templating'],
-       function($, indexing, log, templating) {
+       ['dom', 'install', 'log', 'templating'],
+       function($, install, log, templating) {
 
   var console = log('views/featured');
   var docs = [];
   var featured = [];
-  var indexed = indexing.index();
 
   function init(params) {
     console.log('Initializing featured view');
@@ -16,12 +15,11 @@ define('views/featured',
       return;
     }
 
-    indexed.then(function(data) {
-
+    console.log('Waiting for install Promise...');
+    install.init().then(function(data) {
       docs = data;
       document.body.className = page_name;
       document.body.dataset.page = page_name;
-      timeStart = window.performance.now();
 
       // This will eventually be replaced by real logic.
       Object.keys(docs).forEach(function(key) {
@@ -32,7 +30,7 @@ define('views/featured',
 
       // Render the document
       render(featured);
-
+      install.hideSplash();
     });
 
   }
@@ -49,7 +47,7 @@ define('views/featured',
       });
       templating.render('results', {data: data, docs: null}, function(res) {
         $('main ol').innerHTML = res;
-        console.log('Finished rendering featured view.')
+        console.log('Finished rendering featured view.');
       });
     });
   }

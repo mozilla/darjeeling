@@ -2,12 +2,20 @@ define('install',
        ['apps', 'dom', 'indexing', 'log', 'notification', 'pages', 'settings', 'storage', 'templating', 'url', 'utils'],
        function(apps, $, indexing, log, notification, pages, settings, storage, templating, url, utils) {
   var docs = {};  // Holds the apps.
-  var indexed = indexing.index();
+  var indexed = false;
   var gettext = templating._l;
   var queuedInstalls = JSON.parse(storage.getItem('queuedInstalls') || '[]');
 
   function getDocs() {
       return docs;
+  }
+
+  function hideSplash() {
+    // FIXME: move elsewhere.
+    // We're ready to rumble. Remove splash screen!
+    console.log('Preparing to remove slash screen...');
+    document.body.removeChild(document.getElementById('splash-overlay'));
+    console.log('Hiding splash screen (' + ((window.performance.now() - window.start_time) / 1000).toFixed(6) + 's)');
   }
 
   var installApp = function(app) {
@@ -129,7 +137,14 @@ define('install',
 
   var init = function() {
     return new Promise(function(resolve, reject) {
-      indexed.then(function(data) {
+      console.log('Waiting for indexed Promise...');
+      if (indexed === true) {
+        console.log('Already indexed, resolving install Promise directly');
+        resolve(docs);
+        return;
+      }
+      indexing.index().then(function(data) {
+        console.log('indexed Promise done...');
         // Populate list of docs.
         docs = data;
 
@@ -148,7 +163,11 @@ define('install',
           });
         });
 
-        resolve();
+        // Mark as indexed so that we don't wait for the index Promise next time.
+        indexed = true;
+
+        console.log('Resolving install Promise...');
+        resolve(docs);
       });
     });
   };
@@ -158,5 +177,6 @@ define('install',
     init: init,
     installApp: installApp,
     installQueuedInstalls: installQueuedInstalls,
+    hideSplash: hideSplash
   };
 });
