@@ -4,7 +4,7 @@ define('views/search',
   var cache = indexing.cache;
   var console = log('search');
   var GET;
-  var q;
+  var q = '';
   var previousQuery = null;
   var previousResults = null;
   var timeStart;
@@ -12,11 +12,40 @@ define('views/search',
   worker.addEventListener('message', function (e) {
     switch (e.data.type) {
     case 'results':
-      // FIXME: need to cancel that on navigation, if the result has been returned
-      // in time.
       return renderResults(e.data.data);
     }
   });
+
+  function init() {
+    console.log('Initializing search page...');
+
+    var page_name = 'search' + (q ? '-' + q : '');
+    if (document.body.dataset.page === page_name) {
+      // Bail if we've already rendered this page.
+      return search();
+    }
+
+    templating.render('browse', function(res) {
+      $('main').innerHTML = res;
+      console.log('Done rendering browse template, now waiting for indexed promise...');
+      install.init().then(function() {
+        // We're ready to rumble. Remove splash screen!
+        document.body.removeChild(document.getElementById('splash-overlay'));
+        console.log('Hiding splash screen (' + ((window.performance.now() - window.start_time) / 1000).toFixed(6) + 's)');
+
+        // Initialize and then render search template.
+        document.body.className = 'results';
+        document.body.dataset.page = 'results';
+        GET = utils.parseQueryString();
+        reset();
+        if (GET.q) {
+          q.value = GET.q;
+        }
+        search();
+
+      });
+    });
+  }
 
   function search() {
     timeStart = window.performance.now();
@@ -68,7 +97,7 @@ define('views/search',
     GET = utils.parseQueryString();
     GET.q = q.value || '';
     var serialized = utils.serialize(GET);
-    var dest = serialized ? ('/?' + serialized) : '/';  // FIXME: compatibility with Marketplace, which uses /search?q=, would be nice.
+    var dest = serialized ? ('/search/?' + serialized) : '/';  // FIXME: compatibility with Marketplace, which uses /search?q=, would be nice.
     if (window.location.href !== dest) {
       window.history.replaceState({}, pages.getTitle('/'), dest);
     }
@@ -123,33 +152,6 @@ define('views/search',
     $('main').classList.toggle('expanded');
     e.target.classList.toggle('expanded');
   });
-
-  function init() {
-    console.log('Initializing search page...');
-    if (document.body.dataset.page === 'results') {
-      // Bail if we've already rendered this page.
-      return search();
-    }
-    templating.render('browse', function(res) {
-      $('main').innerHTML = res;
-      console.log('Done rendering browse template, now waiting for indexed promise...');
-      install.init().then(function() {
-        // We're ready to rumble. Remove splash screen!
-        document.body.removeChild(document.getElementById('splash-overlay'));
-        console.log('Hiding splash screen (' + ((window.performance.now() - window.start_time) / 1000).toFixed(6) + 's)');
-
-        // Initialize and then render search template.
-        document.body.className = 'results';
-        document.body.dataset.page = 'results';
-        GET = utils.parseQueryString();
-        reset();
-        if (GET.q) {
-          q.value = GET.q;
-        }
-        search();
-      });
-    });
-  }
 
   return {
     init: init,
