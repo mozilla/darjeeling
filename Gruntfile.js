@@ -133,6 +133,7 @@ module.exports = function (grunt) {
           'src/media/js/views/detail.js',
           'src/media/js/views/featured.js',
           'src/media/js/views/search.js',
+          'src/media/js/views/feedback.js',
           'src/media/js/main.js'
         ],
         dest: 'src/media/js/main.min.js'
