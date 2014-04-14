@@ -15,9 +15,16 @@ define('templating', ['settings', 'utils'], function(settings, utils) {
 
   function render(name, ctx, cb) {
     if (typeof ctx === 'function') {
+      // If callback passed in as second arg, asume no context.
       cb = ctx;
       ctx = {};
     }
+
+    if (!cb) {
+      // If no callback, don't pass into Nunjucks render.
+      return env.render(name + '.html', ctx);
+    }
+
     return env.render(name + '.html', ctx, function(err, res) {
       if (err) {
         return console.error(err);
@@ -47,9 +54,18 @@ define('templating', ['settings', 'utils'], function(settings, utils) {
     return obj.replace(/\n/g, '<br>');
   }
 
-  function summarise(str) {
-    // A temporary solution for creating summaries from long descriptions.
-    return str.split('\n')[0].replace(/<(?:.|\n)*?>/g, '').replace(/\..*:\s+/g, '.');
+  function summarise(str, klass) {
+    // Truncates a long description into a visible portion and hidden portion.
+    // Clicking on a "more" link reveals the hidden portion.
+    var lines = str.split('\n');
+    var firstLine = lines[0].replace(/<(?:.|\n)*?>/g, '').replace(/\..*:\s+/g, '.');
+    lines.splice(0, 1);  // Remove first line now that we've stored it.
+
+    return render('truncated', {
+        'class': klass,
+        'hidden_lines': lines,
+        'visible_line': firstLine,
+    });
   }
 
   env.addFilter('floor', Math.floor);

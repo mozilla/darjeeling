@@ -33,7 +33,7 @@
       {% endif %}
       <div class="description">
         <h3>{{ _('Description', 'description') }}</h3>
-        {{ doc.description|translate(doc)|summarise }}
+        {{ doc.description|translate(doc)|summarise('description')|safe }}
       </div>
     </div>
     <div class="actions">

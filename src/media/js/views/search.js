@@ -145,6 +145,11 @@ define('views/search',
     search();
   });
 
+  $.delegate('click', '.truncated-more', function(e) {
+    e.target.nextElementSibling.classList.remove('hidden');
+    e.target.parentNode.removeChild(e.target);
+  });
+
   $.delegate('click', '.toggle-view', function(e) {
     e.preventDefault();
     $('main').classList.toggle('expanded');

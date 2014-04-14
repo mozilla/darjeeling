@@ -17,7 +17,7 @@
             _('Open', 'open') if installed else _('Install', 'install') }}</button>
         </div>
       </a>
-      <div class="description">{{ doc.description|translate(doc)|summarise }}</div>
+      {{ doc.description|translate(doc)|summarise('description')|safe }}
       {% if doc.previews.length > 0 %}
       <div class="thumbnail">
           <img src="{{ doc.previews[0].thumbnail_url }}">

@@ -65,8 +65,10 @@ a {
   text-decoration: none;
 }
 
+a:not([href]):hover,
 a:hover {
   color: #036;
+  cursor: pointer;
 }
 
 a.button,
@@ -90,6 +92,10 @@ a.button:focus,
 button:hover,
 button:focus {
   background: #3D8ECC;
+}
+
+.hidden {
+  display: none;
 }
 
 .header {
