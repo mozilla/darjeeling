@@ -421,8 +421,8 @@ body > nav {
 
 .stars {
   color: #4CB1FF;
-  font-size: 20px;
-  letter-spacing: 1px;
+  font-size: 14px;
+  letter-spacing: -1px;
 }
 
 .search-tile .stars {
