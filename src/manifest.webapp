@@ -1,5 +1,5 @@
 {
-    "appcache_path": "/manifest.webapp",
+    "appcache_path": "/manifest.appcache",
     "description": "The Firefox Marketplace",
     "developer": {
         "name": "Mozilla",
