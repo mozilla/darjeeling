@@ -22,7 +22,6 @@ define('views/detail',
   function details() {
     templating.render('detail', {doc: doc}, function(res) {
       $('main').innerHTML = res;
-      console.log('Done rendering detail template...');
     });
   }
 

@@ -50,7 +50,8 @@ define('main', [], function () {
     var views = {
       '/category/:slug/': 'category',
       '/app/:slug/': 'detail',
-      '/': 'search',
+      '/search/': 'search',
+      '/': 'featured',
     };
 
     Object.keys(views).forEach(function(path) {
