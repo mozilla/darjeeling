@@ -40,7 +40,7 @@ define('install',
         // Change "Install" button to "Open" button.
         var button = $('.app[data-id="' + app._id + '"] .install');
         button.classList.add('open');
-        button.textContent = gettext('Open', 'open');
+        button.textContent = gettext('Launch', 'launch');
 
         // We're done.
         resolve(app);
@@ -88,6 +88,9 @@ define('install',
         queuedInstalls.push(queuedApp);
         storage.setItem('queuedInstalls', JSON.stringify(queuedInstalls));
         app.queued = true;
+
+        e.target.classList.add('queued');
+        e.target.textContent = gettext('Queued', 'queued');
       }
       notification.notification({
         message: gettext('*{app}* will be installed when online', 'installOffline', {app: app.name})
@@ -165,13 +168,13 @@ define('install',
             // App names should already be localised before we get here (issue #14).
             docs[key].name = utils.translate(docs[key].name);
           });
+
+          console.log('Resolving install Promise...');
+          resolve(docs);
         });
 
         // Mark as indexed so that we don't wait for the index Promise next time.
         indexed = true;
-
-        console.log('Resolving install Promise...');
-        resolve(docs);
       });
     });
   };

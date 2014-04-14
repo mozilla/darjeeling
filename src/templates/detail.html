@@ -10,9 +10,17 @@
         {% endif %}
         {% set stars = doc.ratings.average|floor %}
         <div class="stars">{% for x in range(stars) %}&#9733;{% endfor %}{% if doc.ratings.average - stars >= 0.5 %}<span class="half">&#9733;</span>{% endif %}<span class="empty">{% for x in range(5 - stars) %}&#9733;{% endfor %}</span></div>
-        {% set installed = docs[doc._id].installed %}
-        <button  data-id="{{ doc._id }}" class="install{{ ' open' if installed }}">{{
-          _('Open', 'open') if installed else _('Install', 'install') }}</button>
+        {% set installed = doc.installed %}
+        {% set queued = doc.queued %}
+        <button  data-id="{{ doc._id }}" class="install{% if installed %} open{% elif queued %} queued{% endif %}">
+          {% if installed %}
+            {{_('Launch', 'launch') }}
+          {% elif queued %}
+            {{ _('Queued', 'queued') }}
+          {% else %}
+            {{ _('Install', 'install') }}
+          {% endif %}
+        </button>
       </div>
       {% if doc.previews.length > 0 %}
         <div class="thumbnail">

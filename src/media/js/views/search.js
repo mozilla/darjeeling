@@ -2,7 +2,8 @@ define('views/search',
        ['apps', 'content-ratings', 'dom', 'indexing', 'install', 'log', 'notification', 'pages', 'settings', 'storage', 'templating', 'url', 'utils', 'worker'],
        function(apps, iarc, $, indexing, install, log, notification, pages, settings, storage, templating, url, utils, worker) {
   var cache = indexing.cache;
-  // var console = log('search');
+  var console = log('search');
+  var docs;
   var GET;
   var q = '';
   var previousQuery = null;
@@ -28,8 +29,8 @@ define('views/search',
     templating.render('browse', function(res) {
       $('main').innerHTML = res;
       console.log('Done rendering browse template, now waiting for indexed promise...');
-      install.init().then(function() {
-
+      install.init().then(function(data) {
+        docs = data;
         // Initialize and then render search template.
         document.body.className = 'results';
         document.body.dataset.page = 'results';
@@ -40,7 +41,6 @@ define('views/search',
         }
         search();
         install.hideSplash();
-
       });
     });
   }
@@ -114,7 +114,7 @@ define('views/search',
 
     if (!utils.eq(current, previous)) {
       // Only re-render results if results have changed.
-      templating.render('results', {data: data, docs: install.getDocs()}, function(res) {
+      templating.render('results', {data: data, docs: docs}, function(res) {
         // Override body classname, I don't use classList because I'm lazy and
         // don't want to figure out what to remove.
         document.body.className = 'results ' + (dest === '/' ? 'homepage' : 'search');

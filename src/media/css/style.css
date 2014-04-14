@@ -536,12 +536,19 @@ div.description h3,
 
 .open {
   background: #82C80A;
-  box-shadow: 0 1px #609900;
+  box-shadow: 0 1px #48BE4E;
 }
 
 .open:hover,
 .open:focus {
   background: #609900;
+}
+
+.queued,
+.queued:hover,
+.queued:focus {
+  background: #F9D04E;
+  box-shadow: 0 1px #DDB513;
 }
 
 .notice {
