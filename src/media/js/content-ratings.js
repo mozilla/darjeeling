@@ -9,7 +9,7 @@ define('content-ratings', ['templating', 'utils'],
     var detail_link = 'https://www.globalratings.com/ratings_guide.aspx';
 
     // L10n: For ages {0} and higher.
-    var RATING_NAME = gettext('{0}+', 'iarcRating');
+    var RATING_NAME = gettext('For ages {0}+', 'iarcRating');
     var names = {
         descriptors: {
             'discrimination': gettext('Discrimination', 'iarcDiscrimination'),
@@ -29,16 +29,11 @@ define('content-ratings', ['templating', 'utils'],
             'shares-location': gettext('Shares Location', 'iarcLocation'),
             'users-interact': gettext('Users Interact', 'iarcInteract'),
         },
-        ratings: {
-            '0': gettext('Everyone', 'iarcEveryone'),
-            '3': format(RATING_NAME, 3),
-            '6': format(RATING_NAME, 6),
-            '7': format(RATING_NAME, 7),
-            '10': format(RATING_NAME, 10),
-            '12': format(RATING_NAME, 12),
-            '14': format(RATING_NAME, 14),
-            '16': format(RATING_NAME, 16),
-            '18': format(RATING_NAME, 18),
+        ratings: function(age) {
+            if (age == '0') {
+                return gettext('Everyone', 'iarcEveryone');
+            }
+            return format(RATING_NAME, age);
         },
     };
 

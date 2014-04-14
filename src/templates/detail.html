@@ -6,7 +6,7 @@
         <div class="trunc name">{{ doc.name|translate(doc) }}</div>
         <div class="trunc dev">{{ doc.author }}</div>
         {% if doc.content_ratings.rating %}
-          <div class="content-rating">{{ _('Rating: {rating}', 'ratingRating', {rating: iarc_names.ratings[doc.content_ratings.rating]}) }}</div>
+          <div class="content-rating">{{ iarc_names.ratings(doc.content_ratings.rating) }}</div>
         {% endif %}
         {% set stars = doc.ratings.average|floor %}
         <div class="stars">{% for x in range(stars) %}&#9733;{% endfor %}{% if doc.ratings.average - stars >= 0.5 %}<span class="half">&#9733;</span>{% endif %}<span class="empty">{% for x in range(5 - stars) %}&#9733;{% endfor %}</span></div>
@@ -55,7 +55,7 @@
       <div class="content-ratings-detail app">
         <h3>{{ _('Rating', 'content-rating') }}</h3>
         <div class="content-ratings-box">
-          {% if content_rating.descriptors or content_rating.interactives %}
+          {% if content_rating.descriptors.length or content_rating.interactives.length %}
             <ul class="descriptors">
               {% for descriptor in content_rating.descriptors %}
                 <li>{{ iarc_names.descriptors[descriptor] }}</li>
@@ -65,7 +65,7 @@
               {% endfor %}
             </ul>
           {% else %}
-            <p class="age-desc">{{ iarc_names.rating[content_rating.rating] }}</p>
+            <p class="age-desc">{{ iarc_names.ratings(content_rating.rating) }}</p>
           {% endif %}
           <p class="age-rating">{{ content_rating.rating }}<span>+</span></p>
         </div>
