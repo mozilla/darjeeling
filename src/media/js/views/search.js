@@ -140,6 +140,11 @@ define('views/search',
     search();
   });
 
+  $.delegate('click', '.category-nav li', function () {
+    // Clear search box when going to category tab.
+    reset();
+  });
+
   $.delegate('submit', 'form', function(e) {
     e.preventDefault();
     search();
