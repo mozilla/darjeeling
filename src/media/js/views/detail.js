@@ -28,15 +28,15 @@ define('views/detail',
 
   function init(params) {
     console.log('Initializing detail page...');
-    if (document.body.dataset.page === 'detail') {
+    if (document.body.dataset.page === 'detail-' + params.slug) {
       // Bail if we've already rendered this page.
-      return details();
+      return;
     }
     indexed.then(function(data) {
       doc = find(data, params.slug);
       // FIXME: error if not found
       document.body.className = 'detail';
-      document.body.dataset.page = 'detail'; // FIXME: probably will need a different 'page' for each app. Use slug ?
+      document.body.dataset.page = 'detail-' + doc.slug;
       details();
     });
   }
@@ -45,10 +45,7 @@ define('views/detail',
     if (isNaN(index)) {
       return;
     }
-    var sel = '.thumbnail-switcher a:nth-child(' + (index + 1) +')';
-    var link = $(sel);
-    console.log(sel);
-    console.log(link);
+    var link = $('.thumbnail-switcher a:nth-child(' + (index + 1) +')');
     var img = $('.thumbnail img');
     $.each('.thumbnail-switcher a', function(item) {
       item.classList.remove('active');
@@ -57,7 +54,6 @@ define('views/detail',
     img.dataset.screenshot = link.dataset.screenshot;
     link.className = 'active';
     activeThumbnail = index;
-    console.log('Setting active to ' + activeThumbnail);
   }
 
   $.delegate('click', '.thumbnail-switcher a', function(e) {
