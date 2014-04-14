@@ -128,7 +128,7 @@ module.exports = function (grunt) {
           'src/media/js/install.js',
           'src/media/js/featured.js',
           'src/media/js/categories.js',
-          'src/media/js/content_ratings.js',
+          'src/media/js/content-ratings.js',
           'src/media/js/views/category.js',
           'src/media/js/views/detail.js',
           'src/media/js/views/featured.js',
