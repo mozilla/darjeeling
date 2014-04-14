@@ -19,6 +19,9 @@ define('views/detail',
   }
 
   function details() {
+    templating.render('nav', function(res) {
+      $('body > nav').innerHTML = res;
+    });
     templating.render('detail', {doc: doc}, function(res) {
       $('main').innerHTML = res;
     });

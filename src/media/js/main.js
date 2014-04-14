@@ -78,6 +78,10 @@ define('main', [], function () {
       app.load('/search/');
     });
 
+    templating.render('nav', function(res) {
+      $('body > nav').innerHTML = res;
+    });
+
     templating.render('header', function(res) {
       $('.header').innerHTML = res;
 
