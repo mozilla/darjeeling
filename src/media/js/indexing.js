@@ -65,17 +65,20 @@ define('indexing',
     cache.clear();
 
     var toCache = [];
+    // mozAdd seems to want absolute URLs with domain, otherwise throws
+    // NS_ERROR_MALFORMED_URI.
+    var prefix = window.location.protocol + '//' + window.location.host;
 
     Object.keys(newDocs).forEach(function (key) {
       toCache.push(newDocs[key]);
 
-      // Add icons and screenshots to Firefox's appcache.
+      // Add icons and 1st screenshot thumbnail to Firefox's appcache.
       // See https://developer.mozilla.org/en-US/docs/nsIDOMOfflineResourceList
       if (window.applicationCache.mozAdd) {
-        window.applicationCache.mozAdd(newDocs[key].icon);
-        newDocs[key].previews.forEach(function (previewKey, idx) {
-          window.applicationCache.mozAdd(newDocs[key].previews[idx].image);
-        });
+        window.applicationCache.mozAdd(prefix + newDocs[key].icon);
+        if (newDocs[key].previews.length > 0) {
+          window.applicationCache.mozAdd(prefix + newDocs[key].previews[0].thumbnail_url);
+        }
       }
     });
 
