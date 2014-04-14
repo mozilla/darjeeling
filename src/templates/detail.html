@@ -38,17 +38,17 @@
     </div>
     <div class="actions">
       {% if doc.support_email %}
-        <a class="button" href="mailto:{{ doc.support_email|translate(doc) }}">{{ _('Support Email', 'supportEmail') }}</a>
+        <a href="mailto:{{ doc.support_email|translate(doc) }}">{{ _('Support Email', 'supportEmail') }}</a>
       {% endif %}
       {% if doc.support_url %}
-        <a class="button" href="{{ doc.support_url|translate(doc) }}" rel="external">{{ _('Support Site', 'supportSite') }}</a>
+        <a href="{{ doc.support_url|translate(doc) }}" rel="external">{{ _('Support Site', 'supportSite') }}</a>
       {% endif %}
       {% if doc.homepage %}
-        <a class="button" href="{{ doc.homepage|translate(doc) }}" rel="external">{{ _('Homepage', 'homepage') }}</a>
+        <a href="{{ doc.homepage|translate(doc) }}" rel="external">{{ _('Homepage', 'homepage') }}</a>
       {% endif %}
       <!-- FIXME: implement privacy policy, report abuse -->
-      <a class="button" href="{{ doc.privacy_policy }}">{{ _('Privacy Policy', 'privacyPolicy') }}</a>
-      <a class="button" href="">{{ _('Report Abuse', 'reportAbuse') }}</a>
+      <a href="{{ doc.privacy_policy }}">{{ _('Privacy Policy', 'privacyPolicy') }}</a>
+      <a>{{ _('Report Abuse', 'reportAbuse') }}</a>
     </div>
     {% set content_rating = doc.content_ratings %}
     {% if content_rating.rating %}

@@ -16,10 +16,11 @@ var urlpatterns = [
   '/',
   '/search/',
   '/app/([^/<>"\']+)/',
-  '/category/([^/<>"\']+)/'
+  '/category/([^/<>"\']+)/',
+  '/feedback/'
 ];
 
-app.configure(function () {
+app.configure(function() {
   app.set('port', process.env.PORT || 3000);
   app.set('view options', {layout: false});
   app.use(express.logger());
@@ -28,22 +29,22 @@ app.configure(function () {
 });
 
 _.forEach(urlpatterns, function(pattern) {
-  app.get(pattern, function (req, res) {
+  app.get(pattern, function(req, res) {
     res.sendfile(settings.debug ? 'dev.html' : 'prod.html', {root: frontend_dir});
   });
 });
 
 if (settings.debug) {
-  app.configure('development', function () {
+  app.configure('development', function() {
     app.use(express.errorHandler());
   });
 } else {
   // For our sanity, we make sure that the appcache manifest 404s when running
   // the dev server so assets aren't appcached up the wazoo during development.
-  app.get('/manifest.appcache', function (req, res) {
+  app.get('/manifest.appcache', function(req, res) {
     res.sendfile(path.join(frontend_dir, 'site.appcache'));
   });
-  app.get('//manifest.appcache', function (req, res) {
+  app.get('//manifest.appcache', function(req, res) {
     res.sendfile(path.join(frontend_dir, 'site.appcache'));
   });
 }
@@ -51,24 +52,24 @@ if (settings.debug) {
 // NOTE: Do not ever *ever* cache with far-future max-age! Always use ETags!
 
 // Route cachebusted URLs (for appcache). This needs to be in nginx!
-app.get(/.*\.hash_\.*/, function (req, res) {
+app.get(/.*\.hash_\.*/, function(req, res) {
   res.sendfile(path.join(frontend_dir, req.url.replace(/hash_.+\./,'')));
 });
 
 // Note: This the same as `grunt fetchdb` (which should run as a cron job).
 // That means if we have `grunt fetchdb` running as a cron job, we don't need
 // this in nginx.
-app.get('/fetchdb', function (req, res) {
-  db.fetch(path.join(db_dir, 'latest.json')).then(function () {
+app.get('/fetchdb', function(req, res) {
+  db.fetch(path.join(db_dir, 'latest.json')).then(function() {
     res.json({success: true});
-  }, function () {
+  }, function() {
     res.json({error: true});
-  }).catch(function (err) {
+  }).catch(function(err) {
     console.error('lib/db.fetch errored:', err);
   });
 });
 
-app.listen(app.get('port'), function () {
+app.listen(app.get('port'), function() {
   var address = this.address();
   console.log('Starting server at http://' +
               address.address + ':' + address.port);

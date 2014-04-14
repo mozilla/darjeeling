@@ -48,6 +48,7 @@ define('main', [], function () {
     var templating = require('templating');
 
     var views = {
+      '/feedback/': 'feedback',
       '/category/:slug/': 'category',
       '/app/:slug/': 'detail',
       '/search/': 'search',
