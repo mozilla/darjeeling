@@ -1,6 +1,6 @@
 define('install',
-       ['apps', 'dom', 'indexing', 'log', 'notification', 'pages', 'settings', 'storage', 'templating', 'url', 'utils'],
-       function(apps, $, indexing, log, notification, pages, settings, storage, templating, url, utils) {
+       ['apps', 'capabilities', 'dom', 'indexing', 'log', 'notification', 'pages', 'settings', 'storage', 'templating', 'url', 'utils'],
+       function(apps, caps, $, indexing, log, notification, pages, settings, storage, templating, url, utils) {
   var docs = {};  // Holds the apps.
   var indexed = false;
   var gettext = templating._l;
@@ -23,11 +23,13 @@ define('install',
       console.log('Installing ' + app.name + ': ' + app.manifest_url);
       apps.install(app, {src: 'darjeeling'}).then(function (mozApp) {
 
-        // Show success notification message.
-        notification.notification({
-          classes: 'success',
-          message: gettext('*{app}* installed', 'installSuccess', {app: app.name})
-        });
+        if (!caps.firefoxOS) {
+          // Show success notification message (if not on FxOS cuz OS notifies obscures this).
+          notification.notification({
+            classes: 'success',
+            message: gettext('*{app}* installed', 'installSuccess', {app: app.name})
+          });
+        }
 
         // Mark as installed.
         docs[app._id].installed = app.installed = true;
@@ -44,10 +46,12 @@ define('install',
         resolve(app);
       }, function () {
         app.name = utils.translate(app.name);
-        notification.notification({
-          classes: 'error',
-          message: gettext('*{app}* failed to install', 'installError', {app: app.name})
-        });
+        if (!caps.firefoxOS) {
+          notification.notification({
+            classes: 'error',
+            message: gettext('*{app}* failed to install', 'installError', {app: app.name})
+          });
+        }
 
         // We're done.
         reject(app);
