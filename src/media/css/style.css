@@ -416,7 +416,7 @@ body > nav {
   line-height: 25px;
 }
 
-.search-tile .name {
+.search .name {
   font-size: 12px;
   font-weight: 500;
   line-height: 18px;
@@ -436,7 +436,7 @@ body > nav {
   letter-spacing: -1px;
 }
 
-.search-tile .stars {
+.search .stars {
   margin-top: 4px 0 0;
 }
 
@@ -529,7 +529,7 @@ div.description h3,
   width: 80px;
 }
 
-.detail-tile .install {
+.detail .install {
   padding-bottom: 8px;
   padding-top: 8px;
 }
