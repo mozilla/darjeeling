@@ -580,6 +580,22 @@ body > nav {
   padding: 10px;
 }
 
+.thumbnail-switcher a {
+  background: #C9C9C9;
+  border-radius: 15px;
+  display: inline-block;
+  height: 10px;
+  margin: 1px;
+  width: 10px;
+}
+
+.thumbnail-switcher .active,
+.thumbnail-switcher :hover,
+.thumbnail-switcher :active,
+.thumbnail-switcher :focus {
+  background-color: #4CB1FF;
+}
+
 .detail .thumbnail,
 .expanded .thumbnail {
   align-items: center;
@@ -595,13 +611,6 @@ body > nav {
 
 .thumbnail-switcher a {
   color: #CBCBCB;
-}
-
-.thumbnail-switcher .active,
-.thumbnail-switcher :hover,
-.thumbnail-switcher :active,
-.thumbnail-switcher :focus {
-  color: #4CB1FF;
 }
 
 .thumbnail button {

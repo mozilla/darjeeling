@@ -27,7 +27,7 @@
         </div>
         <div class="thumbnail-switcher">
           {% for preview in doc.previews %}
-            <a {% if loop.index0 == 0 %}class="active"{% endif %} data-index={{ loop.index0 }} data-thumbnail="{{ preview.thumbnail_url }}" data-screenshot="{{ preview.image_url }}" href="#thumb">&#9899;</a>
+            <a {% if loop.index0 == 0 %}class="active"{% endif %} data-index={{ loop.index0 }} data-thumbnail="{{ preview.thumbnail_url }}" data-screenshot="{{ preview.image_url }}" href="#thumb"></a>
           {% endfor %}
         </div>
       {% endif %}
