@@ -1,8 +1,8 @@
 <section>
   <header></header>
-  <div class="app">
+  <div class="app detail-tile">
       <div style="background-image:url({{ doc.icon }})" class="icon"></div>
-      <div class="details detail-tile">
+      <div class="details">
         <div class="trunc name">{{ doc.name|translate(doc) }}</div>
         <div class="trunc dev">{{ doc.author }}</div>
         {% if doc.content_ratings.rating %}

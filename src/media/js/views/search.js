@@ -2,7 +2,7 @@ define('views/search',
        ['apps', 'content-ratings', 'dom', 'indexing', 'install', 'log', 'notification', 'pages', 'settings', 'storage', 'templating', 'url', 'utils', 'worker'],
        function(apps, iarc, $, indexing, install, log, notification, pages, settings, storage, templating, url, utils, worker) {
   var cache = indexing.cache;
-  var console = log('search');
+  // var console = log('search');
   var GET;
   var q = '';
   var previousQuery = null;
@@ -131,16 +131,22 @@ define('views/search',
   }
 
   $.delegate('input', 'input[name=q]', function() {
+    $.each($('.category-nav li'), function(e) {
+      if (e.classList.contains('active')) {
+        e.classList.remove('active');
+      }
+    });
     search();
   }, false);
 
   $.delegate('click', 'input[name=q] ~ .search-clear', function () {
     // Clear search box and re-render search results.
     reset();
+    $('.category-nav .home').classList.add('active');
     search();
   });
 
-  $.delegate('click', '.category-nav li', function () {
+  $.delegate('click', '.logo, .category-nav li', function () {
     // Clear search box when going to category tab.
     reset();
   });

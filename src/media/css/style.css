@@ -359,7 +359,7 @@ body > nav {
   border-radius: 5px;
   box-shadow: 0 1px 1px #C7C7C7;
   display: block;
-  padding: 1px;
+  padding: 1px 1px 0 1px;
   width: 100%;
 }
 
@@ -651,6 +651,12 @@ div.description h3,
   display: block;
   max-width: 150px;
   max-height: 150px;
+}
+
+.expanded .thumbnail {
+  background: #E0E0E0;
+  display: flex;
+  justify-content: center;
 }
 
 .toggle-view,

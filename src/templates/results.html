@@ -1,10 +1,10 @@
 {% for data in data.results %}
   <li{% if data.score %} title="{{ _('Score: {score}', 'resultsScore', {score: data.score.toFixed(8)}) }}"{% endif %}>
     {% set doc = data.doc %}
-    <div class="app">
+    <div class="app search-tile">
       <div style="background-image:url({{ doc.icon }})" class="icon"></div>
       <a href="/app/{{ doc.slug }}/">
-        <div class="details search-tile">
+        <div class="details">
           <div class="trunc name">{{ doc.name|translate(doc) }}</div>
           <div class="trunc dev">{{ doc.author }}</div>
           {% if doc.content_ratings.rating %}
@@ -19,9 +19,9 @@
       </a>
       {{ doc.description|translate(doc)|summarise('description')|safe }}
       {% if doc.previews.length > 0 %}
-      <div class="thumbnail">
+        <div class="thumbnail">
           <img src="{{ doc.previews[0].thumbnail_url }}">
-      </div>
+        </div>
       {% endif %}
     </div>
   </li>
