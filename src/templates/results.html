@@ -1,10 +1,10 @@
 {% for data in data.results %}
   <li{% if data.score %} title="{{ _('Score: {score}', 'resultsScore', {score: data.score.toFixed(8)}) }}"{% endif %}>
     {% set doc = data.doc %}
-    <div class="app search-tile">
+    <div class="app">
       <div style="background-image:url({{ doc.icon }})" class="icon"></div>
       <a href="/app/{{ doc.slug }}/">
-        <div class="details">
+        <div class="details search-tile">
           <div class="trunc name">{{ doc.name|translate(doc) }}</div>
           <div class="trunc dev">{{ doc.author }}</div>
           {% if doc.content_ratings.rating %}

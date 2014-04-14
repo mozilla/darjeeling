@@ -2,7 +2,7 @@
   <header></header>
   <div class="app">
       <div style="background-image:url({{ doc.icon }})" class="icon"></div>
-      <div class="details">
+      <div class="details detail-tile">
         <div class="trunc name">{{ doc.name|translate(doc) }}</div>
         <div class="trunc dev">{{ doc.author }}</div>
         {% if doc.content_ratings.rating %}

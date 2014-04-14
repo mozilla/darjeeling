@@ -453,7 +453,7 @@ body > nav {
   color: #ccc;
 }
 
-.description,
+div.description,
 .content-ratings-detail {
   color: #797979;
   font-size: 14px;
@@ -461,8 +461,13 @@ body > nav {
   padding: 10px;
 }
 
-.description h3,
+.description .description.truncated {
+  padding: 0;
+}
+
+div.description h3,
 .content-ratings-detail h3 {
+  font-weight: 500;
   padding: 3px 0 6px;
 }
 
@@ -511,6 +516,11 @@ body > nav {
   position: absolute;
   right: 10px;
   width: 80px;
+}
+
+.detail-tile .install {
+  padding-bottom: 8px;
+  padding-top: 8px;
 }
 
 .open {
@@ -588,6 +598,10 @@ body > nav {
   display: none;
   margin: 0 -1px;
   padding: 10px;
+}
+
+.thumbnail-switcher {
+  padding: 0 10px;
 }
 
 .thumbnail-switcher a {
