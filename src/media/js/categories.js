@@ -4,17 +4,17 @@ define('categories', ['templating'], function(templating) {
 
   return {
     'games': {
-      name: gettext('categoryGames'),
+      name: gettext('Games', 'categoryGames'),
       slug: 'games',
       components: ['games']
     },
     'tools': {
-      name: gettext('categoryTools'),
+      name: gettext('Tools', 'categoryTools'),
       slug: 'tools',
       components: ['utilities', 'reference', 'productivity', 'education', 'business']
     },
     'lifestyle': {
-      name: gettext('categoryLifestyle'),
+      name: gettext('Lifestyle', 'categoryLifestyle'),
       slug: 'lifestyle',
       components: ['travel', 'sports', 'social', 'shopping', 'photo-video', 'news-weather', 'music',
                    'maps-navigation', 'lifestyle', 'health-fitness', 'entertainment', 'books']
