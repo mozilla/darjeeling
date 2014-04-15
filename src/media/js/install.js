@@ -47,12 +47,13 @@ define('install',
         // Attach app object from `navigator.mozApps.install` call.
         docs[app._id].mozApp = app.mozApp = mozApp;
 
-        // Change "Install" button to "Open" button.
+        // Change button to say "Launch".
         var button = $('.app[data-id="' + app._id + '"] .install');
+        button.target.classList.remove('queued');
         button.classList.add('open');
         button.textContent = gettext('Launch', 'launch');
 
-        // We're done.
+        // Done installing.
         resolve(app);
       }, function () {
         app.name = utils.translate(app.name);
@@ -63,7 +64,12 @@ define('install',
           });
         }
 
-        // We're done.
+        // Change button back to say "Install" if it was queued.
+        var button = $('.app[data-id="' + app._id + '"] .install');
+        button.classList.remove('queued');
+        button.textContent = gettext('Install', 'install');
+
+        // Install failed.
         reject(app);
       });
     });
