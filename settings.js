@@ -9,6 +9,7 @@ var settings = {
   db_dir: 'src/db',
   db_url: 'https://marketplace-dev.allizom.org/api/v1/fireplace/collection/curated/?region=restofworld',
   downloads_dir: 'src/downloads',
+  frontend_api_dir: '/lite/',  // https://marketplace.firefox.com/lite/ is the base directory of the "API"
   frontend_dir: 'src',
   use_data_uris: true
 };

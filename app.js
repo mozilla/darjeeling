@@ -57,11 +57,17 @@ if (settings.debug) {
   });
 }
 
+// For local development (because on in production the base path is `/lite/`).
+app.get(new RegExp(settings.frontend_api_dir.replace(/\//g, '\/')), function(req, res) {
+  res.sendfile(path.join(frontend_dir,
+    req.url.replace(settings.frontend_api_dir, '').replace(/hash_.+\./, '')));
+});
+
 // NOTE: Do not ever *ever* cache with far-future max-age! Always use ETags!
 
 // Route cachebusted URLs (for appcache). This needs to be in nginx!
 app.get(/.*\.hash_\.*/, function(req, res) {
-  res.sendfile(path.join(frontend_dir, req.url.replace(/hash_.+\./,'')));
+  res.sendfile(path.join(frontend_dir, req.url.replace(/hash_.+\./, '')));
 });
 
 // Note: This the same as `grunt fetchdb` (which should run as a cron job).
