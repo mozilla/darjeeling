@@ -45,7 +45,7 @@ define('views/featured',
       templating.render('results-header', {data: data}, function(res) {
         $('main header').innerHTML = res;
       });
-      templating.render('results', {data: data, docs: null}, function(res) {
+      templating.render('results', {data: data, docs: docs}, function(res) {
         $('main ol').innerHTML = res;
         console.log('Finished rendering featured view.');
       });

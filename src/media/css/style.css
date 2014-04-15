@@ -416,7 +416,8 @@ body > nav {
   line-height: 25px;
 }
 
-.search .name {
+.search .name,
+.featured .name {
   font-size: 12px;
   font-weight: 500;
   line-height: 18px;
