@@ -1,8 +1,6 @@
 var crypto = require('crypto');
 var path = require('path');
 
-var _ = require('lodash');
-
 var db = require('./lib/db');
 var settings = require('./settings');
 var utils = require('./lib/utils');

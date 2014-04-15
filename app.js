@@ -1,6 +1,5 @@
 var path = require('path');
 
-var _ = require('lodash');
 var express = require('express');
 
 var db = require('./lib/db');
@@ -21,12 +20,12 @@ var urlpatterns = [
 ];
 
 var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', 'https://marketplace.firefox.com');
-    res.header('Access-Control-Allow-Origin', 'https://marketplace-dev.allizom.org');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-}
+  res.header('Access-Control-Allow-Origin', 'https://marketplace.firefox.com');
+  res.header('Access-Control-Allow-Origin', 'https://marketplace-dev.allizom.org');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+};
 
 app.configure(function() {
   app.set('port', process.env.PORT || 3000);
@@ -37,7 +36,7 @@ app.configure(function() {
   app.use(allowCrossDomain);
 });
 
-_.forEach(urlpatterns, function(pattern) {
+urlpatterns.forEach(function(pattern) {
   app.get(pattern, function(req, res) {
     res.sendfile(settings.debug ? 'dev.html' : 'prod.html', {root: frontend_dir});
   });

@@ -34,14 +34,14 @@ define('featured', ['settings', 'storage', 'log'], function(settings, storage, l
         return JSON.parse(storage.getItem(FEATURED_APPS));
       }
       var regenerated = this.regenerate();
-      storage.setItem(FEATURED_APPS, JSON.stringify(regenerated || {}))
+      storage.setItem(FEATURED_APPS, JSON.stringify(regenerated || {}));
       storage.setItem(LAST_UPDATED, today);
       return regenerated;
     },
 
     regenerate: function() {
       // From the pool of featured apps, return a randomized, weighted selection to be
-      // displayed on the homepage. 
+      // displayed on the homepage.
       console.log('Generating a new selection of featured apps');
       var all = this.all();
 

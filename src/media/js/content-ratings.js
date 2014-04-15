@@ -30,7 +30,7 @@ define('content-ratings', ['templating', 'utils'],
             'users-interact': gettext('Users Interact', 'iarcInteract'),
         },
         ratings: function(age) {
-            if (age == '0') {
+            if (age === '0') {
                 return gettext('Everyone', 'iarcEveryone');
             }
             return format(RATING_NAME, age);
