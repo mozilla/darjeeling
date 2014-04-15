@@ -10,7 +10,7 @@ define('views/feedback',
   //TODO: This page badly needs a back button.
 
   function feedback() {
-    templating.render('feedback', {doc: doc}, function(res) {
+    templating.render('feedback', function(res) {
       $('main').innerHTML = res;
       console.log('Done rendering feedback template...');
     });
@@ -77,13 +77,10 @@ define('views/feedback',
       // Bail if we've already rendered this page.
       return feedback();
     }
-    indexed.then(function(data) {
-      doc = find(data, params.slug);
-      // FIXME: error if not found
-      document.body.className = 'feedback';
-      document.body.dataset.page = 'feedback'; // FIXME: probably will need a different 'page' for each app. Use slug ?
-      feedback();
-    });
+
+    document.body.className = 'feedback';
+    document.body.dataset.page = 'feedback';
+    feedback();
   }
 
   return {
