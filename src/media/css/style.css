@@ -444,14 +444,26 @@ body > nav {
   margin-top: 4px 0 0;
 }
 
-.detail .stars {
-  position: absolute;
-  left: 10px;
+.detail .stars-flex {
   bottom: 0;
+  align-items: center;
+  display: flex;
+  left: 10px;
+  position: absolute;
+}
+
+.detail .stars {
+  max-width: 75px;
+  width: 75px;
+}
+
+.detail .count {
+  color: #4CB1FF;
+  font-size: 12px;
 }
 
 .detail .details {
-  min-height: 104px; /* leave space for absolutely positionned stars */
+  min-height: 104px; /* leave space for absolutely positioned stars */
 }
 
 .stars .half {
