@@ -6,17 +6,27 @@ define('install',
   var gettext = templating._l;
   var queuedInstalls = JSON.parse(storage.getItem('queuedInstalls') || '[]');
 
-  function getDocs() {
-      return docs;
+  function findById(data, id) {
+    // lambda x: x.id == id
+    for (var i = 0; i < data.length; i++) {
+      if (data[i]._id === id) {
+        return data[i];
+      }
+    }
+    return null;
   }
 
-  function hideSplash() {
+  var getDocs = function() {
+      return docs;
+  };
+
+  var hideSplash = function() {
     // FIXME: move elsewhere.
     // We're ready to rumble. Remove splash screen!
     console.log('Preparing to remove slash screen...');
     document.body.removeChild(document.getElementById('splash-overlay'));
     console.log('Hiding splash screen (' + ((window.performance.now() - window.start_time) / 1000).toFixed(6) + 's)');
-  }
+  };
 
   var installApp = function(app) {
     return new Promise(function(resolve, reject) {
@@ -158,11 +168,12 @@ define('install',
         // Get the list of installed apps so we can toggle the buttons where appropriate.
         apps.getInstalled().then(function(installedApps) {
           Object.keys(docs).forEach(function(key) {
-            if (installedApps) {
+            if (installedApps || queuedInstalls) {
               // Attach the `navigator.mozApps` object so we can launch the app later.
               // (The installed apps are keyed off the manifest URL without the querystring.)
               docs[key].mozApp = installedApps[utils.baseurl(docs[key].manifest_url)] || null;
               docs[key].installed = !!docs[key].mozApp;
+              docs[key].queued = findById(queuedInstalls, docs[key]._id);
             }
 
             // App names should already be localised before we get here (issue #14).
