@@ -1,6 +1,6 @@
 define('views/feedback',
-       ['capabilities', 'dom', 'indexing', 'log', 'notification', 'templating', 'url'],
-       function(caps, $, indexing, log, notification, templating, url) {
+       ['capabilities', 'dom', 'indexing', 'log', 'notification', 'templating', 'url', 'utils',],
+       function(caps, $, indexing, log, notification, templating, url, utils) {
 
   var console = log('feedback');
   var indexed = indexing.index();
@@ -16,12 +16,12 @@ define('views/feedback',
     });
   }
 
-  $.delegate('submit', '.feedback-form', function(e) {
+  $.delegate('click', '.feedback button', function(e) {
     e.preventDefault();
 
     // Manual XHRs are joyous fun!
     var req = new XMLHttpRequest();
-    req.addEventListener('load', handler, false);
+    req.addEventListener('load', success, false);
     req.addEventListener('error', error, false);
 
     var data = {
@@ -30,9 +30,9 @@ define('views/feedback',
       from_url: '/feedback/',
       sprout: 'potato',
       tuber: $('.feedback input[name=tuber]').value
-    }
+    };
 
-    req.open('POST', url('feedback'), true);
+    req.open('POST', 'https://marketplace.firefox.com/api/v1/account/feedback/', true);
     req.setRequestHeader('Content-Type', 'application/json');
     req.send(JSON.stringify(data));
 
@@ -47,14 +47,21 @@ define('views/feedback',
     }
 
     function success() {
-      notify({classes: 'success', message: gettext('Feedback sent')});
+      notify({classes: 'success', message: gettext('Feedback successfully sent', 'feedbackSuccess')});
       disableForm();
     }
 
     function error() {
-      notify({
-        classes: 'error',
-        message: gettext('Feedback was not sent successfully. Please try again later.')
+      utils.checkOnline().then(function() {
+        notify({
+          classes: 'error',
+          message: gettext('Feedback was not sent successfully. Please try again later.', 'feedbackError')
+        });
+      }, function() {
+        notify({
+          classes: 'error',
+          message: gettext('Sorry, you must be online to submit feedback.', 'feedbackOffline')
+        });
       });
     }
   });

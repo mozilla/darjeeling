@@ -87,7 +87,7 @@ define('install',
       return;
     }
 
-    utils.checkOnline().then(function () {
+    utils.checkOnline().then(function() {
       console.log('Online ⤳ installing app now (ʘ‿ʘ)');
       installApp(app);
     }, function () {

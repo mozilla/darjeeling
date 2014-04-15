@@ -1,11 +1,16 @@
-<div class="main feedback c">
-  <form method="post" class="feedback-form form-modal">
-    <p>
-      <textarea name="feedback" required></textarea>
-    </p>
-    <p class="form-footer">
-      <input type="text" name="tuber" class="potato-captcha">
-      <button class="big" type="submit">{{ _('Send') }}</button>
-    </p>
-  </form>
-</div>
+<section>
+  <header>
+    <h1>{{ _('Feedback', 'feedback') }}</h1>
+  </header>
+</section>
+  <div class="main feedback c">
+    <form method="post" class="feedback-form form-modal">
+      <p>
+        <textarea name="feedback" required placeholder="{{ _('Feedback', 'feedback') }}"></textarea>
+      </p>
+      <p class="form-footer">
+        <input type="text" name="tuber" class="potato-captcha">
+        <button class="big" type="submit">{{ _('Submit Feedback', 'feedbackSubmit') }}</button>
+      </p>
+    </form>
+  </div>

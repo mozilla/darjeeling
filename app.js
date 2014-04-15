@@ -20,12 +20,21 @@ var urlpatterns = [
   '/feedback/'
 ];
 
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', 'https://marketplace.firefox.com');
+    res.header('Access-Control-Allow-Origin', 'https://marketplace-dev.allizom.org');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+}
+
 app.configure(function() {
   app.set('port', process.env.PORT || 3000);
   app.set('view options', {layout: false});
   app.use(express.logger());
   app.use(express.compress());
   app.use(express.static(frontend_dir));
+  app.use(allowCrossDomain);
 });
 
 _.forEach(urlpatterns, function(pattern) {

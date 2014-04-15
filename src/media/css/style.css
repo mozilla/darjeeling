@@ -173,6 +173,12 @@ input {
   z-index: 2;
 }
 
+textarea {
+  color: #333;
+  font-size: 16px;
+  padding: 10px;
+}
+
 input:required, input:invalid {
   /* Disable the `box-shadow` Firefox adds when blurring the [required]
      search box if it's empty. */
@@ -721,10 +727,11 @@ div.description h3,
   border: 1px solid #bbb;
   border-radius: 5px;
   margin-bottom: 15px;
-  min-height: 80px;
+  min-height: 120px;
 }
 
-.feedback textarea, .feedback button {
+.feedback textarea,
+.feedback button {
   width: 100%;
 }
 
