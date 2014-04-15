@@ -114,7 +114,7 @@ define('views/search',
 
     if (!utils.eq(current, previous)) {
       // Only re-render results if results have changed.
-      templating.render('results', {data: data, docs: docs}, function(res) {
+      templating.render('results', {data: data, docs: install.getDocs()}, function(res) {
         // Override body classname, I don't use classList because I'm lazy and
         // don't want to figure out what to remove.
         document.body.className = 'results ' + (dest === '/' ? 'homepage' : 'search');
