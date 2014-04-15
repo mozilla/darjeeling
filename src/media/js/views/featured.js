@@ -40,7 +40,7 @@ define('views/featured',
     templating.render('nav', {page: 'featured'}, function(res) {
       $('body > nav').innerHTML = res;
     });
-    templating.render('browse', function(res) {
+    templating.render('browse', {page: 'featured'}, function(res) {
       $('main').innerHTML = res;
       templating.render('results-header', {data: data}, function(res) {
         $('main header').innerHTML = res;

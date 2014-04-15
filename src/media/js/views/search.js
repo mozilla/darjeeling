@@ -26,7 +26,7 @@ define('views/search',
       return search();
     }
 
-    templating.render('browse', function(res) {
+    templating.render('browse', {page: page_name}, function(res) {
       $('main').innerHTML = res;
       console.log('Done rendering browse template, now waiting for indexed promise...');
       install.init().then(function(data) {

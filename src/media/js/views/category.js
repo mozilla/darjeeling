@@ -21,7 +21,6 @@ define('views/category',
 
       document.body.className = 'category';
       document.body.dataset.page = page_name;
-      timeStart = window.performance.now();
 
       // Only show apps for this category.
       Object.keys(docs).forEach(function(key) {
@@ -41,7 +40,7 @@ define('views/category',
     templating.render('nav', {page: category.slug}, function(res) {
       $('body > nav').innerHTML = res;
     });
-    templating.render('browse', function(res) {
+    templating.render('browse', {page: category.slug}, function(res) {
       $('main').innerHTML = res;
       templating.render('results-header', {category: category}, function(res) {
         $('main header').innerHTML = res;
