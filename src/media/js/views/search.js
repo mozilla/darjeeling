@@ -161,10 +161,14 @@ define('views/search',
     e.target.parentNode.removeChild(e.target);
   });
 
-  $.delegate('click', '.toggle-view', function(e) {
+  $.delegate('click', '.toggle-view-wrap', function(e) {
     e.preventDefault();
     $('main').classList.toggle('expanded');
-    e.target.classList.toggle('expanded');
+    if (e.target.classList.contains('toggle-view-wrap')) {
+      e.target.firstElementChild.classList.toggle('expanded');
+    } else {
+      e.target.classList.toggle('expanded');
+    }
   });
 
   return {

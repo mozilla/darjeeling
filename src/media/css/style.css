@@ -699,6 +699,17 @@ div.description h3,
   justify-content: center;
 }
 
+.search.results header {
+  align-items: center;
+}
+
+.toggle-view-wrap {
+  bottom: 4px;
+  left: 10px;
+  padding: 10px 10px 10px 30px;
+  position: relative;
+}
+
 .toggle-view,
 .toggle-view:hover,
 .toggle-view:focus {
@@ -708,6 +719,7 @@ div.description h3,
   border: none;
   color: #666;
   cursor: pointer;
+  display: block;
   position: relative;
   height: 22px;
   top: 3px;

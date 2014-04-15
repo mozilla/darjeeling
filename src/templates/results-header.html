@@ -4,7 +4,9 @@
     {% set timing = data.timing / 1000 %}
     <span class="speed">{{ _('(took {time}s)', 'resultsTime', {time: timing|round(6, 'floor')}) }}</span>
   </h1>
-  <a class="toggle-view"></a>
+  <span class="toggle-view-wrap">
+    <a class="toggle-view"></a>
+  </span>
 {% elif category %}
 {% else %}
   <h1 class="results-heading">{{ _('Featured Apps', 'featuredApps') }}</h1>
