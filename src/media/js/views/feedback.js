@@ -10,6 +10,9 @@ define('views/feedback',
   //TODO: This page badly needs a back button.
 
   function feedback() {
+    templating.render('nav', function(res) {
+      $('body > nav').innerHTML = res;
+    });
     templating.render('feedback', function(res) {
       $('main').innerHTML = res;
       console.log('Done rendering feedback template...');
@@ -19,11 +22,6 @@ define('views/feedback',
   $.delegate('click', '.feedback button', function(e) {
     e.preventDefault();
 
-    // Manual XHRs are joyous fun!
-    var req = new XMLHttpRequest();
-    req.addEventListener('load', success, false);
-    req.addEventListener('error', error, false);
-
     var data = {
       chromeless: caps.chromeless,
       feedback: $('.feedback textarea').value || '',
@@ -32,26 +30,12 @@ define('views/feedback',
       tuber: $('.feedback input[name=tuber]').value
     };
 
-    req.open('POST', routes_api.feedback, true);
-    req.setRequestHeader('Content-Type', 'application/json');
-    req.send(JSON.stringify(data));
-
-    function handler() {
-      if (this.readyState === 4) {
-        if (this.status === 201) {
-          success();
-        } else {
-          error();
-        }
-      }
-    }
-
-    function success() {
+    $.post(routes_api.feedback, data).then(function() {
+      // Success handler.
       notify({classes: 'success', message: gettext('Feedback successfully sent', 'feedbackSuccess')});
       disableForm();
-    }
-
-    function error() {
+    }, function() {
+      // Error handler.
       utils.checkOnline().then(function() {
         notify({
           classes: 'error',
@@ -63,7 +47,7 @@ define('views/feedback',
           message: gettext('Sorry, you must be online to submit feedback.', 'feedbackOffline')
         });
       });
-    }
+    });
   });
 
   function disableForm() {
@@ -71,7 +55,7 @@ define('views/feedback',
     $('.feedback button').disabled = true;
   }
 
-  function init(params) {
+  function init() {
     console.log('Initializing feedback page...');
     if (document.body.dataset.page === 'feedback') {
       // Bail if we've already rendered this page.
