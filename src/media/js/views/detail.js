@@ -88,13 +88,12 @@ define('views/detail',
     i.onerror = function() {
       var b = document.createElement('b');
       b.classList.add('err');
-      b.appendChild(document.createTextNode('&#x26A0;'));
+      b.appendChild(document.createTextNode('\u26a0'));
       lightbox.classList.remove('loading');
       lightbox.appendChild(b);
     };
 
     i.src = img.dataset.screenshot;
-    console.log(img.src);
   }
 
   $.delegate('click', '#lightbox', function() {

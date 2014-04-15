@@ -749,6 +749,13 @@ div.description h3,
   transform: translate(-50%,-50%);
 }
 
+#lightbox err {
+  display: block;
+  font-size: 48px;
+  margin-top: 120px;
+  text-align: center;
+}
+
 body.overflowed main {
   overflow: hidden;
 }
