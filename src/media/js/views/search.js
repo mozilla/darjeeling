@@ -30,7 +30,7 @@ define('views/search',
       $('main').innerHTML = res;
       console.log('Done rendering browse template, now waiting for indexed promise...');
       install.init().then(function(data) {
-        docs = data;
+        docs = install.getDocs();
         // Initialize and then render search template.
         document.body.className = 'results';
         document.body.dataset.page = 'results';
