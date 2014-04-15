@@ -1,6 +1,7 @@
 define('install',
        ['apps', 'capabilities', 'dom', 'indexing', 'log', 'notification', 'pages', 'settings', 'storage', 'templating', 'url', 'utils'],
        function(apps, caps, $, indexing, log, notification, pages, settings, storage, templating, url, utils) {
+  var console = log('install');
   var docs = {};  // Holds the apps.
   var indexed = false;
   var gettext = templating._l;
@@ -17,7 +18,7 @@ define('install',
   }
 
   var getDocs = function() {
-      return docs;
+    return docs;
   };
 
   var hideSplash = function() {
