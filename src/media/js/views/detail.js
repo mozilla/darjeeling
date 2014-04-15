@@ -73,7 +73,7 @@ define('views/detail',
   // Start of lightbox code.
   $.delegate('click', '.thumbnail a', function(e) {
     toggleLightbox();
-    initImage(e.target);
+    initImage(e.delegateTarget.firstElementChild);  // Pass the image.
   });
 
   function initImage(img) {
@@ -82,19 +82,19 @@ define('views/detail',
 
     // TODO: Loading animation? Might perform horribly.
     i.onload = function() {
-        lightbox.classList.remove('loading');
-        lightbox.appendChild(i);
+      lightbox.classList.remove('loading');
+      lightbox.appendChild(i);
     };
     i.onerror = function() {
-        var b = document.createElement('b');
-        b.classList.add('err');
-        b.appendChild(document.createTextNode('&#x26A0;'))
-        lightbox.classList.remove('loading');
-        lightbox.appendChild(b);
+      var b = document.createElement('b');
+      b.classList.add('err');
+      b.appendChild(document.createTextNode('&#x26A0;'));
+      lightbox.classList.remove('loading');
+      lightbox.appendChild(b);
     };
 
-    // This will eventually need to use the data-screenshot attr.
-    i.src = img.src;
+    i.src = img.dataset.screenshot;
+    console.log(img.src);
   }
 
   $.delegate('click', '#lightbox', function() {
