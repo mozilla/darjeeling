@@ -184,7 +184,7 @@ define('install',
             }
 
             // App names should already be localised before we get here (issue #14).
-            docs[key].name = utils.translate(docs[key].name);
+            docs[key].name = utils.translate(docs[key].name) || docs[key].name;
           });
 
           console.log('Resolving install Promise...');
