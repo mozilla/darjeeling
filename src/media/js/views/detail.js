@@ -4,6 +4,7 @@ define('views/detail',
   var console = log('detail');
   var doc;
   var activeThumbnail = 0;
+  var lightbox = $('#lightbox');
 
   /* FIXME: more hacking. maintaining a list of slugs->ids would probably be a good idea */
   function find(data, slug) {
@@ -67,6 +68,48 @@ define('views/detail',
     var idx = activeThumbnail + ((e.delegateTarget.dataset.action === 'prev') ? -1 : 1);
     switchThumb(utils.mod(idx, doc.previews.length));
   }, false);
+
+  // Might be wise to make a module of these eventually.
+  // Start of lightbox code.
+  $.delegate('click', '.thumbnail a', function(e) {
+    toggleLightbox();
+    initImage(e.target);
+  });
+
+  function initImage(img) {
+    var i = new Image();
+    lightbox.classList.add('loading');
+
+    // TODO: Loading animation? Might perform horribly.
+    i.onload = function() {
+        lightbox.classList.remove('loading');
+        lightbox.appendChild(i);
+    };
+    i.onerror = function() {
+        var b = document.createElement('b');
+        b.classList.add('err');
+        b.appendChild(document.createTextNode('&#x26A0;'))
+        lightbox.classList.remove('loading');
+        lightbox.appendChild(b);
+    };
+
+    // This will eventually need to use the data-screenshot attr.
+    i.src = img.src;
+  }
+
+  $.delegate('click', '#lightbox', function() {
+    toggleLightbox();
+    while(lightbox.firstChild) {
+      lightbox.removeChild(lightbox.firstChild);
+    }
+    lightbox.classList.remove('loading');
+  });
+
+  function toggleLightbox() {
+    $('body').classList.toggle('overflowed');
+    $('#lightbox').classList.toggle('active');
+  }
+  // End of lightbox code.
 
   return {
     init: init,

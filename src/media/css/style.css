@@ -336,6 +336,7 @@ body > nav {
 }
 
 .category-nav a {
+  border-bottom: 3px solid transparent;
   color: #1A1A1A;
   display: inline-block;
   font-size: 15px;
@@ -715,6 +716,42 @@ div.description h3,
 .feedback-form {
   display: block;
   padding-bottom: 0;
+}
+
+/* Targeting an ID but we'll make an exception for this bad bay. */
+#lightbox {
+  display: none;
+  position: absolute; /* In case 'fixed' is broken. */
+  position: fixed;
+  z-index: 1001; /* One hundred million dollars!!! */
+  border: 10px solid #888;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  overflow: hidden;
+}
+
+#lightbox.active {
+  display: block;
+}
+
+#lightbox img {
+  position: absolute;
+  max-width: 300px;
+  max-height: 460px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.overflowed {
+  overflow: hidden;
+}
+
+body.overflowed main {
+  overflow: hidden;
 }
 
 @media (min-width: 600px) {

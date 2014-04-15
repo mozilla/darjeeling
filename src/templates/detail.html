@@ -25,13 +25,10 @@
       {% if doc.previews.length > 0 %}
         <div class="thumbnail">
             <button data-action="prev">&#10216;</button>
-            <img data-screenshot="{{ preview.image_url }}" src="{{ doc.previews[0].thumbnail_url }}">
+            <a>
+              <img data-screenshot="{{ preview.image_url }}" src="{{ doc.previews[0].thumbnail_url }}">
+            </a>
             <button data-action="next">&#10217;</button>
-            <!--
-              FIXME:
-               - display screenshot when clicked
-
-            -->
         </div>
         <div class="thumbnail-switcher">
           {% for preview in doc.previews %}
