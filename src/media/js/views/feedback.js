@@ -1,6 +1,6 @@
 define('views/feedback',
-       ['capabilities', 'dom', 'indexing', 'log', 'notification', 'templating', 'url', 'utils',],
-       function(caps, $, indexing, log, notification, templating, url, utils) {
+       ['capabilities', 'dom', 'indexing', 'log', 'notification', 'routes_api', 'templating', 'url', 'utils',],
+       function(caps, $, indexing, log, notification, routes_api, templating, url, utils) {
 
   var console = log('feedback');
   var indexed = indexing.index();
@@ -32,7 +32,7 @@ define('views/feedback',
       tuber: $('.feedback input[name=tuber]').value
     };
 
-    req.open('POST', 'https://marketplace.firefox.com/api/v1/account/feedback/', true);
+    req.open('POST', routes_api.feedback, true);
     req.setRequestHeader('Content-Type', 'application/json');
     req.send(JSON.stringify(data));
 
