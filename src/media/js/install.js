@@ -49,7 +49,7 @@ define('install',
 
         // Change button to say "Launch".
         var button = $('.app[data-id="' + app._id + '"] .install');
-        button.target.classList.remove('queued');
+        button.classList.remove('queued');
         button.classList.add('open');
         button.textContent = gettext('Launch', 'launch');
 
@@ -119,7 +119,7 @@ define('install',
     var howMany = queuedInstalls.length === 1 ? '1 app' :
                   queuedInstalls.length + ' apps';
 
-    utils.checkOnline().then(function () {
+    utils.checkOnline().then(function() {
       console.log('Online ⤳ ' + howMany + ' in queue');
 
       if (installing) {
@@ -137,15 +137,15 @@ define('install',
       installing = true;
 
       // Install each app (which calls `navigator.mozApps.install`, etc.).
-      installApp(app).then(function (app) {
+      installApp(app).then(function(app) {
         installing = false;
         console.log('Installed queued app: ' + app.name);
-      }, function (app) {
+      }, function(app) {
         installing = false;
         console.log('Could not install queued app: ' + app.name);
       });
 
-    }, function () {
+    }, function() {
       //console.log('Offline ⤳ ' + howMany + ' in queue');
     });
   };

@@ -1,7 +1,6 @@
 define('views/detail',
        ['apps', 'content-ratings', 'cache', 'dom', 'install', 'log', 'notification', 'pages', 'settings', 'storage', 'templating', 'url', 'utils'],
        function(apps, Cache, iarc, $, install, log, notification, pages, settings, storage, templating, url, utils) {
-
   var console = log('detail');
   var doc;
   var activeThumbnail = 0;

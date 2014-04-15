@@ -2,7 +2,7 @@ define('views/category',
        ['categories', 'dom', 'install', 'log', 'templating'],
        function(categories, $, install, log, templating) {
 
-  // var console = log('views/category');
+  var console = log('views/category');
   var docs = [];
 
   function init(params) {
@@ -17,8 +17,8 @@ define('views/category',
     }
 
     install.init().then(function(data) {
-
       docs = data;
+
       document.body.className = 'category';
       document.body.dataset.page = page_name;
       timeStart = window.performance.now();
@@ -33,9 +33,7 @@ define('views/category',
 
       // Render the document
       render(category, in_category);
-
     });
-
   }
 
   function render(category, apps) {
@@ -48,7 +46,7 @@ define('views/category',
       templating.render('results-header', {category: category}, function(res) {
         $('main header').innerHTML = res;
       });
-      templating.render('results', {data: data, docs: null}, function(res) {
+      templating.render('results', {data: data, docs: docs}, function(res) {
         $('main ol').innerHTML = res;
       });
     });

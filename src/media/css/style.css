@@ -412,15 +412,14 @@ body > nav {
 
 .name {
   color: #797979;
-  font-size: 20px;
-  line-height: 25px;
-}
-
-.search .name,
-.featured .name {
   font-size: 12px;
   font-weight: 500;
   line-height: 18px;
+}
+
+.detail .name {
+  font-size: 20px;
+  line-height: 25px;
 }
 
 .dev,
