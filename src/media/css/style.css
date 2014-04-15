@@ -53,6 +53,7 @@ body {
   background: #F1F1F1;
   height: 100%;
   min-height: 100%;
+  overflow: hidden;
 }
 
 body {
