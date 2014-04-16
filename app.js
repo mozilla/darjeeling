@@ -12,11 +12,11 @@ var frontend_dir = path.join(__dirname, settings.frontend_dir);
 var db_dir = path.join(__dirname, settings.db_dir);
 
 var urlpatterns = [
-  '/',
-  '/search/',
-  '/app/([^/<>"\']+)/',
-  '/category/([^/<>"\']+)/',
-  '/feedback/'
+  '/lite/',
+  '/lite/search/',
+  '/lite/app/([^/<>"\']+)/',
+  '/lite/category/([^/<>"\']+)/',
+  '/lite/feedback/'
 ];
 
 var allowCrossDomain = function(req, res, next) {
@@ -27,47 +27,66 @@ var allowCrossDomain = function(req, res, next) {
   next();
 };
 
-app.configure(function() {
-  app.set('port', process.env.PORT || 3000);
-  app.set('view options', {layout: false});
-  app.use(express.logger());
-  app.use(express.compress());
-  app.use(express.static(frontend_dir));
-  app.use(allowCrossDomain);
+// For local development (because the production base path is `/lite/`).
+app.get('/', function(req, res) {
+  // Map `/(.*)` to `/lite$1`.
+  if (req.url.indexOf('/lite') !== 0) {
+    res.redirect('/lite' + req.url);
+  }
 });
 
-urlpatterns.forEach(function(pattern) {
-  app.get(pattern, function(req, res) {
-    res.sendfile(settings.debug ? 'dev.html' : 'index.html', {root: frontend_dir});
-  });
+// Workaround for a Firefox a bug that hits the wrong appcache URI (bug 983871).
+app.use(function(req, res, next) {
+  // Convert `//` to `/`.
+  if (req.url.indexOf('//') !== -1) {
+    req.url = req.url.substr(req.url.indexOf('//') + 1);
+    console.log(req.url)
+  }
+  next();
+});
+
+// Do not ever *ever* cache with far-future max-age! Always use ETags!
+// app.use(function(req, res, next) {
+//   res.removeHeader('Cache-Control');
+//   res.removeHeader('Expires');
+//   res.removeHeader('ETag');
+//   next();
+// });
+
+// Route cachebusted URLs (for appcache). This needs to be in nginx!
+app.use(function(req, res, next) {
+  if (/.*\.hash_\.*/.test(req.url)) {
+    req.url = req.url.replace(/hash_.+\./, '');
+  }
+  next();
 });
 
 if (settings.debug) {
   app.configure('development', function() {
     app.use(express.errorHandler());
   });
-} else {
-  // For our sanity, we make sure that the appcache manifest 404s when running
-  // the dev server so assets aren't appcached up the wazoo during development.
-  app.get('/manifest.appcache', function(req, res) {
-    res.sendfile(path.join(frontend_dir, 'site.appcache'));
-  });
-  app.get('//manifest.appcache', function(req, res) {
-    res.sendfile(path.join(frontend_dir, 'site.appcache'));
+  // For our sanity, we make sure that the appcache manifest 404s when
+  // running the dev server so assets aren't appcached up the wazoo during
+  // development.
+  app.get('/lite/manifest.appcache', function(req, res) {
+    res.send(404);
   });
 }
 
-// For local development (because on in production the base path is `/lite/`).
-app.get(new RegExp(settings.frontend_api_dir.replace(/\//g, '\/')), function(req, res) {
-  res.sendfile(path.join(frontend_dir,
-    req.url.replace(settings.frontend_api_dir, '').replace(/hash_.+\./, '')));
+// Note: the middlewares above must come before we initialise `express.static`.
+app.configure(function() {
+  app.set('port', process.env.PORT || 3000);
+  app.set('view options', {layout: false});
+  app.use(express.logger());
+  app.use(express.compress());
+  app.use(express.static(settings.frontend_dir));
+  app.use(allowCrossDomain);
 });
 
-// NOTE: Do not ever *ever* cache with far-future max-age! Always use ETags!
-
-// Route cachebusted URLs (for appcache). This needs to be in nginx!
-app.get(/.*\.hash_\.*/, function(req, res) {
-  res.sendfile(path.join(frontend_dir, req.url.replace(/hash_.+\./, '')));
+urlpatterns.forEach(function(pattern) {
+  app.get(pattern, function(req, res) {
+    res.sendfile(settings.debug ? 'lite/dev.html' : 'lite/index.html', {root: frontend_dir});
+  });
 });
 
 // Note: This the same as `grunt fetchdb` (which should run as a cron job).

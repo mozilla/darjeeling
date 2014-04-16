@@ -1,0 +1,13 @@
+{
+  "appcache_path": "/lite/manifest.appcache",
+  "description": "The Firefox Marketplace",
+  "developer": {
+    "name": "Mozilla",
+    "url": "http://mozilla.org"
+  },
+  "icons": {
+    "128": "/lite/media/img/icon-128.png",
+    "90": "/lite/media/img/icon-90.png"
+  },
+  "name": "Marketplace"
+}

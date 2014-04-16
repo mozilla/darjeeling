@@ -8,10 +8,10 @@ deploy.log
 node_modules/
 npm-debug.log
 settings_*.js
-src/db/**/*.json
-src/downloads/**/*.gif
-src/downloads/**/*.jp*
-src/downloads/**/*.png
-src/index.html
+src/lite/db/**/*.json
+src/lite/downloads/**/*.gif
+src/lite/downloads/**/*.jp*
+src/lite/downloads/**/*.png
+src/lite/index.html
 src/prod.html
 templates.js

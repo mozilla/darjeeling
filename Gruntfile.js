@@ -23,47 +23,48 @@ function urlparams(url, qs) {
   return url + '&' + qs;
 }
 
+var frontend_dir = path.join(__dirname, settings.frontend_dir);
+
 // These are the files containing un-cachbusted URLs that need to get
 // replaced with cachedbusted URLs.
 var stringReplaceFiles = {};
-stringReplaceFiles[settings.db_dir + '/data.json'] = settings.db_dir + '/data.json';
-stringReplaceFiles[settings.frontend_dir + '/media/css/'] = settings.frontend_dir + '/media/css/*.min.css';
-stringReplaceFiles[settings.frontend_dir + '/media/js/'] = settings.frontend_dir + '/media/js/*.min.js';
-stringReplaceFiles[settings.frontend_dir + '/media/js/lib/'] = settings.frontend_dir + '/media/js/lib/*.min.js';
-stringReplaceFiles[settings.frontend_dir + '/index.html'] = settings.frontend_dir + '/index.html';
+stringReplaceFiles[settings.db_dir + '/preloaded.json'] = settings.db_dir + '/preloaded.json';
+stringReplaceFiles[settings.frontend_dir + '/lite/media/css/'] = settings.frontend_dir + '/lite/media/css/*.min.css';
+stringReplaceFiles[settings.frontend_dir + '/lite/media/js/'] = settings.frontend_dir + '/lite/media/js/*.min.js';
+stringReplaceFiles[settings.frontend_dir + '/lite/media/js/lib/'] = settings.frontend_dir + '/lite/media/js/lib/*.min.js';
+stringReplaceFiles[settings.frontend_dir + '/lite/index.html'] = settings.frontend_dir + '/lite/index.html';
 
+// Relative to `src/lite/`.
 var appcachedFiles = [
-  'db/preloaded.json',
-  'l10n/locales.ini',
-  'media/css/style.min.css',
-  'media/img/logo.png',
-  'media/img/search.png',
-  'media/img/toggle-view.png',
-  'media/img/category/games.svg',
-  'media/img/category/games-active.svg',
-  'media/img/category/home.svg',
-  'media/img/category/home-active.svg',
-  'media/img/category/lifestyle.svg',
-  'media/img/category/lifestyle-active.svg',
-  'media/img/category/tools.svg',
-  'media/img/category/tools-active.svg',
-  'media/js/lib/lunr.min.js',
-  'media/js/lib/lunr.unicodeNormalizer.min.js',
-  'media/js/lib/worker.min.js',
-  'media/js/main.min.js'
+  'lite/db/preloaded.json',
+  'lite/l10n/locales.ini',
+  'lite/media/css/style.min.css',
+  'lite/media/img/logo.png',
+  'lite/media/img/search.png',
+  'lite/media/img/toggle-view.png',
+  'lite/media/img/category/games.svg',
+  'lite/media/img/category/games-active.svg',
+  'lite/media/img/category/home.svg',
+  'lite/media/img/category/home-active.svg',
+  'lite/media/img/category/lifestyle.svg',
+  'lite/media/img/category/lifestyle-active.svg',
+  'lite/media/img/category/tools.svg',
+  'lite/media/img/category/tools-active.svg',
+  'lite/media/js/lib/lunr.min.js',
+  'lite/media/js/lib/lunr.unicodeNormalizer.min.js',
+  'lite/media/js/lib/worker.min.js',
+  'lite/media/js/main.min.js'
 ];
-
-var frontend_dir = path.join(__dirname, settings.frontend_dir);
 
 module.exports = function (grunt) {
   grunt.initConfig({
     watch: {
       nunjucks: {
-        files: 'src/templates/*',
+        files: 'src/lite/templates/*',
         tasks: ['nunjucks']
       },
       cssmin: {
-        files: 'src/media/css/style.css',
+        files: 'src/lite/media/css/style.css',
         tasks: ['cssmin']
       }
     },
@@ -73,22 +74,22 @@ module.exports = function (grunt) {
       },
       files: [
         '*.js',
-        'lib/**/*.js',
-        'src/**/*.js',
+        'src/lite/**/*.js',
+        'src/lite/lib/**/*.js',
         '!src/**/*.min.js',
-        '!src/media/js/lib/*.js',
-        '!src/media/js/templates.js'
+        '!src/lite/media/js/lib/*.js',
+        '!src/lite/media/js/templates.js'
       ]
     },
     nunjucks: {
       options: {
         name: function(filename) {
-          return filename.replace(/^src\/templates\//, '');
+          return filename.replace(/^src\/lite\/templates\//, '');
         }
       },
       precompile: {
-        src: 'src/templates/*',
-        dest: 'src/media/js/templates.js',
+        src: 'src/lite/templates/*',
+        dest: 'src/lite/media/js/templates.js',
       }
     },
     concat: {
@@ -100,72 +101,72 @@ module.exports = function (grunt) {
           }
         },
         src: [
-          'src/media/js/lib/l10n.js',
-          'src/media/js/templates.js',
-          'src/media/js/lib/nunjucks-slim.js',
-          'src/media/js/lib/routes.js',
-          'src/media/js/lib/promise-0.1.1.js',
-          'src/media/js/amd.js',
-          'src/media/js/utils.js',
-          'src/media/js/settings_prod.js',
-          'src/media/js/settings.js',
-          'src/media/js/capabilities.js',
-          'src/media/js/storage.js',
-          'src/media/js/log.js',
-          'src/media/js/dom.js',
-          'src/media/js/cache.js',
-          'src/media/js/routes_api.js',
-          'src/media/js/url.js',
-          'src/media/js/user.js',
-          'src/media/js/templating.js',
-          'src/media/js/notification.js',
-          'src/media/js/worker.js',
-          'src/media/js/pages.js',
-          'src/media/js/apps.js',
-          'src/media/js/indexing.js',
-          'src/media/js/install.js',
-          'src/media/js/featured.js',
-          'src/media/js/categories.js',
-          'src/media/js/content-ratings.js',
-          'src/media/js/views/category.js',
-          'src/media/js/views/detail.js',
-          'src/media/js/views/featured.js',
-          'src/media/js/views/search.js',
-          'src/media/js/views/feedback.js',
-          'src/media/js/main.js'
+          'src/lite/media/js/lib/l10n.js',
+          'src/lite/media/js/templates.js',
+          'src/lite/media/js/lib/nunjucks-slim.js',
+          'src/lite/media/js/lib/routes.js',
+          'src/lite/media/js/lib/promise-0.1.1.js',
+          'src/lite/media/js/amd.js',
+          'src/lite/media/js/utils.js',
+          'src/lite/media/js/settings_prod.js',
+          'src/lite/media/js/settings.js',
+          'src/lite/media/js/capabilities.js',
+          'src/lite/media/js/storage.js',
+          'src/lite/media/js/log.js',
+          'src/lite/media/js/dom.js',
+          'src/lite/media/js/cache.js',
+          'src/lite/media/js/routes_api.js',
+          'src/lite/media/js/url.js',
+          'src/lite/media/js/user.js',
+          'src/lite/media/js/templating.js',
+          'src/lite/media/js/notification.js',
+          'src/lite/media/js/worker.js',
+          'src/lite/media/js/pages.js',
+          'src/lite/media/js/apps.js',
+          'src/lite/media/js/indexing.js',
+          'src/lite/media/js/install.js',
+          'src/lite/media/js/featured.js',
+          'src/lite/media/js/categories.js',
+          'src/lite/media/js/content-ratings.js',
+          'src/lite/media/js/views/category.js',
+          'src/lite/media/js/views/detail.js',
+          'src/lite/media/js/views/featured.js',
+          'src/lite/media/js/views/search.js',
+          'src/lite/media/js/views/feedback.js',
+          'src/lite/media/js/main.js'
         ],
-        dest: 'src/media/js/main.min.js'
+        dest: 'src/lite/media/js/main.min.js'
       }
     },
     cssmin: {
       minify: {
         expand: true,
-        cwd: 'src/media/css/',
+        cwd: 'src/lite/media/css/',
         src: ['style.css'],
-        dest: 'src/media/css/',
+        dest: 'src/lite/media/css/',
         ext: '.min.css'
       }
     },
     uglify: {
       dist: {
         files: {
-          'src/media/js/lib/lunr.min.js': 'src/media/js/lib/lunr.js',
-          'src/media/js/lib/lunr.unicodeNormalizer.min.js': 'src/media/js/lib/lunr.unicodeNormalizer.js',
-          'src/media/js/lib/worker.min.js': 'src/media/js/lib/worker.js',
-          'src/media/js/main.min.js': ['<%= concat.dist.dest %>'],
+          'src/lite/media/js/lib/lunr.min.js': 'src/lite/media/js/lib/lunr.js',
+          'src/lite/media/js/lib/lunr.unicodeNormalizer.min.js': 'src/lite/media/js/lib/lunr.unicodeNormalizer.js',
+          'src/lite/media/js/lib/worker.min.js': 'src/lite/media/js/lib/worker.js',
+          'src/lite/media/js/main.min.js': ['<%= concat.dist.dest %>'],
         }
       }
     },
     processhtml: {
       prod: {
         files: {
-          'src/index.html': ['src/dev.html']
+          'src/lite/index.html': ['src/lite/dev.html']
         }
       }
     },
     appcache: {
       options: {
-        manifest_dest: settings.frontend_dir + '/site.appcache',
+        manifest_dest: settings.frontend_dir + '/manifest.appcache',
         data_dest: settings.db_dir + '/preloaded.json'
       }
     },
@@ -178,7 +179,12 @@ module.exports = function (grunt) {
       dist: {
         files: stringReplaceFiles,
         options: {
-          replacements: []
+          replacements: [
+            // {
+            //   pattern: /(html.+manifest=)(["'])\//g,
+            //   replacement: '$1$2/' + settings.frontend_api_url
+            // }
+          ]
         }
       }
     }
@@ -203,7 +209,7 @@ module.exports = function (grunt) {
     var done = this.async();
     var options = this.options();
     var cachebustedUrls = [];
-    var replacements = [];
+    var replacements = grunt.config('string-replace.dist.options.replacements');
 
     db.fetchPreloaded(options.data_dest).then(function () {
       grunt.log.writeln(
@@ -231,15 +237,22 @@ module.exports = function (grunt) {
       files.forEach(function (url) {
         var fn = path.join(frontend_dir, url);
         grunt.verbose.writeln('Hashing ' + url);
-        var hash = computeHash(grunt, grunt.file.read(fn)).substr(0, 7);
-        var newUrl = utils.cachebust(url, hash);
 
-        cachebustedUrls.push(newUrl);
+        var hash = computeHash(grunt, grunt.file.read(fn)).substr(0, 7);
+
+        url = '/' + url;
+
+        var cachebustedUrl = utils.cachebust(url, hash);
+
+        cachebustedUrls.push(cachebustedUrl);
+
         replacements.push({
-          pattern: new RegExp(url, 'ig'),
-          replacement: newUrl
+          pattern: url,
+          replacement: cachebustedUrl
         });
       });
+
+      console.log(replacements)
 
       // Add cachebusting-querystring parameters to resources we want to list in
       // appcache manifest (see bug 993919).
@@ -254,6 +267,11 @@ module.exports = function (grunt) {
 
       // Replace across all source files all occurrences of original URLs with
       // cachebusted URLs.
+      // replacements.push({
+      //   pattern: /(=['"])\/(?!lite\/)/ig,
+      //   replacement: '$1/lite/'
+      // });
+
       grunt.config('string-replace.dist.options.replacements', replacements);
 
       done();
@@ -261,8 +279,8 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('fetchdb', 'Fetches JSON from API, downloads ' +
-                               'icons/screenshots, and transforms data to ' +
-                               'static JSON file to disk', function () {
+                                'icons/screenshots, and transforms data to ' +
+                                'static JSON file to disk', function () {
     var done = this.async();
     var options = this.options();
     db.fetchLatest(options.data_dest).then(function () {

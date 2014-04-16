@@ -6,15 +6,14 @@ var pkg = require('./package.json');
 
 var settings = {
   debug: true,
-  db_dir: 'src/db',
   db_url: 'https://marketplace-dev.allizom.org/api/v1/fireplace/collection/curated/?region=restofworld',
-  downloads_dir: 'src/downloads',
-  frontend_api_dir: '/lite/',  // https://marketplace.firefox.com/lite/ is the base directory of the "API"
   frontend_dir: 'src',
   use_data_uris: true
 };
 
-settings.appcache_media = settings.frontend_dir + '/appcache_media.json';
+settings.appcache_media = settings.frontend_dir + '/lite/appcache_media.json';
+settings.db_dir = settings.frontend_dir + '/lite/db';
+settings.downloads_dir = settings.frontend_dir + '/lite/downloads';
 
 settings.db_transformer = function (data) {
   return dbTransformer(settings, data);

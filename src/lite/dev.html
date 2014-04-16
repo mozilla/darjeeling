@@ -1,0 +1,64 @@
+<!doctype html>
+<!-- build:[manifest] /lite/manifest.appcache -->
+<html manifest="">
+<!-- /build -->
+  <head>
+    <title>Firefox Marketplace</title>
+    <link rel="icon" href="/lite/media/img/logo.png" sizes="64x64">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+    <style type="text/css">
+      <!-- build:include media/css/splash.css --><!-- /build -->
+    </style>
+    <!-- build:css /lite/media/css/style.min.css -->
+    <link href="/lite/media/css/style.css" media="all" rel="stylesheet" type="text/css">
+    <!-- /build -->
+    <link rel="prefetch" type="application/l10n" href="/lite/l10n/locales.ini">
+    <meta charset="utf-8">
+  </head>
+  <!-- build:[data-prod] true -->
+  <body data-prod="false">
+  <!-- /build -->
+    <div id="splash-overlay">
+      <div class="throbber"><b></b><b></b><b></b></div>
+    </div>
+    <div id="lightbox"></div>
+    <header class="header"></header>
+    <nav></nav>
+    <main></main>
+    <!-- build:js /lite/media/js/main.min.js -->
+    <script src="/lite/media/js/lib/l10n.js"></script>
+    <script src="/lite/media/js/templates.js"></script>
+    <script src="/lite/media/js/lib/nunjucks-slim.js"></script>
+    <script src="/lite/media/js/lib/routes.js"></script>
+    <script src="/lite/media/js/lib/promise-0.1.1.js"></script>
+    <script src="/lite/media/js/amd.js"></script>
+    <script src="/lite/media/js/utils.js"></script>
+    <script src="/lite/media/js/settings_local.js"></script>
+    <script src="/lite/media/js/settings.js"></script>
+    <script src="/lite/media/js/capabilities.js"></script>
+    <script src="/lite/media/js/storage.js"></script>
+    <script src="/lite/media/js/log.js"></script>
+    <script src="/lite/media/js/dom.js"></script>
+    <script src="/lite/media/js/cache.js"></script>
+    <script src="/lite/media/js/routes_api.js"></script>
+    <script src="/lite/media/js/url.js"></script>
+    <script src="/lite/media/js/user.js"></script>
+    <script src="/lite/media/js/templating.js"></script>
+    <script src="/lite/media/js/notification.js"></script>
+    <script src="/lite/media/js/worker.js"></script>
+    <script src="/lite/media/js/pages.js"></script>
+    <script src="/lite/media/js/apps.js"></script>
+    <script src="/lite/media/js/indexing.js"></script>
+    <script src="/lite/media/js/install.js"></script>
+    <script src="/lite/media/js/featured.js"></script>
+    <script src="/lite/media/js/categories.js"></script>
+    <script src="/lite/media/js/content-ratings.js"></script>
+    <script src="/lite/media/js/views/featured.js"></script>
+    <script src="/lite/media/js/views/category.js"></script>
+    <script src="/lite/media/js/views/search.js"></script>
+    <script src="/lite/media/js/views/detail.js"></script>
+    <script src="/lite/media/js/views/feedback.js"></script>
+    <script src="/lite/media/js/main.js"></script>
+    <!-- /build -->
+  </body>
+</html>
