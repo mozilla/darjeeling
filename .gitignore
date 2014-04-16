@@ -1,7 +1,7 @@
 *.appcache
 *.min.*
-*.sw*
 *.pyc
+*.sw*
 .DS_Store
 appcache_media.json
 deploy.log
@@ -12,5 +12,6 @@ src/db/**/*.json
 src/downloads/**/*.gif
 src/downloads/**/*.jp*
 src/downloads/**/*.png
+src/index.html
 src/prod.html
 templates.js

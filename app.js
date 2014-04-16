@@ -38,7 +38,7 @@ app.configure(function() {
 
 urlpatterns.forEach(function(pattern) {
   app.get(pattern, function(req, res) {
-    res.sendfile(settings.debug ? 'dev.html' : 'prod.html', {root: frontend_dir});
+    res.sendfile(settings.debug ? 'dev.html' : 'index.html', {root: frontend_dir});
   });
 });
 

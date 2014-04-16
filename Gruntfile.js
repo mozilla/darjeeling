@@ -30,7 +30,7 @@ stringReplaceFiles[settings.db_dir + '/data.json'] = settings.db_dir + '/data.js
 stringReplaceFiles[settings.frontend_dir + '/media/css/'] = settings.frontend_dir + '/media/css/*.min.css';
 stringReplaceFiles[settings.frontend_dir + '/media/js/'] = settings.frontend_dir + '/media/js/*.min.js';
 stringReplaceFiles[settings.frontend_dir + '/media/js/lib/'] = settings.frontend_dir + '/media/js/lib/*.min.js';
-stringReplaceFiles[settings.frontend_dir + '/prod.html'] = settings.frontend_dir + '/prod.html';
+stringReplaceFiles[settings.frontend_dir + '/index.html'] = settings.frontend_dir + '/index.html';
 
 var appcachedFiles = [
   'db/preloaded.json',
@@ -159,7 +159,7 @@ module.exports = function (grunt) {
     processhtml: {
       prod: {
         files: {
-          'src/prod.html': ['src/dev.html']
+          'src/index.html': ['src/dev.html']
         }
       }
     },
