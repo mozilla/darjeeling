@@ -12,7 +12,7 @@
         {% set stars = doc.ratings.average|floor %}
         <div class="stars-flex">
           <div class="stars">{% for x in range(stars) %}&#9733;{% endfor %}{% if doc.ratings.average - stars >= 0.5 %}<span class="half">&#9733;</span>{% endif %}<span class="empty">{% for x in range(5 - stars) %}&#9733;{% endfor %}</span></div>
-          <span class="count">{{ _('{reviews} reviews', reviewCount, {reviews: doc.ratings.count}) }}</span>
+          <span class="count">{{ _('{n} reviews', 'reviewCount', {n: doc.ratings.count}) }}</span>
         </div>
 
         {% set installed = doc.installed %}
