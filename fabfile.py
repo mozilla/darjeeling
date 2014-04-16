@@ -23,6 +23,8 @@ def update():
         local('npm install grunt-cli')
         local('npm install')
         local('cp -f settings_local.js.dist settings_local.js')
+        local('cp -f ./src/lite/media/js/settings_local.js.dist '
+              './src/lite/media/js/settings_local.js')
         local('./node_modules/grunt-cli/bin/grunt minify')
 
 

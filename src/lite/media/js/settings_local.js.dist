@@ -1,0 +1,6 @@
+define('settings_local', [], function() {
+  // Override settings here!
+  return {
+
+  };
+});

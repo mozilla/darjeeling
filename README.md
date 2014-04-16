@@ -13,10 +13,10 @@ Then install our dependencies:
 
     npm install
 
-Copy over default settings:
+Copy over default settings (both are necessary):
 
     cp settings_local.js.dist settings_local.js
-
+    cp src/lite/media/js/settings_local.js.dist src/lite/media/js/settings_local.js
 
 # Development
 
