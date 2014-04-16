@@ -9,5 +9,6 @@
     "128": "/lite/media/img/icon-128.png",
     "90": "/lite/media/img/icon-90.png"
   },
-  "name": "Marketplace"
+  "name": "Marketplace",
+  "launch_path": "/lite/"
 }
