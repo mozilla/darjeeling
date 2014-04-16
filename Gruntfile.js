@@ -221,7 +221,7 @@ module.exports = function (grunt) {
         var fn = path.join(frontend_dir, url);
         grunt.verbose.writeln('Hashing ' + url);
 
-        var hash = utils.computeHash(grunt, grunt.file.read(fn)).substr(0, 7);
+        var hash = utils.computeHash(grunt.file.read(fn)).substr(0, 7);
 
         url = '/' + url;
 
@@ -235,7 +235,7 @@ module.exports = function (grunt) {
         });
       });
 
-      console.log(replacements)
+      grunt.verbose.writeln(replacements);
 
       // Add cachebusting-querystring parameters to resources we want to list in
       // appcache manifest (see bug 993919).
