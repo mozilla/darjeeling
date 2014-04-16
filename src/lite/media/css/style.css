@@ -644,6 +644,10 @@ div.description h3,
   padding: 10px;
 }
 
+.thumbnail a {
+  margin: 0 auto;
+}
+
 .thumbnail-switcher {
   padding: 0 10px;
 }
