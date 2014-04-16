@@ -33,7 +33,7 @@ define('views/feedback',
     $.post(routes_api.feedback, data).then(function() {
       // Success handler.
       notify({classes: 'success', message: gettext('Feedback successfully sent', 'feedbackSuccess')});
-      disableForm();
+      $('.feedback-form').reset();
     }, function() {
       // Error handler.
       utils.checkOnline().then(function() {
@@ -49,11 +49,6 @@ define('views/feedback',
       });
     });
   });
-
-  function disableForm() {
-    $('.feedback textarea').disabled = true;
-    $('.feedback button').disabled = true;
-  }
 
   function init() {
     console.log('Initializing feedback page...');

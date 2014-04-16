@@ -84,6 +84,10 @@ define('dom', ['utils'], function(utils) {
 
         return resolve(res, xhr);
       }, false);
+
+      xhr.addEventListener('error', function() {
+        return reject(reqResponse(xhr), xhr);
+      }, false);
     });
   };
 
