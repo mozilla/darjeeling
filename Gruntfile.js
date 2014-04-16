@@ -6,23 +6,6 @@ var settings = require('./settings');
 var utils = require('./lib/utils');
 
 
-function computeHash(grunt, contents) {
-  var hasher = crypto.createHash('sha256');
-  hasher.update(contents, 'binary');
-  return hasher.digest('hex');
-}
-
-function baseurl(url) {
-  return url.split('?')[0];
-}
-
-function urlparams(url, qs) {
-  if (url.indexOf('?') === -1) {
-    return url + '?' + qs;
-  }
-  return url + '&' + qs;
-}
-
 var frontend_dir = path.join(__dirname, settings.frontend_dir);
 
 // These are the files containing un-cachbusted URLs that need to get
@@ -238,7 +221,7 @@ module.exports = function (grunt) {
         var fn = path.join(frontend_dir, url);
         grunt.verbose.writeln('Hashing ' + url);
 
-        var hash = computeHash(grunt, grunt.file.read(fn)).substr(0, 7);
+        var hash = utils.computeHash(grunt, grunt.file.read(fn)).substr(0, 7);
 
         url = '/' + url;
 
