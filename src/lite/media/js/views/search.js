@@ -95,7 +95,7 @@ define('views/search',
     GET = utils.parseQueryString();
     GET.q = q.value || '';
     var serialized = utils.serialize(GET);
-    var dest = serialized ? ('/search/?' + serialized) : '/';  // FIXME: compatibility with Marketplace, which uses /search?q=, would be nice.
+    var dest = serialized ? ('/lite/search/?' + serialized) : '/';  // FIXME: compatibility with Marketplace, which uses /search?q=, would be nice.
     if (window.location.href !== dest) {
       window.history.replaceState({}, pages.getTitle('/'), dest);
     }

@@ -48,11 +48,11 @@ define('main', [], function () {
     var templating = require('templating');
 
     var views = {
-      '/feedback/': 'feedback',
-      '/category/:slug/': 'category',
-      '/app/:slug/': 'detail',
-      '/search/': 'search',
-      '/': 'featured',
+      '/lite/feedback/': 'feedback',
+      '/lite/category/:slug/': 'category',
+      '/lite/app/:slug/': 'detail',
+      '/lite/search/': 'search',
+      '/lite/': 'featured',
     };
 
     Object.keys(views).forEach(function(path) {
