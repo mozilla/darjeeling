@@ -144,8 +144,8 @@ input[type=search]::-webkit-search-cancel-button {
 }
 
 input[type=search] {
-  /* Do not remove the "media/img" part. This is needed for cachebusting. */
-  background: #f4f4f4 url(../../media/img/search.png) 10px 10px no-repeat;
+  /* Do not remove the "/lite/media/img" part. This is needed for cachebusting. */
+  background: #f4f4f4 url(/lite/media/img/search.png) 10px 10px no-repeat;
   background-size: 16px;
   border: 2px solid #c7c7c7;
   border-radius: 10px;
@@ -259,7 +259,7 @@ input:valid ~ .search-clear {
 
 .logo {
   /* Do not remove the "media/img" part. This is needed for cachebusting. */
-  background: url(../../media/img/logo.png) 0 50% no-repeat;
+  background: url(/lite/media/img/logo.png) 0 50% no-repeat;
   background-size: 30px;
   color: #fff;
   display: block;
@@ -307,39 +307,39 @@ body > nav {
 }
 
 .category-nav li.home {
-  background-image: url(../../media/img/category/home.svg);
+  background-image: url(/lite/media/img/category/home.svg);
 }
 
 .category-nav li.home.active {
-  background-image: url(../../media/img/category/home-active.svg);
+  background-image: url(/lite/media/img/category/home-active.svg);
 }
 
 .category-nav li.games {
-  background-image: url(../../media/img/category/games.svg);
+  background-image: url(/lite/media/img/category/games.svg);
   background-position: center 12px;
   background-size: 33px 24px;
 }
 
 .category-nav li.games.active {
-  background-image: url(../../media/img/category/games-active.svg);
+  background-image: url(/lite/media/img/category/games-active.svg);
 }
 
 .category-nav li.lifestyle {
-  background-image: url(../../media/img/category/lifestyle.svg);
+  background-image: url(/lite/media/img/category/lifestyle.svg);
   background-position: center 13px;
   background-size: 32px 23px;
 }
 
 .category-nav li.lifestyle.active {
-  background-image: url(../../media/img/category/lifestyle-active.svg);
+  background-image: url(/lite/media/img/category/lifestyle-active.svg);
 }
 
 .category-nav li.tools {
-  background-image: url(../../media/img/category/tools.svg);
+  background-image: url(/lite/media/img/category/tools.svg);
 }
 
 .category-nav li.tools.active {
-  background-image: url(../../media/img/category/tools-active.svg);
+  background-image: url(/lite/media/img/category/tools-active.svg);
 }
 
 .category-nav a {
@@ -718,7 +718,7 @@ div.description h3,
 .toggle-view:hover,
 .toggle-view:focus {
   /* Do not remove the "media/img" part. This is needed for cachebusting. */
-  background: url(../../media/img/toggle-view.png) transparent;
+  background: url(/lite/media/img/toggle-view.png) transparent;
   background-position: 0 22px;
   border: none;
   color: #666;
