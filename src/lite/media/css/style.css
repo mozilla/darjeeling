@@ -118,29 +118,16 @@ button:disabled {
 }
 
 .header {
-  flex: 1 0 62px;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 42;
 }
 
-main header {
-  display: flex;
-  justify-content: space-between;
-}
-
-main {
-  flex: auto;
-  height: 100%;
-}
-
-form {
-  align-items: flex-start;
+.search-form {
   background: #fff;
   border-bottom: 1px solid #bbb;
   border-top: 1px solid #e6e6e6;
-  display: flex;
   padding: 10px 15px;
 }
 
@@ -156,20 +143,19 @@ input[type=search]::-webkit-search-cancel-button {
   -webkit-appearance: none;
 }
 
-input {
+input[type=search] {
   /* Do not remove the "media/img" part. This is needed for cachebusting. */
   background: #f4f4f4 url(../../media/img/search.png) 10px 10px no-repeat;
   background-size: 16px;
   border: 2px solid #c7c7c7;
   border-radius: 10px;
   color: #333;
-  flex: 1;
   font-size: 20px;
   height: 40px;
   padding: 3px 10px 3px 32px;
   position: relative;
   transition: background .3s ease-in-out, padding .3s ease-in-out, border .3s ease-in, box-shadow .3s ease-in;
-  width: 100%;
+  width: calc(100% - 40px);
   z-index: 2;
 }
 
@@ -260,6 +246,17 @@ input:valid ~ .search-clear {
   visibility: visible;
 }
 
+.header {
+  /* To remove whitespace when we do `inline-block` below. */
+  font-size: 0;
+}
+
+.header h1 {
+  display: inline-block;
+  vertical-align: top;
+  width: 40px;
+}
+
 .logo {
   /* Do not remove the "media/img" part. This is needed for cachebusting. */
   background: url(../../media/img/logo.png) 0 50% no-repeat;
@@ -293,19 +290,20 @@ body > nav {
 }
 
 .category-nav {
-  align-content: stretch;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  font-size: 0;
   list-style: none;
   text-align: center;
+  width: 100%;
 }
 
 .category-nav li {
   background-position: center 10px;
   background-repeat: no-repeat;
   background-size: 27px 27px;
-  /*width: 23%;*/
+  display: inline-block;
+  /* There are four list items. If this changes, change this accordingly.
+     Flexbox currently performs too poorly on Firefox OS devices :( */
+  width: 25%;
 }
 
 .category-nav li.home {
@@ -345,20 +343,26 @@ body > nav {
 }
 
 .category-nav a {
-  border-bottom: 3px solid transparent;
   color: #1A1A1A;
-  display: inline-block;
+  display: block;
   font-size: 15px;
   margin: 0 auto;
-  padding: 40px 0 5px;
+  padding-top: 40px;
 }
 
 .category-nav .active a {
   color: #4CB1FF;
 }
 
-.category-nav .active a,
-.category-nav a:hover {
+.category-nav a b {
+  border-bottom: 3px solid transparent;
+  display: inline-block;
+  font-weight: 400;
+  padding-bottom: 3px;
+}
+
+.category-nav .active a b,
+.category-nav a:hover b {
   border-bottom: 3px solid #4CB1FF;
 }
 
@@ -795,35 +799,5 @@ body.overflowed main {
   .notification {
     border-radius: 4px 4px 0 0;
     max-width: 600px;
-  }
-
-  .results ol {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 -7.5px;  /* Because we're going to space each 15px apart */
-  }
-
-  .results li {
-    display: flex;  /* So the app tiles stretch vertically */
-    flex: 0 1 50%;
-    padding: 0 7.5px;
-  }
-}
-
-@media (min-width: 800px) {
-  .results li {
-    flex-basis: 33.3333%;
-  }
-}
-
-@media (min-width: 1000px) {
-  .results li {
-    flex-basis: 25%;
-  }
-}
-
-@media (min-width: 1600px) {
-  .results li {
-    flex-basis: 20%;
   }
 }
