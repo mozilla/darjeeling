@@ -5,7 +5,7 @@ define('utils', [], function() {
     // (bug 654579, bug 756364). Yeah, I know - sad times.
     return new Promise(function (resolve, reject) {
       var i = new Image();
-      i.src = '/dummy.gif?' + +new Date();
+      i.src = '/lite/dummy.gif?' + +new Date();
       i.onload = function () {
         resolve();
       };
