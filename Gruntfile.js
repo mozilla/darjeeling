@@ -285,5 +285,5 @@ module.exports = function (grunt) {
   // Order is very important!
   grunt.registerTask('minify',
     ['processhtml', 'nunjucks', 'concat', 'cssmin', 'uglify', 'appcache',
-     'string-replace', 'fetchdb']);
+     'string-replace']);
 };
