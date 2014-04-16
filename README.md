@@ -46,3 +46,7 @@ By default if the `--settings` flag is omitted, we default to loading
 `settings_local`. If you specify a setting other than `settings_local`,
 then `settings_local` will not get loaded and instead only that new setting
 file will get loaded.
+
+When testing things locally, you may want to remove minified files:
+
+    find src -name '*.min.*' -delete
