@@ -4,7 +4,7 @@ define('settings', ['settings_local', 'utils'], function(settings_local, utils) 
 
   var settings = utils.defaults(settingsBase, {
     appName: 'marketplace',
-    apiURL: 'http://' + window.location.host,  // No trailing slash, please./
+    apiURL: window.location.protocol + '//' + window.location.host,  // No trailing slash, please./
 
     // The string to suffix page titles with. Used by `pages.js`.
     titleSuffix: 'Firefox Marketplace',
